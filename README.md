@@ -50,3 +50,8 @@
 | ttyslot | ioctl | getenv | tcsetattr | tcgetattr | 
 | tgetent | tgetflag | tgetnum | tgetstr | tgoto | 
 | tputs | | | | |
+
+## Recursos
+
+### Documentacion
+- [readline](https://web.mit.edu/gnu/doc/html/rlman_2.html)
