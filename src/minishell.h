@@ -4,7 +4,7 @@
 #include <readline/readline.h>
 
 // Token type enumeration
-typedef enum e_token_type
+typedef enum e_toktype
 {
     TOKEN_WORD,      // For commands and arguments
     TOKEN_PIPE,      // For '|'
@@ -13,12 +13,13 @@ typedef enum e_token_type
     TOKEN_REDIR_APPEND, // For '>>'
     TOKEN_REDIR_HEREDOC, // For '<<'
     TOKEN_ENV_VAR, // For environment variables
-}   t_token_type;
+}   t_toktype;
 
-// Token structure
-typedef struct s_token
+// AST structure
+typedef struct s_ast_node
 {
-    t_token_type type;
-    char        *value;
-    struct s_token *next;
-}   t_token;
+    e_toktype type;
+    char **args;
+    struct s_ast_node *left;
+    struct s_ast_node *right;
+}   t_ast_node;
