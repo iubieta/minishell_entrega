@@ -9,6 +9,7 @@ int main(void)
     while (1)
     {
         line = readline("$prompt>");
+        add_history();
         printf("line: %s\n", line);
         free(line);
     }
