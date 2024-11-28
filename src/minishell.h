@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <readline/readline.h>
+#include <readline/history.h>
 
 // Token type enumeration
 typedef enum e_toktype
