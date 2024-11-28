@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include "../inc/libft/libft.h"
 
 // Token type enumeration
 typedef enum e_toktype
