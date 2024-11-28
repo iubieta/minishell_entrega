@@ -5,7 +5,16 @@
 # Tareas
 
 ## Andoitz
- - [ ] hacer un algoritmo que navege el tree y vaya ejecutando cada comando. No hace falta que compruebe errores de momento, unicamente que navegue bien.
+ - [ ] POSPUESTO, HASTA DECIDIR AST vs LList. hacer un algoritmo que navege el tree y vaya ejecutando cada comando. No hace falta que compruebe errores de momento, unicamente que navegue bien. 
+ - [ ] Implementar built-ins.
+   - [ ] echo y echo -n
+   - [ ] cd
+   - [ ] pwd
+   - [ ] export
+   - [ ] unset
+   - [ ] env
+   - [ ] exit
+
  - [ ] ...
 
 ## Iker

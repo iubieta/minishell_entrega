@@ -8,6 +8,10 @@ CC		= gcc
 CFLAGS	= -Wall -Werror -Wextra
 RM		= rm -f
 
+LIBFT		= $(addprefix $(INCLUDE), libft/)
+
+LIBFT_A		= $(addprefix $(LIBFT), libft.a)
+
 # Colors
 
 DEF_COLOR = \033[0;39m
@@ -33,9 +37,13 @@ OBJF		= .cache_exists
 
 all:		$(NAME)
 
-$(NAME):	$(OBJ)
-			@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -lreadline
+$(NAME):	$(OBJ) $(LIBFT_A)
+			@$(CC) $(CFLAGS) $(OBJ) -L$(LIBFT) -lft -o $(NAME) -lreadline
 			@echo "$(GREEN)$(NAME) compiled!$(DEF_COLOR)"
+
+$(LIBFT_A):
+			@$(MAKE) -s -C $(LIBFT)
+			@echo "Compiled $(LIBFT_A)"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF)
 			@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
@@ -45,6 +53,8 @@ $(OBJF):
 			@mkdir -p $(OBJ_DIR)
 
 clean:
+			@$(RM) -f $(LIBFT)/$(LIBFT_A)
+			@echo "$(CYAN)$(LIBFT) executable files succesfully cleaned!$(DEF_COLOR)"
 			@$(RM) -rf $(OBJ_DIR)
 			@echo "$(BLUE)$(NAME) object files succesfully cleaned!$(DEF_COLOR)"
 
@@ -56,6 +66,6 @@ re:			fclean all
 			@echo "$(GREEN)Everything was cleaned and the rebuilt for pipex!$(DEF_COLOR)"
 
 norm:
-			@norminette $(SRC) $(INCLUDE) $(LIBFT) $(FT_PRINTF) | grep -v Norme -B1 || true
+			@norminette $(SRC) $(INCLUDE) $(LIBFT) | grep -v Norme -B1 || true
 
 .PHONY:		all clean fclean re norm
