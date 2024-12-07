@@ -41,6 +41,10 @@ $(NAME):	$(OBJ) $(LIBFT_A)
 			@$(CC) $(CFLAGS) $(OBJ) -L$(LIBFT) -lft -o $(NAME) -lreadline
 			@echo "$(GREEN)$(NAME) compiled!$(DEF_COLOR)"
 
+parse:		$(OBJ) $(LIBFT_A)
+			@$(CC) $(CFLAGS) $(OBJ) -L$(LIBFT) -lft -o $(NAME) -lreadline
+			@echo "$(GREEN)$(NAME) compiled!$(DEF_COLOR)"
+
 $(LIBFT_A):
 			@$(MAKE) -s -C $(LIBFT)
 			@echo "Compiled $(LIBFT_A)"
