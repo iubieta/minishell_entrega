@@ -18,7 +18,9 @@
  - [ ] ...
 
 ## Iker
-- [ ] crear un algoritmo que te cree nodos del AST.
+- [ ] Tokenizar la entrada
+- [ ] Ordenar los tokens de forma prioritaria
+- [ ] crear un algoritmo que te cree nodos del AST
 
 # Dudas
 - [ ] Preguntar si el prompt de la minishell tiene que esperar a que un comando

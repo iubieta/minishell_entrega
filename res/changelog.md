@@ -11,3 +11,8 @@
 
 	Continuar con:	token_splitter, y probar.
 
+### Martes 17/12:
+
+	IKER:
+	- Tokenizer funcionando con funciones genericas.
+	[ ] Comprobar y sustituir por funciones autorizadas.
