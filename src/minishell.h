@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "../inc/libft/libft.h"

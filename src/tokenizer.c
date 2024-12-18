@@ -1,10 +1,5 @@
 // Estructura del parseo de la entrada del usuario
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <ctype.h>
 #include "minishell.h"
 
 // Estructura para almacenar tokens como un nodo de un árbol binario
@@ -14,16 +9,6 @@ typedef struct s_token {
     struct s_token *left;  // Nodo izquierdo (anterior)
     struct s_token *right; // Nodo derecho (siguiente)
 } t_token;
-
-// Tipos de tokens
-// enum e_token_type {
-//    TOKEN_WORD,
-//    TOKEN_PIPE,           // |
-//    TOKEN_REDIR_IN,       // <
-//    TOKEN_REDIR_OUT,      // >
-//    TOKEN_REDIR_APPEND,   // >>
-//    TOKEN_REDIR_HEREDOC,  // <<
-//};
 
 // Funciones auxiliares
 int is_special_char(char c) {
@@ -35,7 +20,7 @@ t_token *new_token(char *value, int type) {
     t_token *token = malloc(sizeof(t_token));
     if (!token)
         return NULL;
-    token->value = strdup(value);
+    token->value = ft_strdup(value);
     token->type = type;
     token->left = NULL;
     token->right = NULL;
@@ -73,10 +58,12 @@ t_token *add_token(t_token **root, char *value, int type) {
 t_token *tokenize(char *input) {
     t_token *tokens = NULL;
     int i = 0;
+	char	start;
+	char	*word;
 
     while (input[i]) {
         // Salta espacios
-        while (isspace(input[i]))
+        while (input[i] == ' ')
             i++;
 
         if (input[i] == '|') {
@@ -100,23 +87,23 @@ t_token *tokenize(char *input) {
             }
         } else if (input[i] == '$') {
             // Tokenización de variables de entorno
-            int start = i++;
+            start = i++;
             if (input[i] && (isalnum(input[i]) || input[i] == '_')) {
-                while (input[i] && (isalnum(input[i]) || input[i] == '_'))
+                while (input[i] && (ft_isalnum(input[i]) || input[i] == '_'))
                     i++;
-                char *env_var = strndup(&input[start], i - start);
-                add_token(&tokens, env_var, TOKEN_ENV_VAR);
-                free(env_var);
+                word = ft_substr(input, start, i - start);
+                add_token(&tokens, word, TOKEN_ENV_VAR);
+                free(word);
             } else {
                 // Maneja un '$' aislado como TOKEN_WORD
                 add_token(&tokens, "$", TOKEN_WORD);
             }
         } else if (input[i]) {
             // Tokenización de palabras
-            int start = i;
-            while (input[i] && !isspace(input[i]) && !is_special_char(input[i]))
-                i++;
-            char *word = strndup(&input[start], i - start);
+            start = i;
+            while (input[i] && !is_special_char(input[i]))
+				i++;
+            word = ft_substr(input, start, i - start);
             add_token(&tokens, word, TOKEN_WORD);
             free(word);
         }
