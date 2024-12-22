@@ -1,115 +1,176 @@
-// Estructura del parseo de la entrada del usuario
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iubieta <iubieta@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/22 11:19:09 by iubieta           #+#    #+#             */
+/*   Updated: 2024/12/22 13:09:36 by iubieta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-// Estructura para almacenar tokens como un nodo de un árbol binario
-typedef struct s_token {
-    char *value;           // El valor del token
-    int type;              // Tipo de token (comando, argumento, operador, etc.)
-    struct s_token *left;  // Nodo izquierdo (anterior)
-    struct s_token *right; // Nodo derecho (siguiente)
-} t_token;
-
-// Funciones auxiliares
-int is_special_char(char c) {
-    return (c == '|' || c == '<' || c == '>' || c == '$');
+// Utils 
+int	is_special_char(char c)
+{
+	return (c == '|' || c == '<' || c == '>' || c == '$');
 }
 
-// Crea un nuevo token
-t_token *new_token(char *value, int type) {
-    t_token *token = malloc(sizeof(t_token));
-    if (!token)
-        return NULL;
-    token->value = ft_strdup(value);
-    token->type = type;
-    token->left = NULL;
-    token->right = NULL;
-    return token;
+t_token	*new_token(char *value, int type)
+{
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+	token->value = ft_strdup(value);
+	token->type = type;
+	token->left = NULL;
+	token->right = NULL;
+	return (token);
 }
 
-// Agrega un token al árbol binario
-t_token *add_token(t_token **root, char *value, int type) {
-    t_token *current;
+t_token	*add_token(t_token **root, char *value, int type)
+{
+	t_token	*current;
+	t_token	*new;
 
-    if (!(*root)) {
-        *root = new_token(value, type);
-    } else {
-        current = *root;
-        while (current->right) {
-            current = current->right;
-        }
-		t_token *new = new_token(value, type);
+	if (!(*root))
+		*root = new_token(value, type);
+	else
+	{
+		current = *root;
+		while (current->right)
+			current = current->right;
+		new = new_token(value, type);
 		current->right = new;
 		new->left = current;
-    }
-    return *root;
+	}
+	return (*root);
 }
 
-// Divide la entrada en tokens:
-//
-// Saltar espacios
-// Si el caracter es un operador -> agregarlo como token
-// Sino -> marcar el inicio y avanzar hasta encontrar un espacio
-// 		Si despues del espacio viene un operador -> marcar el final
-// 		Sino -> seguir avanzando hasta encontrar un operador o acabar el string
-//		Duplicar de inicio a final
-//		Agregar token como Word con la copia
-//
-t_token *tokenize(char *input) {
-    t_token *tokens = NULL;
-    int i = 0;
+void	free_tokens(t_token *tokens)
+{
+	t_token	*tmp;
+
+	while (tokens)
+	{
+		tmp = tokens;
+		tokens = tokens->right;
+		free(tmp->value);
+		free(tmp);
+	}
+}
+
+int	add_redir_token(char *input, t_token **tokens)
+{
+	int	i;
+
+	i = 0;
+	if (input[i] == '<')
+	{
+		if (input[i + 1] == '<')
+		{
+			add_token(tokens, "<<", TOKEN_REDIR_HEREDOC);
+			i++;
+		}
+		else
+			add_token(tokens, "<", TOKEN_REDIR_IN);
+		i++;
+	}
+	else if (input[i] == '>')
+	{
+		if (input[i + 1] == '>')
+		{
+			add_token(tokens, ">>", TOKEN_REDIR_APPEND);
+			i++;
+		}
+		else
+			add_token(tokens, ">", TOKEN_REDIR_OUT);
+		i++;
+	}
+	return (i);
+}
+
+int	add_env_var_token(char *input, t_token **tokens)
+{
+	int	i;
 	char	start;
 	char	*word;
 
-    while (input[i]) {
-        // Salta espacios
-        while (input[i] == ' ')
-            i++;
-
-        if (input[i] == '|') {
-            add_token(&tokens, "|", TOKEN_PIPE);
-            i++;
-        } else if (input[i] == '<') {
-            if (input[i + 1] == '<') {
-                add_token(&tokens, "<<", TOKEN_REDIR_HEREDOC);
-                i += 2;
-            } else {
-                add_token(&tokens, "<", TOKEN_REDIR_IN);
-                i++;
-            }
-        } else if (input[i] == '>') {
-            if (input[i + 1] == '>') {
-                add_token(&tokens, ">>", TOKEN_REDIR_APPEND);
-                i += 2;
-            } else {
-                add_token(&tokens, ">", TOKEN_REDIR_OUT);
-                i++;
-            }
-        } else if (input[i] == '$') {
-            // Tokenización de variables de entorno
-            start = i++;
-            if (input[i] && (isalnum(input[i]) || input[i] == '_')) {
-                while (input[i] && (ft_isalnum(input[i]) || input[i] == '_'))
-                    i++;
-                word = ft_substr(input, start, i - start);
-                add_token(&tokens, word, TOKEN_ENV_VAR);
-                free(word);
-            } else {
-                // Maneja un '$' aislado como TOKEN_WORD
-                add_token(&tokens, "$", TOKEN_WORD);
-            }
-        } else if (input[i]) {
-            // Tokenización de palabras
-            start = i;
-            while (input[i] && !is_special_char(input[i]))
+	i = 0;
+	if (input[i] == '$')
+	{
+		start = i++;
+		if (input[i] && (ft_isalnum(input[i]) || input[i] == '_'))
+		{
+			while (input[i] && (ft_isalnum(input[i]) || input[i] == '_'))
 				i++;
-            word = ft_substr(input, start, i - start);
-            add_token(&tokens, word, TOKEN_WORD);
-            free(word);
-        }
-    }
-    return tokens;
+			word = ft_substr(input, start, i - start);
+			add_token(tokens, word, TOKEN_ENV_VAR);
+			free(word);
+		}
+		else
+		{
+			add_token(tokens, "$", TOKEN_WORD);
+			i++;
+		}
+	}
+	return (i);
 }
+
+int	add_word_token(char *input, t_token **tokens)
+{
+	int i;
+	char	start;
+	char	*word;
+
+	i = 0;
+	if (input[i])
+	{
+		start = i;
+		while (input[i] && !is_special_char(input[i]))
+			i++;
+		word = ft_substr(input, start, i - start);
+		add_token(tokens, word, TOKEN_WORD);
+		free(word);
+	}
+	return (i);
+}
+
+// Tokenizer:
+t_token	*tokenize(char *input)
+{
+	t_token	*tokens;
+	int		i;
+	int		j;
+
+	tokens = NULL;
+	i = 0;
+	j = 0;
+	while (input[i])
+	{
+		while (input[i] == ' ')
+			i++;
+		if (input[i] == '|')
+		{
+			add_token(&tokens, "|", TOKEN_PIPE);
+			j = 1;
+		}
+		if (j == 0)
+			j = add_redir_token(&input[i], &tokens);
+		if (j == 0)
+			j = add_env_var_token(&input[i], &tokens);
+		if (j == 0)
+			j = add_word_token(&input[i], &tokens);
+		i += j;
+	}
+	return (tokens);
+}
+
+// COMPROBACION
 
 // Imprime los tokens en orden hacia adelante (right)
 void print_tokens_forward(t_token *tokens) {
@@ -127,17 +188,6 @@ void print_tokens_backward(t_token *tokens) {
     while (tokens) {
         printf("Token: %-10s Type: %d\n", tokens->value, tokens->type);
         tokens = tokens->left;
-    }
-}
-
-// Libera el árbol de tokens
-void free_tokens(t_token *tokens) {
-    t_token *tmp;
-    while (tokens) {
-        tmp = tokens;
-        tokens = tokens->right;
-        free(tmp->value);
-        free(tmp);
     }
 }
 

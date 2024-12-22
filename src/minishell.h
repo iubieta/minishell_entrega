@@ -26,3 +26,12 @@ typedef struct s_ast_node
     struct s_ast_node	*left;
     struct s_ast_node	*right;
 }   t_ast_node;
+
+
+// Token binary tree struct
+typedef struct s_token {
+	char *value;           
+    int type;              
+	struct s_token *left;
+    struct s_token *right;
+} t_token;

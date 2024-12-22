@@ -15,4 +15,8 @@
 
 	IKER:
 	- Tokenizer funcionando con funciones genericas.
+
+### Domingo 22/12:
 	[ ] Comprobar y sustituir por funciones autorizadas.
+	[ ] Reordenar tokens.	
+
