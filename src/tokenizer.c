@@ -6,7 +6,7 @@
 /*   By: iubieta <iubieta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:19:09 by iubieta           #+#    #+#             */
-/*   Updated: 2024/12/22 13:09:36 by iubieta          ###   ########.fr       */
+/*   Updated: 2024/12/22 18:37:18 by iubieta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,9 +149,9 @@ t_token	*tokenize(char *input)
 
 	tokens = NULL;
 	i = 0;
-	j = 0;
 	while (input[i])
 	{
+		j = 0;
 		while (input[i] == ' ')
 			i++;
 		if (input[i] == '|')
@@ -180,17 +180,6 @@ void print_tokens_forward(t_token *tokens) {
     }
 }
 
-// Imprime los tokens en orden hacia atrás (left)
-void print_tokens_backward(t_token *tokens) {
-    while (tokens && tokens->right) {
-        tokens = tokens->right; // Ir al final del árbol
-    }
-    while (tokens) {
-        printf("Token: %-10s Type: %d\n", tokens->value, tokens->type);
-        tokens = tokens->left;
-    }
-}
-
 int main() {
     char input[1024];
     printf("minishell> ");
@@ -199,8 +188,6 @@ int main() {
         t_token *tokens = tokenize(input);
         printf("\nTokens hacia adelante:\n");
         print_tokens_forward(tokens);
-        printf("\nTokens hacia atrás:\n");
-        print_tokens_backward(tokens);
         free_tokens(tokens);
     }
     return 0;

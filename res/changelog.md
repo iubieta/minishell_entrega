@@ -17,6 +17,8 @@
 	- Tokenizer funcionando con funciones genericas.
 
 ### Domingo 22/12:
-	[ ] Comprobar y sustituir por funciones autorizadas.
-	[ ] Reordenar tokens.	
+	IKER:
+	- Comprobar y sustituir por funciones autorizadas.
+	- Reescrito siguiendo norminette.
+	[ ] Revisar tokenizacion de palabras, agrupando por (), "", '' e ignorando espacios despues de \.
 

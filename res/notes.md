@@ -5,6 +5,14 @@
  - [Algoritmo de agrupacion - Precedence climbing](https://eli.thegreenplace.net/2012/08/02/parsing-expressions-by-precedence-climbing)
  - [Formatos de ordenacion de arboles binarios](https://www.geeksforgeeks.org/introduction-to-binary-tree/)
 
+## Prioridad de las operaciones:
+
+1. Parentesis (?? Hay que contemplarlos)
+2. Pipes
+3. Here-doc (<<)
+4. Redir IN (<)
+5. Redir OUT (>) y Redir APPEND (>>)
+
 ## Algoritmo : Precedence Climbing
 Busca agrupar operaciones en funcion de su orden de prioridad, determinando asi los niveles de cada operacion y el orden en el que deben ejecutarse.
 
@@ -21,3 +29,4 @@ El algoritmo se basa en una funcion recursiva que profundiza a medida que encuen
 
 1. Resolver las operaciones a medida que se navega el arbol.
 2. Navegar el arbol y reordenarlo en forma de linked list.
+
