@@ -20,5 +20,7 @@
 	IKER:
 	- Comprobar y sustituir por funciones autorizadas.
 	- Reescrito siguiendo norminette.
-	[ ] Revisar tokenizacion de palabras, agrupando por (), "", '' e ignorando espacios despues de \.
 
+### Lunes 23/12:
+	IKER:
+	- Ajustada tokenizacion para contemplar comillas dobles, simples y '\'.

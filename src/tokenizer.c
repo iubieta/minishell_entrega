@@ -6,7 +6,7 @@
 /*   By: iubieta <iubieta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:19:09 by iubieta           #+#    #+#             */
-/*   Updated: 2024/12/22 18:37:18 by iubieta          ###   ########.fr       */
+/*   Updated: 2024/12/23 14:25:12 by iubieta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,21 +123,36 @@ int	add_env_var_token(char *input, t_token **tokens)
 
 int	add_word_token(char *input, t_token **tokens)
 {
-	int i;
-	char	start;
+	int		i;
+	int		start;
 	char	*word;
+	char	c;
 
 	i = 0;
 	if (input[i])
 	{
 		start = i;
-		while (input[i] && !is_special_char(input[i]))
-			i++;
+		if (input[i] == '"' || input[i] == '\'')
+		{
+			c = input[i++];
+			start++;
+			while (input[i] && input[i] != c)
+				i++;
+		}
+		else
+		{
+			while (input[i] && input[i] != ' ' && !is_special_char(input[i]))
+			{
+				if (input[i] == '\\')
+					i++;
+				i++;
+			}
+		}
 		word = ft_substr(input, start, i - start);
 		add_token(tokens, word, TOKEN_WORD);
 		free(word);
 	}
-	return (i);
+	return (++i);
 }
 
 // Tokenizer:
