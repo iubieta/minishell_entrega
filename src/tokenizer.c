@@ -6,7 +6,7 @@
 /*   By: iubieta <iubieta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:19:09 by iubieta           #+#    #+#             */
-/*   Updated: 2024/12/23 14:25:12 by iubieta          ###   ########.fr       */
+/*   Updated: 2024/12/24 18:48:41y iubieta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	free_tokens(t_token *tokens)
 	}
 }
 
+// Tokenizer functions
 int	add_redir_token(char *input, t_token **tokens)
 {
 	int	i;
@@ -74,10 +75,9 @@ int	add_redir_token(char *input, t_token **tokens)
 		if (input[i + 1] == '<')
 		{
 			add_token(tokens, "<<", TOKEN_REDIR_HEREDOC);
-			i++;
+			return (2);
 		}
-		else
-			add_token(tokens, "<", TOKEN_REDIR_IN);
+		add_token(tokens, "<", TOKEN_REDIR_IN);
 		i++;
 	}
 	else if (input[i] == '>')
@@ -85,10 +85,9 @@ int	add_redir_token(char *input, t_token **tokens)
 		if (input[i + 1] == '>')
 		{
 			add_token(tokens, ">>", TOKEN_REDIR_APPEND);
-			i++;
+			return (2);
 		}
-		else
-			add_token(tokens, ">", TOKEN_REDIR_OUT);
+		add_token(tokens, ">", TOKEN_REDIR_OUT);
 		i++;
 	}
 	return (i);
@@ -121,12 +120,25 @@ int	add_env_var_token(char *input, t_token **tokens)
 	return (i);
 }
 
+int count_quoted_chars(char *input)
+{
+	int		i;
+	char	c;
+
+	i = 0;
+	if (input[i] == '"' || input[i] == '\'')
+	{
+		c = input[i++];
+		while (input[i] && input[i] != c)
+			i++;
+	}
+	return (i);
+}
+
 int	add_word_token(char *input, t_token **tokens)
 {
 	int		i;
 	int		start;
-	char	*word;
-	char	c;
 
 	i = 0;
 	if (input[i])
@@ -134,10 +146,8 @@ int	add_word_token(char *input, t_token **tokens)
 		start = i;
 		if (input[i] == '"' || input[i] == '\'')
 		{
-			c = input[i++];
+			i += count_quoted_chars(&input[i]);
 			start++;
-			while (input[i] && input[i] != c)
-				i++;
 		}
 		else
 		{
@@ -148,9 +158,7 @@ int	add_word_token(char *input, t_token **tokens)
 				i++;
 			}
 		}
-		word = ft_substr(input, start, i - start);
-		add_token(tokens, word, TOKEN_WORD);
-		free(word);
+		add_token(tokens, ft_substr(input, start, i - start), TOKEN_WORD);
 	}
 	return (++i);
 }

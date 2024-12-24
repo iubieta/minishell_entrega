@@ -17,10 +17,17 @@
 	- Tokenizer funcionando con funciones genericas.
 
 ### Domingo 22/12:
+
 	IKER:
 	- Comprobar y sustituir por funciones autorizadas.
 	- Reescrito siguiendo norminette.
 
 ### Lunes 23/12:
+	
 	IKER:
 	- Ajustada tokenizacion para contemplar comillas dobles, simples y '\'.
+
+### Martes 24/12:
+
+	IKER:
+	- Ajustadas lineas de las funciones
