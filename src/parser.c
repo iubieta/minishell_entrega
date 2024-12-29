@@ -110,7 +110,10 @@ void test_printtree(t_tree *tree)
         printf("args:");
         while (args)
         {
-            printf(" %s", *args);
+            if (*args)
+                printf(" %s", *args);
+            else
+                break;
             args++;
         }
         printf("\n");
