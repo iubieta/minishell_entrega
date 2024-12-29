@@ -203,16 +203,15 @@ void print_tokens_forward(t_token *tokens) {
     }
 }
 
-int main() {
-    char input[1024];
-    printf("minishell> ");
-    if (fgets(input, 1024, stdin)) {
-        input[strcspn(input, "\n")] = '\0'; // Elimina el salto de línea
-        t_token *tokens = tokenize(input);
-        printf("\nTokens hacia adelante:\n");
-        print_tokens_forward(tokens);
-        free_tokens(tokens);
-    }
-    return 0;
-}
-
+//int main() {
+    //char input[1024];
+    //printf("minishell> ");
+    //if (fgets(input, 1024, stdin)) {
+        //input[strcspn(input, "\n")] = '\0'; // Elimina el salto de línea
+        //t_token *tokens = tokenize(input);
+        //printf("\nTokens hacia adelante:\n");
+        //print_tokens_forward(tokens);
+        //free_tokens(tokens);
+    //}
+    //return 0;
+//}
