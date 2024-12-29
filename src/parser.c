@@ -105,7 +105,7 @@ void test_printtree(t_tree *tree)
     while (tree)
     {
         printf("TREE NODE: p=%p, right=%p, left=%p\n", tree, tree->right, tree->left);
-        //printf("type: %p", tree->type);
+        printf("type: %d\n", tree->type);
         args = tree->args;
         printf("args:");
         while (args)
