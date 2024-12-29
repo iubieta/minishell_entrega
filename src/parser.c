@@ -64,15 +64,17 @@ t_token *buildtreenode(t_tree *tree, t_token *t)
     tree->args = NULL;
     tmp = t;
     i = 0;
-    while (tmp == TOKEN_WORD && tmp != NULL)
+    while (tmp)
     {
+        if (tmp->type != TOKEN_WORD)
+            break;
         tmp = tmp->right;
         i++;
     }
     if (t->type == TOKEN_WORD)
         tree->args = buildcommand(t, i);
     else
-        tmp++;
+        tmp = tmp->right;
     tree->type = t->type;
     return (tmp);
 }
@@ -89,7 +91,8 @@ t_tree *buildtreestruct(t_token *t)
         t = buildtreenode(current, t);
         current->left = NULL; // Provisional hasta que decidamos si se hace tipo binarytree o tipo linked list
         current->right = (t_tree *)malloc(sizeof(t_tree));
-        current= current->right;
+        current = current->right;
+        current->right = NULL;
     }
     return (tree);
 
@@ -102,7 +105,7 @@ void test_printtree(t_tree *tree)
     while (tree)
     {
         printf("TREE NODE: p=%p, right=%p, left=%p\n", tree, tree->right, tree->left);
-        printf("type: %d", tree->type);
+        //printf("type: %p", tree->type);
         args = tree->args;
         printf("args:");
         while (args)
