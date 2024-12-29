@@ -22,13 +22,13 @@ typedef enum e_toktype
 }	t_toktype;
 
 // AST structure
-typedef struct s_ast_node
+typedef struct s_tree
 {
 	t_toktype			type;
 	char				**args;
-	struct s_ast_node	*left;
-	struct s_ast_node	*right;
-}	t_ast_node;
+	struct s_tree *left;
+	struct s_tree *right;
+}	t_tree;
 
 // Token binary tree struct
 typedef struct s_token
