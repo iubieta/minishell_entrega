@@ -45,4 +45,8 @@ void	free_tokens(t_token *tokens);
 t_token	*create_token(char *value, int type);
 void	print_tokens(t_token *tokens, int level);
 
+// Builtins
+// void	ft_echo(t_ast_node *node);
+void	ft_pwd();
+
 #endif
