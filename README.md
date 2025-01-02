@@ -55,3 +55,5 @@
 
 ### Documentacion
 - [readline](https://web.mit.edu/gnu/doc/html/rlman_2.html)
+- [getcwd] (https://www.gnu.org/software/libc/manual/html_node/Working-Directory.html)
+
