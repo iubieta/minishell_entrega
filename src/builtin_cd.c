@@ -16,7 +16,7 @@ void	ft_cd(char **args)
 {
 	char	*path;
 
-	if (!args)
+	if (!args || !args[0])
 	{
 		path = getenv("HOME");
 		chdir(path);
@@ -28,17 +28,23 @@ void	ft_cd(char **args)
 		return ;
 	}
 	path = args[0];
-	chdir (path);
+	if (chdir (path) == -1)
+		perror("cd");
 }
 
 // TEST
 int main()
 {
 	char *input;
-	char *args[1024];
+	char *args[1024]; 
 	int i;
-
+	
+	// Comprobacion sin argumentos
 	ft_pwd();
+	ft_cd(NULL);	
+	ft_pwd();
+
+	//Comprobacion con argumentos
 	i = 0;
 	input = readline("path>");
 	while (input != NULL)
@@ -46,6 +52,6 @@ int main()
 		args[i++] = input;
 		input = readline("path>");
 	}
-	ft_cd(args);
+	ft_cd(args);	
 	ft_pwd();
 }

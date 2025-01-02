@@ -7,9 +7,9 @@
 ## Andoitz
  - [ ] POSPUESTO, HASTA DECIDIR AST vs LList. hacer un algoritmo que navege el tree y vaya ejecutando cada comando. No hace falta que compruebe errores de momento, unicamente que navegue bien. 
  - [ ] Implementar built-ins.
-   - [ ] echo y echo -n
-   - [ ] cd
-   - [ ] pwd
+   - [x] echo y echo -n
+   - [x] cd
+   - [x] pwd
    - [ ] export
    - [ ] unset
    - [ ] env
@@ -18,9 +18,9 @@
  - [ ] ...
 
 ## Iker
-- [ ] Tokenizar la entrada
-- [ ] Ordenar los tokens de forma prioritaria
-- [ ] crear un algoritmo que te cree nodos del AST
+- [x] Tokenizar la entrada
+- [x] crear un algoritmo que te cree nodos del AST
+- [ ] Navegar el AST para reordenarlo / ejecutarlo en el orden adecuado
 
 # Dudas
 - [ ] Preguntar si el prompt de la minishell tiene que esperar a que un comando
