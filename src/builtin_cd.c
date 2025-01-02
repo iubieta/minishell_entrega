@@ -16,42 +16,41 @@ void	ft_cd(char **args)
 {
 	char	*path;
 
-	if (!args || !args[0])
+	if (!args || !args[1])
 	{
 		path = getenv("HOME");
 		chdir(path);
 		return ;
 	}
-	if (args[1])
+	if (args[2])
 	{
 		printf("cd: too many arguments\n");
 		return ;
 	}
-	path = args[0];
+	path = args[1];
 	if (chdir (path) == -1)
 		perror("cd");
 }
 
 // TEST
-int main()
-{
-	char *input;
-	char *args[1024]; 
-	int i;
-	
-	// Comprobacion sin argumentos
-	ft_pwd();
-	ft_cd(NULL);	
-	ft_pwd();
-
-	//Comprobacion con argumentos
-	i = 0;
-	input = readline("path>");
-	while (input != NULL)
-	{
-		args[i++] = input;
-		input = readline("path>");
-	}
-	ft_cd(args);	
-	ft_pwd();
-}
+//int main() {
+	//char *input;
+	//char *args[1024];
+	//int i;
+//
+	//// Comprobacion sin argumentos
+	//ft_pwd();
+	//ft_cd(NULL);
+	//ft_pwd();
+//
+	////Comprobacion con argumentos
+	//i = 0;
+	//input = readline("path>");
+	//while (input != NULL)
+	//{
+		//args[i++] = input;
+		//input = readline("path>");
+	//}
+	//ft_cd(args);
+	//ft_pwd();
+//}

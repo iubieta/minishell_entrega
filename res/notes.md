@@ -30,3 +30,15 @@ El algoritmo se basa en una funcion recursiva que profundiza a medida que encuen
 1. Resolver las operaciones a medida que se navega el arbol.
 2. Navegar el arbol y reordenarlo en forma de linked list.
 
+# Variebles de entorno
+
+export:
+- Si getenv() NO es NULL: hacer free al *p devueldo, luego strdup con el nuevo valor y *p = valor_nuevo
+- Si getenv() es NULL: ir al final de **environ, y appenderar el nuevo *p con valor_nuevo. Acordarse de poner un puntero null al final
+  - se necesita extender el tamano de el **environ
+
+se detecta la necesidad de crear una varialbe nueva que contenga las varibles definidas en la minishell.
+- Esta variable "localenv" se inicializara al principio de la minishell con el contenido de exter char **environ.
+- Cada vez que se introduzca un comando de tipo definir variable, se appendeara un nuevo valor a esta variable "localenv"
+- cuando se llame a export cojeremos la variable definida en "localenv" y la appendearemos al extern char *environ
+- SIEMPRE vamos a trabajar sobre "localenv".
