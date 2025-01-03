@@ -47,6 +47,6 @@ void	print_tokens(t_token *tokens, int level);
 
 // Builtins
 // void	ft_echo(t_ast_node *node);
-void	ft_pwd();
+void	ft_pwd(char **args);
 
 #endif
