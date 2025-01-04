@@ -26,3 +26,11 @@
 - [ ] Preguntar si el prompt de la minishell tiene que esperar a que un comando
   termine de ejecutar y mostrar el output. Si se ha introducido un comando
   mientras estaba esperando se debe ejecutar este a continuacion.
+
+# Ejecutar redirecciones izq
+Nos hemos dado cuenta que podemos ejecutar esta redirecciones en serie
+escribiendo en un archivo temporal el resutado de cat < file. Si lo hacemos una
+y otra vez podemos simplificar el algoritmo.
+
+## PASOS
+1. crear un fork de padre hijo. El padre catea al hijo y el hijo sobreescribe un fichero temporla "tmp.txt"
