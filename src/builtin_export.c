@@ -6,47 +6,38 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 16:44:15 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/01/03 22:49:16 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/01/04 14:17:59 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_envmod(char **env, char *var);
 size_t	ft_envfind(char **env, char *var);
-size_t	ft_indexof(char *str, char c);
-char	**ft_arjoin(char **array, void *ptr);
-size_t	ft_arlen(char **array);
 
-void	ft_export(char **args, char **env)
+void	ft_export(char ***env_ptr, char **args)
 {
-	int i;
+	char **env;
+	size_t i;
+	size_t j;
 
-	if (!args || !env)
+	if (!args || !env_ptr)
 	{
 		printf("ft_export: invalid arguments or enviroment\n");
 		return ;
 	}
 	i = 0;
+	env = *env_ptr;
 	while (args[i])
 	{
-		if (!ft_envmod(env, args[i]))
-			ft_arjoin(env, args[i]);
+
+		j = ft_envfind(env, args[i]);
+		if (env[j])
+			env[j] = args[i];
+		else
+			env = ft_arcat(env, args[i]);
 		i++;
 	}
-}
-
-char	**ft_envmod(char **env, char *var)
-{
-	size_t	i;
-	
-	if (!env || !var)
-		return (NULL);
-	i = ft_envfind(env, var);
-	if (!env[i])
-		return (NULL);
-	env[i] = var;
-	return (env);
+	*env_ptr = env;
 }
 
 size_t	ft_envfind(char **env, char *var)
@@ -67,45 +58,43 @@ size_t	ft_envfind(char **env, char *var)
 	return (i);
 }
 
-size_t	ft_indexof(char *str, char c)
+// TEST
+int	main()
 {
-	size_t i;
+	char	**env;
+	char	**args;
 
-	i = 0;
-	if (!str)
-		return (i);
-	while(str[i] && str[i] != c)
-		i++;
-	return (i);
-}
+	printf("\n--Test 1--\n");
+	args = malloc(5);
+	args[0] = "Var1=Value1";
+	args[1] = NULL;
+	ft_arprint(NULL);
+	ft_export(NULL, args);
+	ft_arprint(NULL);
 
-char	**ft_arjoin(char **array, void *ptr)
-{
-	char	**new_array;
-	size_t	len;
-	size_t	i;
+	printf("\n--Test 2--\n");
+	env = malloc(10);
+	ft_arprint(env);
+	ft_export(&env, NULL);
+	ft_arprint(env);
 
-	len = ft_arlen(array);
-	new_array = malloc(len + 2);
-	i = 0;
-	while (i < len)
-	{
-		new_array[i] = array[i];
-		i++;
-	}
-	new_array[i++] = ptr;
-	new_array[i] = NULL;
-	return (new_array);
-}
+	printf("\n--Test 3--\n");
+	env = malloc(10);
+	ft_arprint(env);
+	args = malloc(5);
+	args[0] = "Var1=Value1";
+	args[1] = NULL;
+	ft_export(&env, args);
+	ft_arprint(env);
 
-size_t	ft_arlen(char **array)
-{
-	size_t	i;
-
-	i = 0;
-	if (!array)
-		return (i);
-	while (array[i])
-		i++;
-	return (i);
+	printf("\n--Test 4--\n");
+	env = malloc(10);
+	env[0] = "Var1=Value1";
+	env[1] = NULL;
+	ft_arprint(env);
+	args = malloc(5);
+	args[0] = "Var1=Value2";
+	args[1] = NULL;
+	ft_export(&env, args);
+	ft_arprint(env);
 }
