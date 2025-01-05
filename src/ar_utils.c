@@ -12,21 +12,21 @@
 
 #include "minishell.h"
 
-char	**ft_arcat(char **array, void *ptr)
+char	**ft_arcat(char **array, char *str)
 {
 	char	**new_array;
 	size_t	len;
 	size_t	i;
 
 	len = ft_arlen(array);
-	new_array = malloc(len + 2);
+	new_array = ft_calloc(len + 2, sizeof(char *));
 	i = 0;
 	while (i < len)
 	{
 		new_array[i] = array[i];
 		i++;
 	}
-	new_array[i++] = ptr;
+	new_array[i++] = ft_strdup(str);
 	new_array[i] = NULL;
 	free(array);
 	array = NULL;
@@ -60,3 +60,21 @@ void	ft_arprint(char **array)
 		printf("\"%s\" ", array[i++]);
 	printf("}\n");
 }
+
+void	ft_arfree(char **array)
+{
+	size_t	i;
+
+	if (!array)
+		return ;
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		array[i] = NULL;
+	}
+	free(array);
+	array = NULL;
+	return ;
+}
+
