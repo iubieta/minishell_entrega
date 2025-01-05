@@ -6,11 +6,36 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:13:33 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/01/04 14:17:53 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/01/05 17:43:26 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**ft_arremove(char **array, size_t del)
+{
+	char	**new_array;
+	size_t	len;
+	size_t	i;
+	size_t	j;
+
+	len = ft_arlen(array);
+	if (del >= len)
+		return (array);
+	new_array = ft_calloc(len, sizeof(char *));
+	i = 0;
+	j = 0;
+	while (i < len)
+	{
+		if (i == del)
+			j = 1;
+		new_array[i] = array[i + j];
+		i++;
+	}
+	free(array);
+	array = NULL;
+	return (new_array);
+}
 
 char	**ft_arcat(char **array, char *str)
 {

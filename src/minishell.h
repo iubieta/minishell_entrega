@@ -51,9 +51,13 @@ void	ft_pwd(char **args);
 
 // Utils
 size_t	ft_indexof(char *str, char c);
+
+char	**ft_arremove(char **array, size_t del);
 char	**ft_arcat(char **array, char *ptr);
 size_t	ft_arlen(char **array);
 void	ft_arprint(char **array);
 void	ft_arfree(char **array);
+
+size_t	ft_envfind(char **env, char *var);
 
 #endif
