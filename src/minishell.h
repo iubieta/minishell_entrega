@@ -48,9 +48,15 @@ void	print_tokens(t_token *tokens, int level);
 // Builtins
 // void	ft_echo(t_ast_node *node);
 void	ft_pwd(char **args);
+void	ft_cd(char **args);
+void	ft_env(char **env);
+void	ft_export(char ***env_ptr, char **args);
+void	ft_unset(char ***env_ptr, char **args);
 
 // Utils
 size_t	ft_indexof(char *str, char c);
+int		is_special_char(char c);
+int		count_quoted_chars(char *input);
 
 char	**ft_arremove(char **array, size_t del);
 char	**ft_arcat(char **array, char *ptr);
