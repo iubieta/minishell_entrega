@@ -10,8 +10,8 @@
    - [x] echo y echo -n
    - [x] cd
    - [x] pwd
-   - [ ] export
-   - [ ] unset
+   - [x] export
+   - [x] unset
    - [ ] env
    - [ ] exit
 
