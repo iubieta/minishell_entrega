@@ -12,7 +12,7 @@
    - [x] pwd
    - [x] export
    - [x] unset
-   - [ ] env
+   - [x] env
    - [ ] exit
 
  - [ ] ...
@@ -21,6 +21,13 @@
 - [x] Tokenizar la entrada
 - [x] crear un algoritmo que te cree nodos del AST
 - [ ] Navegar el AST para reordenarlo / ejecutarlo en el orden adecuado
+
+- [ ] Implementar uso de señales
+  - [ ] Ctrl-C : imprime una nueva entrada de linea
+  - [ ] Ctrl-D : exit
+  - [ ] Ctrl-\ : no hace nada
+
+- [ ] Expandi variables de entorno
 
 # Dudas
 - [ ] Preguntar si el prompt de la minishell tiene que esperar a que un comando
