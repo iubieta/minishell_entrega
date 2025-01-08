@@ -71,5 +71,6 @@ void	ft_arprint(char **array);
 void	ft_arfree(char **array);
 
 size_t	ft_envfind(char **env, char *var);
+char	*ft_expand_var(char **env, char *var);
 
 #endif
