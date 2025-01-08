@@ -5,9 +5,15 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <ctype.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../inc/libft/libft.h"
+
+#define RDEND 0
+#define WREND 1
+#define IPIPE 0
+#define OPIPE 1
 
 // Token type enumeration
 typedef enum e_toktype
