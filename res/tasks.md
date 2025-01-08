@@ -33,4 +33,9 @@ escribiendo en un archivo temporal el resutado de cat < file. Si lo hacemos una
 y otra vez podemos simplificar el algoritmo.
 
 ## PASOS
-1. crear un fork de padre hijo. El padre catea al hijo y el hijo sobreescribe un fichero temporla "tmp.txt"
+1. crear un fork de padre hijo. El padre catea al hijo y el hijo sobreescribe un
+   fichero temporla "tmp.txt".
+   
+2. Cada vez que se encuentre una redireccion hacia la izquierda, hay que
+   ejecuatar primero el comando a la derecha del '<' y seguir ejecutando
+   comandos mientras no se encuentre un pipe '|' o NULL
