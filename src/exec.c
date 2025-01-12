@@ -45,19 +45,6 @@ void ft_rightredir(t_tree *t, int fd[2][2], char **env)
     return ;
 }
 
-
-
-// Queda pendiente de adaptar, pero va a ser necesario para despues
-void ft_cleanup(t_md *metad)
-{
-    ft_freetree(metad->tree);
-    free(metad->fd[0]);
-    free(metad->fd);
-    ft_free2parray(metad->env[0]);
-    free(metad);
-    metad = NULL;
-}
-
 void ft_childproc(t_md *md)
 {
     int fd_fileout;
@@ -109,44 +96,16 @@ void ft_execcmd(t_md *md)
     waitpid(pid, NULL, 0);
 }
 
-int **initfdarray(void)
-{
-    int **p;
-    int *a;
-    int *b;
 
-    p = malloc(2 * sizeof(int *));
-    a = malloc(4 * sizeof(int));
-    a[0] = -1;
-    a[1] = -1;
-    a[2] = -1;
-    a[3] = -1;
-    p[0] = a;
-    p[1] = a + 2;
-    return (p);
-}
-
-void ft_initmetadata(t_token *token)
-{
-
-    t_md *md;
-    extern char **environ;
-
-    md = malloc(sizeof(t_md *));
-    md->tree[0] = buildtreestruct(token);
-    md->fd = initfdarray();
-    md->env[0] = ft_dup2parray(environ); //Queda pendiente crear un funcion que copie el environment
-}
-
-int main(int argc, char **argv)
-{
-    t_tree *t;
-
-    t = malloc(sizeof(t_tree *));
-    while (t)
-    {
-        if (t->right)
-
-    }
-
-}
+// int main(int argc, char **argv)
+// {
+//     t_tree *t;
+//
+//     t = malloc(sizeof(t_tree *));
+//     while (t)
+//     {
+//         if (t->right)
+//
+//     }
+//
+// }

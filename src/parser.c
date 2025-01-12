@@ -1,57 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iubieta <iubieta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:19:09 by iubieta           #+#    #+#             */
-/*   Updated: 2024/12/24 18:48:41y iubieta          ###   ########.fr       */
+/*   Updated: 2025/01/12 19:59:05 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//void ft_redirleft(t_token *t)
-//{
-    //t_token *tmp;
-//
-    //tmp = t->left;
-    //t->left = t->right;
-    //t->right = tmp;
-//}
-//
-//// Que esta funcion sea recuersiva para el caso en el que haya 2 redirecciones
-//// seguidas
-//// echo hola < mundo.c << HERE
-//void parserread(t_token *t)
-//{
-    //while (t)
-    //{
-        //if (t->type == 3 || t->type == 4)
-            //ft_redirleft(t);
-        //if (t->type == 1 || t->type == 2)
-            //ft_redirright(t);
-        //else
-            //ft_pipeexec(t);
-//
-    //}
-//}
+t_token *buildtreenode(t_tree *tree, t_token *t);
+char **buildcommand(t_token *t, int words);
 
-char **buildcommand(t_token *t, int words)
+void	parse(char *input, t_md md)
 {
-    int i;
-    char **args;
+	t_token	tokens[1024];
 
-    args = ft_calloc(words, sizeof(char *) + 1);
-    i = 0;
-    while (i < words)
+	tokenize(input);
+	md.tree[0] = buildtreestruct(tokens);
+}
+
+t_tree *buildtreestruct(t_token *t)
+{
+    t_tree *tree;
+    t_tree *current;
+
+    tree= (t_tree *)malloc(sizeof(t_tree));
+    current = tree;
+    while (t)
     {
-        args[i] = t->value;
-        t = t->right;
-        i++;
+        t = buildtreenode(current, t);
+        current->left = NULL; // Provisional hasta que decidamos si se hace tipo binarytree o tipo linked list
+        current->right = (t_tree *)malloc(sizeof(t_tree));
+        current = current->right;
+        current->right = NULL;
     }
-    return (args);
+    return (tree);
+
 }
 
 t_token *buildtreenode(t_tree *tree, t_token *t)
@@ -79,24 +67,22 @@ t_token *buildtreenode(t_tree *tree, t_token *t)
     return (tmp);
 }
 
-t_tree *buildtreestruct(t_token *t)
+char **buildcommand(t_token *t, int words)
 {
-    t_tree *tree;
-    t_tree *current;
+    int i;
+    char **args;
 
-    tree= (t_tree *)malloc(sizeof(t_tree));
-    current = tree;
-    while (t)
+    args = ft_calloc(words, sizeof(char *) + 1);
+    i = 0;
+    while (i < words)
     {
-        t = buildtreenode(current, t);
-        current->left = NULL; // Provisional hasta que decidamos si se hace tipo binarytree o tipo linked list
-        current->right = (t_tree *)malloc(sizeof(t_tree));
-        current = current->right;
-        current->right = NULL;
+        args[i] = t->value;
+        t = t->right;
+        i++;
     }
-    return (tree);
-
+    return (args);
 }
+
 
 void test_printtree(t_tree *tree)
 {
@@ -122,15 +108,15 @@ void test_printtree(t_tree *tree)
 
 }
 
-int main() {
-    char input[1024];
-    printf("minishell> ");
-    if (fgets(input, 1024, stdin)) {
-        input[strcspn(input, "\n")] = '\0'; // Elimina el salto de línea
-        t_token *tokens = tokenize(input);
-        t_tree *tree = buildtreestruct(tokens);
-        test_printtree(tree);
-        free_tokens(tokens);
-    }
-    return 0;
-}
+// int main() {
+//     char input[1024];
+//     printf("minishell> ");
+//     if (fgets(input, 1024, stdin)) {
+//         input[strcspn(input, "\n")] = '\0'; // Elimina el salto de línea
+//         t_token *tokens = tokenize(input);
+//         t_tree *tree = buildtreestruct(tokens);
+//         test_printtree(tree);
+//         free_tokens(tokens);
+//     }
+//     return 0;
+// }

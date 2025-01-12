@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 16:33:21 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/01/08 20:03:26 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/01/12 19:40:09 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,58 +65,59 @@ char **ft_dup2parray(char **array)
 }
 
 // TEST
-int	main()
-{
-	
-	char	**env;
-	char	*var = "$Var1";
-
-	printf("\n--Test 1--\n");
-	printf("%p\n", ft_expand_var(NULL, var));
-
-	printf("\n--Test 2--\n");
-	env = ft_calloc(10, sizeof(char *));
-	env[0] = ft_strdup("Var1=Value1");
-	env[1] = NULL;
-	printf("%p\n", ft_expand_var(env, NULL));
-	ft_arfree(env);
-
-	printf("\n--Test 3--\n");
-	env = ft_calloc(10, sizeof(char *));
-	env[0] = ft_strdup("Var1=Value1");
-	env[1] = NULL;
-	var = "";
-	printf("%p\n", ft_expand_var(env, var));
-	ft_arfree(env);
-
-	printf("\n--Test 4--\n");
-	env = ft_calloc(10, sizeof(char *));
-	env[0] = ft_strdup("Var1=Value1");
-	env[1] = ft_strdup("Var2=Value2");
-	env[2] = NULL;
-	var = "$";
-	printf("%p\n", ft_expand_var(env, var));
-	ft_arfree(env);
-
-	printf("\n--Test 5--\n");
-	env = ft_calloc(10, sizeof(char *));
-	env[0] = ft_strdup("Var1=Value1");
-	env[1] = ft_strdup("Var2=Value2");
-	env[2] = ft_strdup("Var3=Value3");
-	env[3] = ft_strdup("Var4=Value4");
-	env[4] = NULL;
-	var = "$Var3";
-	printf("%s\n", ft_expand_var(env, var));
-	ft_arfree(env);
-	
-	printf("\n--Test 6--\n");
-	env = ft_calloc(10, sizeof(char *));
-	env[0] = ft_strdup("Var1=Value1");
-	env[1] = ft_strdup("Var2Value2");
-	env[2] = ft_strdup("Var3Value3");
-	env[3] = ft_strdup("Var4=Value4");
-	env[4] = NULL;
-	var = "Var3";
-	printf("%p\n", ft_expand_var(env, var));
-	ft_arfree(env);
-
+// int	main()
+// {
+// 	
+// 	char	**env;
+// 	char	*var = "$Var1";
+//
+// 	printf("\n--Test 1--\n");
+// 	printf("%p\n", ft_expand_var(NULL, var));
+//
+// 	printf("\n--Test 2--\n");
+// 	env = ft_calloc(10, sizeof(char *));
+// 	env[0] = ft_strdup("Var1=Value1");
+// 	env[1] = NULL;
+// 	printf("%p\n", ft_expand_var(env, NULL));
+// 	ft_arfree(env);
+//
+// 	printf("\n--Test 3--\n");
+// 	env = ft_calloc(10, sizeof(char *));
+// 	env[0] = ft_strdup("Var1=Value1");
+// 	env[1] = NULL;
+// 	var = "";
+// 	printf("%p\n", ft_expand_var(env, var));
+// 	ft_arfree(env);
+//
+// 	printf("\n--Test 4--\n");
+// 	env = ft_calloc(10, sizeof(char *));
+// 	env[0] = ft_strdup("Var1=Value1");
+// 	env[1] = ft_strdup("Var2=Value2");
+// 	env[2] = NULL;
+// 	var = "$";
+// 	printf("%p\n", ft_expand_var(env, var));
+// 	ft_arfree(env);
+//
+// 	printf("\n--Test 5--\n");
+// 	env = ft_calloc(10, sizeof(char *));
+// 	env[0] = ft_strdup("Var1=Value1");
+// 	env[1] = ft_strdup("Var2=Value2");
+// 	env[2] = ft_strdup("Var3=Value3");
+// 	env[3] = ft_strdup("Var4=Value4");
+// 	env[4] = NULL;
+// 	var = "$Var3";
+// 	printf("%s\n", ft_expand_var(env, var));
+// 	ft_arfree(env);
+// 	
+// 	printf("\n--Test 6--\n");
+// 	env = ft_calloc(10, sizeof(char *));
+// 	env[0] = ft_strdup("Var1=Value1");
+// 	env[1] = ft_strdup("Var2Value2");
+// 	env[2] = ft_strdup("Var3Value3");
+// 	env[3] = ft_strdup("Var4=Value4");
+// 	env[4] = NULL;
+// 	var = "Var3";
+// 	printf("%p\n", ft_expand_var(env, var));
+// 	ft_arfree(env);
+// }
+//
