@@ -45,6 +45,14 @@ typedef struct s_token
 	struct s_token	*right;
 }	t_token;
 
+// Structure pointing to key variables
+typedef struct s_md
+{
+	struct s_tree **tree;
+	int **fd;
+	char ***env;
+} t_md;
+
 // Function prototypes for tokenizer functions
 t_token	*tokenize(char *input);
 void	free_tokens(t_token *tokens);
@@ -72,5 +80,13 @@ void	ft_arfree(char **array);
 
 size_t	ft_envfind(char **env, char *var);
 char	*ft_expand_var(char **env, char *var);
+
+t_tree *buildtreestruct(t_token *t);
+char **ft_dup2parray(char **array);
+
+// Tree linked list utils
+void ft_freetreenode(t_tree *n);
+void ft_freetree(t_tree **head);
+void ft_deletetreenode(t_tree *n, t_tree **head);
 
 #endif

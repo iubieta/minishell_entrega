@@ -1,0 +1,17 @@
+total 88
+drwxr-xr-x  7 andoitzcp andoitzcp  4096 Jan  8 18:30 .
+drwxr-xr-x 15 andoitzcp andoitzcp  4096 Nov 24 19:23 ..
+drwxr-xr-x  9 andoitzcp andoitzcp  4096 Jan  8 18:29 .git
+-rw-r--r--  1 andoitzcp andoitzcp   431 Jan  2 18:43 .gitignore
+-rw-r--r--  1 andoitzcp andoitzcp  1659 Dec 29 12:23 Makefile
+-rw-r--r--  1 andoitzcp andoitzcp  2840 Jan  2 18:45 README.md
+-rwxr-xr-x  1 andoitzcp andoitzcp 21992 Dec 29 12:23 a.out
+drwxr-xr-x  3 andoitzcp andoitzcp  4096 Dec 29 12:22 inc
+-rwxr-xr-x  1 andoitzcp andoitzcp 15536 Dec 29 12:20 minishell
+-rw-r--r--  1 andoitzcp andoitzcp   107 Dec 29 12:23 norm_errors
+drwxr-xr-x  2 andoitzcp andoitzcp  4096 Dec 29 12:20 obj
+-rw-r--r--  1 andoitzcp andoitzcp    15 Dec 29 12:23 out
+drwxr-xr-x  2 andoitzcp andoitzcp  4096 Jan  8 18:25 res
+drwxr-xr-x  2 andoitzcp andoitzcp  4096 Jan  8 18:25 src
+-rw-r--r--  1 andoitzcp andoitzcp     0 Jan  8 18:30 test
+-rw-r--r--  1 andoitzcp andoitzcp     0 Jan  8 18:30 test2

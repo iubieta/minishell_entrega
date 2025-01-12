@@ -102,4 +102,20 @@ int	main()
 	var = "Var3";
 	printf("%p\n", ft_expand_var(env, var));
 	ft_arfree(env);
+
+char **ft_dup2parray(char **array)
+{
+	int i;
+	char **p;
+
+	if (!array)
+		return (NULL);
+	p = ft_calloc(ft_arlen(array) + 1, sizeof(char *));
+	i = 0;
+	while (array[i])
+	{
+		p[i] = array[i];
+		i++;
+	}
+	return (p);
 }

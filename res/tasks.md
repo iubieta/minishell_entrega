@@ -46,3 +46,15 @@ y otra vez podemos simplificar el algoritmo.
 2. Cada vez que se encuentre una redireccion hacia la izquierda, hay que
    ejecuatar primero el comando a la derecha del '<' y seguir ejecutando
    comandos mientras no se encuentre un pipe '|' o NULL
+   
+# CREAR FUNCION MAIN para ir testeando codigo
+
+1. Incializar minishel y structura 'md'
+2. Meterle un comando primero tipo cmd1 | cmd2 | cmd3
+3. Imprimir structura
+4. [ ] checkear valgrind
+
+# Siguientes pasos
+1. crear main
+2. acabar redirecciones y pipes
+3. senales
