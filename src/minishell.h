@@ -15,6 +15,7 @@
 #define IPIPE 0
 #define OPIPE 1
 
+
 // Token type enumeration
 typedef enum e_toktype
 {
@@ -54,8 +55,8 @@ typedef struct s_md
 }	t_md;
 
 //	Init
-void ft_initmetadata(/* t_token *token*/);  // Deberia iniciarse en vacio ?? Sin tokens ni comandos.
-void ft_cleanup(t_md *metad);
+t_md	*ft_initmetadata();  // Deberia iniciarse en vacio ?? Sin tokens ni comandos.
+void	ft_cleanup(t_md *metad);
 
 // Function prototypes for tokenizer functions
 t_token	*tokenize(char *input);

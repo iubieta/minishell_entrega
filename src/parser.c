@@ -17,9 +17,11 @@ char **buildcommand(t_token *t, int words);
 
 void	parse(char *input, t_md md)
 {
-	t_token	tokens[1024];
+	t_token	*tokens;
 
-	tokenize(input);
+	tokens = tokenize(input);
+	// crear variable tipo tree
+	// asignad md.tree con &vartree
 	md.tree[0] = buildtreestruct(tokens);
 }
 

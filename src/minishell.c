@@ -2,7 +2,7 @@
 #include <readline/readline.h>
 // #include <string.h>
 
-int main(void)
+int main()
 {
 	t_md	md;
     char	*line;
