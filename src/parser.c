@@ -15,14 +15,16 @@
 t_token *buildtreenode(t_tree *tree, t_token *t);
 char **buildcommand(t_token *t, int words);
 
-void	parse(char *input, t_md md)
+t_tree	**parse(char *input, t_md *md)
 {
 	t_token	*tokens;
+	t_tree	*tree_struct;
 
 	tokens = tokenize(input);
-	// crear variable tipo tree
-	// asignad md.tree con &vartree
-	md.tree[0] = buildtreestruct(tokens);
+	print_tokens_forward(tokens);
+	tree_struct = buildtreestruct(tokens);
+	*md->tree = tree_struct;
+	return (md->tree);
 }
 
 t_tree *buildtreestruct(t_token *t)
@@ -34,11 +36,14 @@ t_tree *buildtreestruct(t_token *t)
     current = tree;
     while (t)
     {
-        t = buildtreenode(current, t);
         current->left = NULL; // Provisional hasta que decidamos si se hace tipo binarytree o tipo linked list
-        current->right = (t_tree *)malloc(sizeof(t_tree));
-        current = current->right;
         current->right = NULL;
+        t = buildtreenode(current, t);
+		if (t)
+		{
+			current->right = (t_tree *)malloc(sizeof(t_tree));
+			current = current->right;
+		}
     }
     return (tree);
 
@@ -74,7 +79,7 @@ char **buildcommand(t_token *t, int words)
     int i;
     char **args;
 
-    args = ft_calloc(words, sizeof(char *) + 1);
+    args = ft_calloc(words + 1, sizeof(char *));
     i = 0;
     while (i < words)
     {

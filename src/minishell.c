@@ -7,12 +7,12 @@ int main()
 	t_md	md;
     char	*line;
 
-	ft_initmetadata();
+	ft_initmetadata(&md);
     while (1)
     {
         line = readline("$prompt>");
         add_history(line);
-        parse(line, md);
+        parse(line, &md);
 		test_printtree(*md.tree);
 		ft_cleanup(&md);
         free(line);

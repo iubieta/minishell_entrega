@@ -109,7 +109,7 @@ int add_word_token(char *input, t_token **tokens)
     }
     add_token(tokens, ft_substr(input, start, i - start), TOKEN_WORD);
   }
-  return (++i);
+  return (i);
 }
 
 // TEST

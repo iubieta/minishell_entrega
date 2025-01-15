@@ -55,18 +55,18 @@ typedef struct s_md
 }	t_md;
 
 //	Init
-t_md	*ft_initmetadata();  // Deberia iniciarse en vacio ?? Sin tokens ni comandos.
+void	ft_initmetadata(t_md *md);// Deberia iniciarse en vacio ?? Sin tokens ni comandos.
 void	ft_cleanup(t_md *metad);
 
 // Function prototypes for tokenizer functions
 t_token	*tokenize(char *input);
 void	free_tokens(t_token *tokens);
 t_token	*create_token(char *value, int type);
-void	print_tokens(t_token *tokens, int level);
 t_token *add_token(t_token **root, char *value, int type);
+void print_tokens_forward(t_token *tokens);
 
 //	Parsing
-void	parse(char *input, t_md md);
+t_tree	**parse(char *input, t_md *md);
 t_tree *buildtreestruct(t_token *t);
 char **ft_dup2parray(char **array);
 

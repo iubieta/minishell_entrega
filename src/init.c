@@ -29,30 +29,27 @@ int **initfdarray(void)
     return (p);
 }
 
-t_md *ft_initmetadata()// Deberia iniciarse en vacio ?? Sin tokens ni comandos.
+void	ft_initmetadata(t_md *md)// Deberia iniciarse en vacio ?? Sin tokens ni comandos.
 {
 
-    t_md *md;
 	extern char	**environ;
 	char	**my_env;
 
-    md = malloc(sizeof(t_md *));
     // md->tree[0] = buildtreestruct(token);
-	md->tree = NULL;
+	md->tree = calloc(sizeof(t_tree **), 1);
     md->fd = initfdarray();
     my_env = ft_dup2parray(environ);
-	md->env = &my_env;
-	return (md);
+	*md->env = my_env;
 }
 
 // Queda pendiente de adaptar, pero va a ser necesario para despues
-void ft_cleanup(t_md *metad)
+void ft_cleanup(t_md *md)
 {
-    ft_freetree(metad->tree);
-    free(metad->fd[0]);
-    free(metad->fd);
-    ft_free2parray(metad->env[0]);
-    free(metad);
-    metad = NULL;
+    ft_freetree(md->tree);
+    free(md->fd[0]);
+    free(md->fd);
+    ft_free2parray(md->env[0]);
+    free(md);
+    md = NULL;
 }
 
