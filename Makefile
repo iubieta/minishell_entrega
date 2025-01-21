@@ -2,6 +2,7 @@
 
 NAME	= minishell
 HEADERS	= src/minishell.h
+INCLUDE = inc/
 SRC_DIR	= src/
 OBJ_DIR	= obj/
 CC		= gcc
@@ -26,7 +27,13 @@ WHITE = \033[0;97m
 
 #Sources
 
-SRC_FILES	= minishell
+SRC_FILES	= minishell \
+		      tokenizer2 token_utils \
+			  parser tree_utils\
+			  exec \
+			  str_utils \
+		      env_utils \
+			  ar_utils
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -61,6 +68,7 @@ clean:
 			@echo "$(CYAN)$(LIBFT) executable files succesfully cleaned!$(DEF_COLOR)"
 			@$(RM) -rf $(OBJ_DIR)
 			@echo "$(BLUE)$(NAME) object files succesfully cleaned!$(DEF_COLOR)"
+			@$(RM) -f $(SRC_DIR)/$(minishell.h.gch)
 
 fclean:		clean
 			@$(RM) -f $(NAME)

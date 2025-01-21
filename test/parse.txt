@@ -1,0 +1,31 @@
+=== TEST PARSE===
+
+Test 1: input = <i>cat Makefile | grep -i SRC | wc -l<\i>
+TREE NODE: p=0x5b06691132e0, right=0x5b0669113780, left=(nil)
+type: 0
+args: cat Makefile
+TREE NODE: p=0x5b0669113780, right=0x5b06691137b0, left=(nil)
+type: 7
+args:
+TREE NODE: p=0x5b06691137b0, right=0x5b0669113810, left=(nil)
+type: 0
+args: grep -i SRC
+TREE NODE: p=0x5b0669113810, right=0x5b0669113840, left=(nil)
+type: 7
+args:
+TREE NODE: p=0x5b0669113840, right=(nil), left=(nil)
+type: 0
+args: wc -l
+Test 1: End
+
+Test 2: input = <i>'cat Makefile | grep -i SRC ' | wc -l<\i>
+TREE NODE: p=0x5b06691138f0, right=0x5b0669113a40, left=(nil)
+type: 1
+args: cat Makefile | grep -i SRC 
+TREE NODE: p=0x5b0669113a40, right=0x5b0669113a70, left=(nil)
+type: 7
+args:
+TREE NODE: p=0x5b0669113a70, right=(nil), left=(nil)
+type: 0
+args: wc -l
+Test 2: End

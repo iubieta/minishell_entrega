@@ -1,0 +1,98 @@
+=== TEST TOKENIZE ===
+
+Test 1: input = "\"cat Makefile | grep -i SRC " | wc -l\"
+flag00:  | wc -l
+flag01: cat Makefile | grep -i SRC 
+flag00: (null)
+flag01: (null)
+Token: cat Makefile | grep -i SRC  Type: 8
+Token: |          Type: 5
+Token: wc         Type: 0
+Token: -l         Type: 0
+Test 1: End
+
+Test 2: input = <i>cat Makefile | grep -i SRC | wc -l | test<\i>
+flag00: (null)
+flag01: (null)
+Token: cat        Type: 0
+Token: Makefile   Type: 0
+Token: |          Type: 5
+Token: grep       Type: 0
+Token: -i         Type: 0
+Token: SRC        Type: 0
+Token: |          Type: 5
+Token: wc         Type: 0
+Token: -l         Type: 0
+Token: |          Type: 5
+Token: test       Type: 0
+Test 2: End
+
+Test 3: input = <i>'cat Makefile | grep -i SRC ' | wc -l<\i>
+flag00:  | wc -l
+flag01: cat Makefile | grep -i SRC 
+flag00: (null)
+flag01: (null)
+Token: cat Makefile | grep -i SRC  Type: 7
+Token: |          Type: 5
+Token: wc         Type: 0
+Token: -l         Type: 0
+Test 3: End
+
+Test 4: input = <i>cat Makefile | grep -i SRC\" | wc -l | test<\i>
+flag00: (null)
+flag01: (null)
+Token: cat        Type: 0
+Token: Makefile   Type: 0
+Token: |          Type: 5
+Token: grep       Type: 0
+Token: -i         Type: 0
+Token: SRC\"      Type: 0
+Token: |          Type: 5
+Token: wc         Type: 0
+Token: -l         Type: 0
+Token: |          Type: 5
+Token: test       Type: 0
+Test 4: End
+
+Test 5: input = <i>"cat Makefile | grep -i SRC' " | wc -l<\i>
+flag00:  | wc -l
+flag01: cat Makefile | grep -i SRC' 
+flag00: (null)
+flag01: (null)
+Token: cat Makefile | grep -i SRC'  Type: 8
+Token: |          Type: 5
+Token: wc         Type: 0
+Token: -l         Type: 0
+Test 5: End
+
+Test 6: input = <i>"cat Makefile | grep -i SRC\" " | wc -l<\i>
+flag00:  | wc -l
+flag01: cat Makefile | grep -i SRC\" 
+flag00: (null)
+flag01: (null)
+Token: cat Makefile | grep -i SRC\"  Type: 8
+Token: |          Type: 5
+Token: wc         Type: 0
+Token: -l         Type: 0
+Test 6: End
+
+Test 7: input = <i>ls < "file1 file2" < 'file3 file4' < file5 < file6<\i>
+flag00:  < 'file3 file4' < file5 < file6
+flag01: file1 file2
+flag00:  < file5 < file6
+flag01: file3 file4
+flag00: (null)
+flag01: (null)
+Token: ls         Type: 0
+Token: <          Type: 3
+Token: file1 file2 Type: 8
+Token: <          Type: 3
+Token: file3 file4 Type: 7
+Token: <          Type: 3
+Token: file5      Type: 0
+Token: <          Type: 3
+Token: file6      Type: 0
+Test 7: End
+
+Test 8: input = <i>cat Makefile | grep -i SRC" | wc -l | test<\i>
+Test 8: End

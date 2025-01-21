@@ -2,7 +2,8 @@
 
 void ft_freetreenode(t_tree *n)
 {
-    ft_free2parray(n->args);
+    if (n->args != NULL)
+        ft_free2parray(n->args);
     n->args = NULL;
     return ;
 }
@@ -35,4 +36,27 @@ void ft_deletetreenode(t_tree *n, t_tree **head)
     ft_freetreenode(n);
     cur->right = tmp;
     return ;
+}
+
+void ft_printtree(t_tree *tree)
+{
+    char **args;
+
+    while (tree != NULL)
+    {
+        printf("TREE NODE: p=%p, right=%p, left=%p\n", tree, tree->right, tree->left);
+        printf("type: %d\n", tree->type);
+        args = tree->args;
+        printf("args:");
+        while (args)
+        {
+            if (*args)
+                printf(" %s", *args);
+            else
+                break;
+            args++;
+        }
+        printf("\n");
+        tree = tree->right;
+    }
 }
