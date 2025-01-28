@@ -62,7 +62,7 @@ typedef struct s_md
 } t_md;
 
 // Tokenizer
-t_token	*tokenize(char *input);
+t_token	**tokenize(char *input);
 int is_redir_type(t_token *token);
 t_token *new_token(char *value, int type);
 t_token *add_token(t_token **root, char *value, int type);

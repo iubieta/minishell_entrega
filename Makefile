@@ -29,11 +29,9 @@ WHITE = \033[0;97m
 
 SRC_FILES	= minishell \
 		      tokenizer2 token_utils \
-			  parser tree_utils\
-			  exec \
+			  parser \
 			  str_utils \
-		      env_utils \
-			  ar_utils
+			  tree_utils
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))

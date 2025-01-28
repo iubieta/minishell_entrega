@@ -35,8 +35,7 @@ t_tree *buildtreestruct(t_token *t)
     {
         current->left = NULL; // Provisional hasta que decidamos si se hace tipo binarytree o tipo linked list
         current->right = NULL;
-        t = buildtreenode(current, t);
-		if (t)
+        if ((t = buildtreenode(current, t)) != NULL)
 		{
 			current->right = (t_tree *)malloc(sizeof(t_tree));
 			current = current->right;

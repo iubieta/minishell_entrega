@@ -1,3 +1,4 @@
+#include <stdlib.h>
 <<<<<<< HEAD
 /* ************************************************************************** */
 /*                                                                            */
@@ -46,7 +47,8 @@ t_md *ft_initmetadata(void)
     t_md *md;
     extern char **environ;
 
-    md = malloc(sizeof(t_md));
+    if ((md = malloc(sizeof(t_md)) == NULL))
+        exit( EXIT_FAILURE );
     md->tok = malloc(sizeof(t_token));
     md->tree = malloc(sizeof(t_tree));
     md->env = malloc(sizeof(char **));

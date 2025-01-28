@@ -6,21 +6,20 @@
 int main(void)
 {
     t_md *md;
-    t_token *tokens;
-    t_tree *tree;
     char *s;
 
     printf("=== TEST PARSE===\n");
     s = strdup("cat Makefile | grep -i SRC | wc -l");
     printf("\nTest 1: input = <i>%s<\\i>\n", s);
-    tokens = tokenize(s);
     printf("flag00: HERE\n");
-    md = ft_initmetadata(tokens);
-    printf("flag01: HERE\n");
-    ft_execcmd(md);
-    free(s);
-    ft_freetree(&tree);
-    printf("Test 1: End\n");
+    md = ft_initmetadata();
+    md->tok = tokenize(s);
+    md->tree =
+    /* printf("flag01: HERE\n"); */
+    /* ft_execcmd(md); */
+    /* free(s); */
+    /* ft_freetree(&tree); */
+    /* printf("Test 1: End\n"); */
 }
 // TEST EXEC: ENDING//
 
@@ -115,13 +114,22 @@ int main(void)
 /*     free(s); */
 /*     printf("Test 7: End\n"); */
 
-/*     s = strdup("cat Makefile | grep -i SRC\" | wc -l | test"); */
-/*     printf("\nTest 8: input = <i>%s<\\i>\n", s); */
+/*     s = strdup("ls < \"file1 file2\" < \'file3 file4\' < \file5 < file6"); */
+/*     printf("\nTest 7: input = <i>%s<\\i>\n", s); */
 /*     tokens = tokenize(s); */
 /*     print_tokens_forward(tokens); */
 /*     free_tokens(tokens); */
 /*     free(s); */
-/*     printf("Test 8: End\n"); */
+/*     printf("Test 7: End\n"); */
+
+/*     s = strdup("cat Makefile | grep -i SRC\" | wc -l | test"); */
+/*     printf("\nTest 9: input = <i>%s<\\i>\n", s); */
+/*     tokens = tokenize(s); */
+/*     print_tokens_forward(tokens); */
+/*     free_tokens(tokens); */
+/*     free(s); */
+/*     printf("Test 9: End\n"); */
+
 /* } */
 // TEST TOKENIZE: ENDING //
 

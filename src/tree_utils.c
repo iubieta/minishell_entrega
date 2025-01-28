@@ -3,7 +3,7 @@
 void ft_freetreenode(t_tree *n)
 {
     if (n->args != NULL)
-        ft_free2parray(n->args);
+    ft_free2parray(n->args);
     n->args = NULL;
     return ;
 }
@@ -15,7 +15,7 @@ void ft_freetree(t_tree **head)
 
     cur = *head;
     while (cur->right)
-    {
+ {
         tmp = cur;
         cur = cur->right;
         ft_freetreenode(tmp);

@@ -28,17 +28,6 @@
 /*     t_tree *node; */
 /*     char *cmd; */
 
-void ft_cleanup(t_md *metad)
-{
-    ft_freetree(metad->tree);
-    free(metad->fd[0]);
-    free(metad->fd);
-    ft_free2parray(metad->env[0]);
-    free(metad);
-    metad = NULL;
-}
-
->>>>>>> f57c047 (asdf)
 void ft_childproc(t_md *md)
 {
     int **fd;
@@ -88,38 +77,3 @@ void ft_execcmd(t_md *md)
     close(md->fd[IPIPE][WREND]);
     waitpid(pid, NULL, 0);
 }
-
-int **initfdarray(void)
-{
-    int **p;
-    int *a;
-
-    p = malloc(2 * sizeof(int *));
-    a = malloc(4 * sizeof(int));
-    a[0] = -1;
-    a[1] = -1;
-    a[2] = -1;
-    a[3] = -1;
-    p[0] = a;
-    p[1] = a + 2;
-    return (p);
-}
-
-void ft_initmetadata(t_token *token)
-{
-
-    t_md *md;
-    extern char **environ;
-
-    md = malloc(sizeof(t_md));
-    md->tree = malloc(sizeof(t_tree));
-    printf("flag10: HERE\n");
-    *(md->tree) = buildtreestruct(token);
-    printf("flag11: HERE\n");
-    md->fd = initfdarray();
-    printf("flag12: HERE\n");
-    md->env = malloc(sizeof(char **));
-    *(md->env) = ft_dup2parray(environ); //Queda pendiente crear un funcion que copie el environment
-    printf("flag13: HERE\n");
-}
->>>>>>> f57c047 (asdf)
