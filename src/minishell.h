@@ -85,6 +85,7 @@ void addcat(t_tree *t);
 
 // Init
 t_md *ft_initmetadata(void);
+void	sig_init();
 
 // Builtins
 // void	ft_echo(t_ast_node *node);
