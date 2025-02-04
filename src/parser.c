@@ -11,95 +11,66 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
 
-char **buildcommand(t_token *t, int words)
-{
-	t_token	*tokens;
-	t_tree	*tree_struct;
+/* char **buildtreenodeargs(t_token *token, t_md *md) */
+/* { */
+/*     int i; */
+/*     int len; */
+/*     char **args; */
+/*     t_token *current; */
 
-	tokens = tokenize(input);
-	print_tokens_forward(tokens);
-	tree_struct = buildtreestruct(tokens);
-	*md->tree = tree_struct;
-	return (md->tree);
-}
-
-t_tree *buildtreestruct(t_token *t)
-{
-    t_tree *tree;
-    t_tree *current;
-
-    tree= (t_tree *)malloc(sizeof(t_tree));
-    current = tree;
-    while (t)
-    {
-        current->left = NULL; // Provisional hasta que decidamos si se hace tipo binarytree o tipo linked list
-        current->right = NULL;
-        if ((t = buildtreenode(current, t)) != NULL)
-		{
-			current->right = (t_tree *)malloc(sizeof(t_tree));
-			current = current->right;
-		}
-    }
-    return (tree);
-
-}
-
-t_token *buildtreenode(t_tree *tree, t_token *t)
-{
-    int i;
-    t_token *tmp;
-
-    if (t == NULL)
-        return (t);
-    tree->args = NULL;
-    tmp = t;
-    i = 0;
-    while (tmp)
-    {
-        if (is_redir_type(tmp))
-            break;
-        tmp = tmp->right;
-        i++;
-    }
-    if (!is_redir_type(t))
-        tree->args = buildcommand(t, i);
-    else
-        tmp = tmp->right;
-    tree->type = t->type;
-    return (tmp);
-}
-
-char **buildcommand(t_token *t, int words)
-{
-    int i;
-    char **args;
-
-    args = ft_calloc(words + 1, sizeof(char *));
-    i = 0;
-    while (i < words)
-    {
-        t = buildtreenode(current, t);
-        current->left = NULL; // Provisional hasta que decidamos si se hace tipo binarytree o tipo linked list
-        if (t)
-        {
-            current->right = (t_tree *)malloc(sizeof(t_tree));
-            current = current->right;
-        }
-        current->right = NULL;
-    }
-    return (args);
-}
-
-/* int main() { */
-/*     char input[1024]; */
-/*     printf("minishell> "); */
-/*     if (fgets(input, 1024, stdin)) { */
-/*         input[strcspn(input, "\n")] = '\0'; // Elimina el salto de línea */
-/*         t_token *tokens = tokenize(input); */
-/*         t_tree *tree = buildtreestruct(tokens); */
-/*         test_printtree(tree); */
-/*         free_tokens(tokens); */
+/*     len = 0; */
+/*     current = token; */
+/*     while (!is_redir_type(current)) */
+/*     { */
+/*         len++; */
+/*         current = current->right; */
 /*     } */
-/*     return 0; */
+/*     if ((args = ft_calloc(sizeof(char *), len + 1)) == NULL) */
+/*         ft_exitwithmallocerror(md); */
+/*     i = 0; */
+/*     current = token; */
+/*     while (i < len) */
+/*     { */
+/*         args[i] = ft_strdup(current->value); */
+/*         current= current->right; */
+/*         i++; */
+/*     } */
+/*     return (args); */
 /* } */
+
+
+t_tree *buildtreenode(t_token *token, t_md *md)
+{
+    t_tree *node;
+
+    if((node = (t_tree *)malloc(sizeof(t_tree))) == NULL)
+        ft_exitwithmallocerror(md);
+    if (is_redir_type(token))
+    {
+        *md->tok = *md->tok
+        node->type = TREE_REDIR;
+        node->tok = token;
+        node->tok->right = NULL;
+        return (node);
+    }
+    node->type = TOKEN_WORD;
+    while (!is_redir_type(token))
+    {
+
+    }
+}
+
+void buildtreestruct(t_md *md)
+{
+    t_token *tok;
+    t_tree *node;
+
+    tok = *md->tok;
+    while((node = buildtreenode(tok)) != NULL)
+    {
+
+    }
+
+}

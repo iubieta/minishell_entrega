@@ -42,6 +42,13 @@ void ft_cleanup(t_md *md)
     md = NULL;
 }
 
+void ft_exitwithmallocerror(t_md *md)
+{
+    perror("malloc error");
+    ft_cleanup(md);
+    exit(EXIT_FAILURE);
+}
+
 t_md *ft_initmetadata(void)
 {
     t_md *md;

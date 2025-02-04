@@ -19,31 +19,23 @@ void	prompt_loop()
 }
 
 // TEST SIGNALS: BEGGINING //
-int main(void)
-{
-	prompt_loop();
-}
-// TEST SIGNALS: ENDING // 
+/* int main(void) */
+/* { */
+/* 	prompt_loop(); */
+/* } */
+// TEST SIGNALS: ENDING //
 
 // TEST EXEC: BEGINING //
-// int main(void)
-// {
-//     t_md *md;
-//     char *s;
-//
-//     printf("=== TEST PARSE===\n");
-//     s = strdup("cat Makefile | grep -i SRC | wc -l");
-//     printf("\nTest 1: input = <i>%s<\\i>\n", s);
-//     printf("flag00: HERE\n");
-//     md = ft_initmetadata();
-//     md->tok = tokenize(s);
-//     md->tree =
-    /* printf("flag01: HERE\n"); */
-    /* ft_execcmd(md); */
-    /* free(s); */
-    /* ft_freetree(&tree); */
-    /* printf("Test 1: End\n"); */
-//}
+/* int main(void) */
+/* { */
+/*     printf("=== TEST PARSE===\n"); */
+/*     s = strdup("cat Makefile | grep -i SRC | wc -l"); */
+/*     printf("\nTest 1: input = <i>%s<\\i>\n", s); */
+/*     printf("flag00: HERE\n"); */
+/*     md = ft_initmetadata(); */
+/*     md->tok = tokenize(s); */
+/*     buildtreestruct(md); */
+/* } */
 // TEST EXEC: ENDING//
 
 

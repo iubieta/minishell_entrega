@@ -34,11 +34,19 @@ typedef enum e_toktype
 	TOKEN_UNKNOWN,
 }	t_toktype;
 
+typedef enum e_treetype
+{
+	TREE_CMD,
+	TREE_REDIR,
+	TREE_OTHER,
+} t_treetype;
+
 // AST structure
 typedef struct s_tree
 {
-	t_toktype			type;
-	char				**args;
+	t_treetype	  type;
+	struct s_token *tok;
+	char		  **args;
 	struct s_tree *left;
 	struct s_tree *right;
 }	t_tree;
@@ -70,8 +78,8 @@ void free_tokens(t_token *tokens);
 void print_tokens_forward(t_token *tokens);
 
 // Parser
-t_tree *buildtreestruct(t_token *t);
-t_token *buildtreenode(t_tree *tree, t_token *t);
+t_tree *buildtreestruct(t_md *md);
+t_tree *buildtreenode(t_token *token, t_md *md);
 char **buildcommand(t_token *t, int words);
 
 // Exec
@@ -86,6 +94,7 @@ void addcat(t_tree *t);
 // Init
 t_md *ft_initmetadata(void);
 void	sig_init();
+void ft_exitwithmallocerror(t_md *md);
 
 // Builtins
 // void	ft_echo(t_ast_node *node);
