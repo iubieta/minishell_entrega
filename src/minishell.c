@@ -2,26 +2,21 @@
 #include <readline/readline.h>
 // #include <string.h>
 
-void	prompt_loop()
-{
-	char *line;
-
-	sig_init();
-	while (1)
-	{
-		line = readline(">>");
-		if (!line)
-		{
-			printf("exit\n");
-			break;
-		}
-	}
-}
-
 // TEST SIGNALS: BEGGINING //
-/* int main(void) */
+/* void	prompt_loop() */
 /* { */
-/* 	prompt_loop(); */
+/* 	char *line; */
+
+/* 	sig_init(); */
+/* 	while (1) */
+/* 	{ */
+/* 		line = readline(">>"); */
+/* 		if (!line) */
+/* 		{ */
+/* 			printf("exit\n"); */
+/* 			break; */
+/* 		} */
+/* 	} */
 /* } */
 // TEST SIGNALS: ENDING //
 
@@ -40,31 +35,30 @@ void	prompt_loop()
 
 
 // TEST PARSE: BEGINING //
-/* int main(void) */
-/* { */
-/*     t_token *tokens; */
-/*     t_tree *tree; */
-/*     char *s; */
+int main(void)
+{
+    t_md *md;
+    char *s;
 
-/*     printf("=== TEST PARSE===\n"); */
-/*     s = strdup("cat Makefile | grep -i SRC | wc -l"); */
-/*     printf("\nTest 1: input = <i>%s<\\i>\n", s); */
-/*     tokens = tokenize(s); */
-/*     tree = buildtreestruct(tokens); */
-/*     ft_printtree(tree); */
-/*     free(s); */
-/*     ft_freetree(&tree); */
-/*     printf("Test 1: End\n"); */
+    printf("=== TEST PARSE===\n");
+    s = strdup("cat Makefile | grep -i SRC | wc -l");
+    printf("\nTest 1: input = <i>%s<\\i>\n", s);
+    md = ft_initmetadata();
+    *(md->tok) = tokenize(s);
+    buildtreestruct(md);
+    ft_printtree(*(md->tree));
+    free(s);
+    printf("Test 1: End\n");
 
-/*     s = strdup("\'cat Makefile | grep -i SRC \' | wc -l"); */
-/*     printf("\nTest 2: input = <i>%s<\\i>\n", s); */
-/*     tokens = tokenize(s); */
-/*     tree = buildtreestruct(tokens); */
-/*     ft_printtree(tree); */
-/*     free(s); */
-/*     ft_freetree(&tree); */
-/*     printf("Test 2: End\n"); */
-/* } */
+    s = strdup("\'cat Makefile | grep -i SRC \' | wc -l");
+    printf("\nTest 2: input = <i>%s<\\i>\n", s);
+    md = ft_initmetadata();
+    *(md->tok) = tokenize(s);
+    buildtreestruct(md);
+    ft_printtree(*(md->tree));
+    free(s);
+    printf("Test 2: End\n");
+}
 // TEST PARSE: ENDING//
 
 // TEST TOKENIZE: BEGINING //

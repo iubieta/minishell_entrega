@@ -112,7 +112,7 @@ void append_tokens(t_token **tokens, char **arr, char *blob, char blob_type)
         add_token(tokens, blob, TOKEN_BLOB_SQ);
 }
 
-t_token **tokenize(char *s)
+t_token *tokenize(char *s)
 {
     t_token *tokens;
     char c;
@@ -130,5 +130,5 @@ t_token **tokenize(char *s)
         append_tokens(&tokens, arr, blob, c);
     }
     classify_tokens(&tokens);
-    return (&tokens);
+    return (tokens);
 }

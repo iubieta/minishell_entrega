@@ -46,6 +46,7 @@ void ft_printtree(t_tree *tree)
     {
         printf("TREE NODE: p=%p, right=%p, left=%p\n", tree, tree->right, tree->left);
         printf("type: %d\n", tree->type);
+        print_tokens_forward(tree->tok);
         args = tree->args;
         printf("args:");
         while (args)

@@ -70,7 +70,7 @@ typedef struct s_md
 } t_md;
 
 // Tokenizer
-t_token	**tokenize(char *input);
+t_token *tokenize(char *s);
 int is_redir_type(t_token *token);
 t_token *new_token(char *value, int type);
 t_token *add_token(t_token **root, char *value, int type);
@@ -78,7 +78,7 @@ void free_tokens(t_token *tokens);
 void print_tokens_forward(t_token *tokens);
 
 // Parser
-t_tree *buildtreestruct(t_md *md);
+void buildtreestruct(t_md *md);
 t_tree *buildtreenode(t_token *token, t_md *md);
 char **buildcommand(t_token *t, int words);
 
