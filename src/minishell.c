@@ -21,44 +21,48 @@
 // TEST SIGNALS: ENDING //
 
 // TEST EXEC: BEGINING //
-/* int main(void) */
-/* { */
-/*     printf("=== TEST PARSE===\n"); */
-/*     s = strdup("cat Makefile | grep -i SRC | wc -l"); */
-/*     printf("\nTest 1: input = <i>%s<\\i>\n", s); */
-/*     printf("flag00: HERE\n"); */
-/*     md = ft_initmetadata(); */
-/*     md->tok = tokenize(s); */
-/*     buildtreestruct(md); */
-/* } */
-// TEST EXEC: ENDING//
-
-
-// TEST PARSE: BEGINING //
 int main(void)
 {
     t_md *md;
     char *s;
 
-    printf("=== TEST PARSE===\n");
+    printf("=== TEST EXEC===\n");
     s = strdup("cat Makefile | grep -i SRC | wc -l");
     printf("\nTest 1: input = <i>%s<\\i>\n", s);
     md = ft_initmetadata();
     *(md->tok) = tokenize(s);
     buildtreestruct(md);
     ft_printtree(*(md->tree));
-    free(s);
-    printf("Test 1: End\n");
-
-    s = strdup("\'cat Makefile | grep -i SRC \' | wc -l");
-    printf("\nTest 2: input = <i>%s<\\i>\n", s);
-    md = ft_initmetadata();
-    *(md->tok) = tokenize(s);
-    buildtreestruct(md);
-    ft_printtree(*(md->tree));
-    free(s);
-    printf("Test 2: End\n");
+    ft_execcmd(md);
 }
+// TEST EXEC: ENDING//
+
+
+// TEST PARSE: BEGINING //
+/* int main(void) */
+/* { */
+/*     t_md *md; */
+/*     char *s; */
+
+/*     printf("=== TEST PARSE===\n"); */
+/*     s = strdup("cat Makefile | grep -i SRC | wc -l"); */
+/*     printf("\nTest 1: input = <i>%s<\\i>\n", s); */
+/*     md = ft_initmetadata(); */
+/*     *(md->tok) = tokenize(s); */
+/*     buildtreestruct(md); */
+/*     ft_printtree(*(md->tree)); */
+/*     free(s); */
+/*     printf("Test 1: End\n"); */
+
+/*     s = strdup("\'cat Makefile | grep -i SRC \' | wc -l"); */
+/*     printf("\nTest 2: input = <i>%s<\\i>\n", s); */
+/*     md = ft_initmetadata(); */
+/*     *(md->tok) = tokenize(s); */
+/*     buildtreestruct(md); */
+/*     ft_printtree(*(md->tree)); */
+/*     free(s); */
+/*     printf("Test 2: End\n"); */
+/* } */
 // TEST PARSE: ENDING//
 
 // TEST TOKENIZE: BEGINING //

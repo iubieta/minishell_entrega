@@ -125,6 +125,7 @@ char **ft_dup2parray(char **array);
 void ft_freetreenode(t_tree *n);
 void ft_freetree(t_tree **head);
 void ft_deletetreenode(t_tree *n, t_tree **head);
+char **ft_tokensto2parray(t_token *tok, t_md *md);
 void ft_printtree(t_tree *tree);
 
 #endif

@@ -38,6 +38,31 @@ void ft_deletetreenode(t_tree *n, t_tree **head)
     return ;
 }
 
+char **ft_tokensto2parray(t_token *tok, t_md *md)
+{
+    t_token *cur;
+    int i;
+    char **arr;
+
+    if (is_redir_type(tok))
+        return (NULL);
+    cur = tok;
+    i = 1;
+    while ((cur = cur->right) != NULL)
+        i++;
+    if ((arr = (char **)ft_calloc(i + 1, sizeof(char *))) == NULL)
+        ft_exitwithmallocerror(md);
+    cur = tok;
+    i = 0;
+    while (cur)
+    {
+        arr[i] = cur->value;
+        cur = cur->right;
+        i++;
+    }
+    return (arr);
+}
+
 void ft_printtree(t_tree *tree)
 {
     char **args;

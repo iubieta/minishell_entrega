@@ -40,14 +40,14 @@ void ft_childproc(t_md *md)
         dup2(fd[IPIPE][RDEND], STDIN_FILENO);
         close(fd[IPIPE][RDEND]);
     }
-    while (cmd->right->type == TOKEN_REDIR_IN || cmd->right->type == TOKEN_REDIR_HEREDOC)
+    while (cmd->right->type == TREE_REDIR)
     {
         return ;
         /* ft_leftredir(md); //esto catearia el archivo y borraria el node de la llist */
     }
-    if (cmd->right->type == TOKEN_PIPE)
+    if (cmd->right->tok->type == TOKEN_PIPE)
         dup2(fd[OPIPE][WREND], STDOUT_FILENO);
-    if (cmd->right->type == TOKEN_REDIR_OUT)
+    if (cmd->right->type == TREE_REDIR)
     {
         return ;
         /* ft_rightredir(md); */
@@ -63,8 +63,10 @@ void ft_execcmd(t_md *md)
     pid_t pid;
 
     cmd = md->tree[0];
+    printf("flag00\n");
     if (cmd->right)
     {
+        printf("flag01\n");
         if (pipe(md->fd[OPIPE]) == -1)
             ft_cleanup(md);
     }
@@ -72,6 +74,7 @@ void ft_execcmd(t_md *md)
         ft_cleanup(md);
     if (pid == 0)
         ft_childproc(md);
+    printf("flag02\n");
     md->fd[IPIPE][RDEND] = md->fd[OPIPE][RDEND];
     md->fd[IPIPE][WREND] = md->fd[OPIPE][WREND];
     close(md->fd[IPIPE][WREND]);

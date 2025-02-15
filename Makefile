@@ -29,12 +29,13 @@ WHITE = \033[0;97m
 
 # signals
 
-SRC_FILES	= minishell \
-		   	 tokenizer2 token_utils \
-			   parser \
-			   str_utils \
-				 init \
-			   tree_utils
+SRC_FILES	=	minishell \
+				tokenizer2 token_utils \
+				parser \
+				str_utils \
+				init \
+				tree_utils \
+				exec
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
