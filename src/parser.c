@@ -21,12 +21,12 @@ t_tree *buildtreenode(t_token *token, t_md *md)
     if((node = (t_tree *)malloc(sizeof(t_tree))) == NULL)
         ft_exitwithmallocerror(md);
     node->tok = token;
-    if (is_redir_type(token))
+    if (is_redir(token))
         node->type = TREE_REDIR;
     else
     {
         node->type = TREE_CMD;
-        while (!is_redir_type(token->right) && token->right != NULL)
+        while (!is_redir(token->right) && token->right != NULL)
             token = token->right;
     }
     *(md->tok) = token->right;

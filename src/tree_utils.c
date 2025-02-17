@@ -44,7 +44,7 @@ char **ft_tokensto2parray(t_token *tok, t_md *md)
     int i;
     char **arr;
 
-    if (is_redir_type(tok))
+    if (is_redir(tok))
         return (NULL);
     cur = tok;
     i = 1;
@@ -65,14 +65,16 @@ char **ft_tokensto2parray(t_token *tok, t_md *md)
 
 void ft_printtree(t_tree *tree)
 {
+    t_tree *t;
     char **args;
 
-    while (tree != NULL)
+    t = tree;
+    while (t!= NULL)
     {
-        printf("TREE NODE: p=%p, right=%p, left=%p\n", tree, tree->right, tree->left);
-        printf("type: %d\n", tree->type);
-        print_tokens_forward(tree->tok);
-        args = tree->args;
+        printf("TREE NODE: p=%p, right=%p, left=%p\n", t, t->right, t->left);
+        printf("type: %d\n", t->type);
+        print_tokens_forward(t->tok);
+        args = t->args;
         printf("args:");
         while (args)
         {
@@ -83,6 +85,6 @@ void ft_printtree(t_tree *tree)
             args++;
         }
         printf("\n");
-        tree = tree->right;
+        t= t->right;
     }
 }

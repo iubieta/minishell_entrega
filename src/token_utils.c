@@ -12,17 +12,6 @@
 
 #include "minishell.h"
 
-int is_redir_type(t_token *token)
-{
-  if (!token)
-    return(0);
-  return (token->type == TOKEN_REDIR_APPEND || \
-          token->type == TOKEN_REDIR_OUT || \
-          token->type == TOKEN_REDIR_IN || \
-          token->type == TOKEN_REDIR_HEREDOC || \
-          token->type == TOKEN_PIPE );
-}
-
 t_token *new_token(char *value, int type)
 {
   t_token *token;

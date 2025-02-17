@@ -35,7 +35,8 @@ SRC_FILES	=	minishell \
 				str_utils \
 				init \
 				tree_utils \
-				exec
+				exec \
+				redir_types
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -70,7 +71,7 @@ clean:
 			@echo "$(CYAN)$(LIBFT) executable files succesfully cleaned!$(DEF_COLOR)"
 			@$(RM) -rf $(OBJ_DIR)
 			@echo "$(BLUE)$(NAME) object files succesfully cleaned!$(DEF_COLOR)"
-			@$(RM) -f $(SRC_DIR)/$(minishell.h.gch)
+			@$(RM) -f $(SRC_DIR)/minishell.h.gch
 
 fclean:		clean
 			@$(RM) -f $(NAME)

@@ -71,7 +71,6 @@ typedef struct s_md
 
 // Tokenizer
 t_token *tokenize(char *s);
-int is_redir_type(t_token *token);
 t_token *new_token(char *value, int type);
 t_token *add_token(t_token **root, char *value, int type);
 void free_tokens(t_token *tokens);
@@ -83,16 +82,16 @@ t_tree *buildtreenode(t_token *token, t_md *md);
 char **buildcommand(t_token *t, int words);
 
 // Exec
-int **initfdarray(void);
+void ft_childproc(t_tree *tree, t_md *md);
+void ft_parentproc(t_tree *tree, t_md *md);
 void ft_execcmd(t_md *md);
-void ft_childproc(t_md *md);
-void ft_cleanup(t_md *metad);
 void ft_rightredir(t_tree *t, int fd[2][2], char **env);
 void ft_leftredir(t_tree *t, t_md *md);
-void addcat(t_tree *t);
 
 // Init
 t_md *ft_initmetadata(void);
+int **initfdarray(void);
+void ft_cleanup(t_md *metad);
 void	sig_init();
 void ft_exitwithmallocerror(t_md *md);
 
@@ -127,5 +126,11 @@ void ft_freetree(t_tree **head);
 void ft_deletetreenode(t_tree *n, t_tree **head);
 char **ft_tokensto2parray(t_token *tok, t_md *md);
 void ft_printtree(t_tree *tree);
+
+// Redir types helpers
+int is_redir(t_token *token);
+int is_lredir(t_token *token);
+int is_rredir(t_token *token);
+int is_pipe(t_token *token);
 
 #endif
