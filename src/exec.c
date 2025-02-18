@@ -19,24 +19,28 @@ void ft_childproc(t_tree *tree, t_md *md)
         dup2(fd[IPIPE][RDEND], STDIN_FILENO);
         close(fd[IPIPE][RDEND]);
     }
-    if (is_lredir(next->tok))
-    {
-        fprintf(stderr, "flag11\n");
-        return ;
-        /* ft_leftredir(md); //esto catearia el archivo y borraria el node de la llist */
-    }
-    else if (is_pipe(next->tok))
-    {
-        fprintf(stderr, "flag12\n");
-        dup2(fd[OPIPE][WREND], STDOUT_FILENO);
-    }
-    else if (is_rredir(next->tok))
-    {
-        fprintf(stderr, "flag13\n");
-        return ;
-        /* ft_rightredir(md); */
-    }
-    fprintf(stderr, "flag14\n");
+    fprintf(stderr, "flag10.5\n");
+	if (next)
+	{
+		if (is_lredir(next->tok))
+		{
+			fprintf(stderr, "flag11\n");
+			return ;
+			/* ft_leftredir(md); //esto catearia el archivo y borraria el node de la llist */
+		}
+		else if (is_pipe(next->tok))
+		{
+			fprintf(stderr, "flag12\n");
+			dup2(fd[OPIPE][WREND], STDOUT_FILENO);
+		}
+		else if (is_rredir(next->tok))
+		{
+			fprintf(stderr, "flag13\n");
+			return ;
+			/* ft_rightredir(md); */
+		}
+	}
+	fprintf(stderr, "flag14\n");
     close(fd[OPIPE][RDEND]);
     execve(program, cmd, NULL);
     close(fd[OPIPE][WREND]);

@@ -47,6 +47,7 @@ typedef struct s_tree
 	t_treetype	  type;
 	struct s_token *tok;
 	char		  **args;
+	char          **paths;
 	struct s_tree *left;
 	struct s_tree *right;
 }	t_tree;
