@@ -32,7 +32,7 @@ int main(void)
     md = ft_initmetadata();
     *(md->tok) = tokenize(s);
     buildtreestruct(md);
-    ft_printtree(*(md->tree));
+    /* ft_printtree(*(md->tree)); */
     ft_execcmd(md);
 }
 // TEST EXEC: ENDING//

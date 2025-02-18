@@ -88,3 +88,29 @@ void ft_printtree(t_tree *tree)
         t= t->right;
     }
 }
+
+void ft_printtreeinerror(t_tree *tree)
+{
+    t_tree *t;
+    char **args;
+
+    t = tree;
+    while (t!= NULL)
+    {
+        fprintf(stderr, "TREE NODE: p=%p, right=%p, left=%p\n", t, t->right, t->left);
+        fprintf(stderr, "type: %d\n", t->type);
+        print_tokens_forward(t->tok);
+        args = t->args;
+        fprintf(stderr, "args:");
+        while (args)
+        {
+            if (*args)
+                fprintf(stderr, " %s", *args);
+            else
+                break;
+            args++;
+        }
+        fprintf(stderr, "\n");
+        t= t->right;
+    }
+}

@@ -5,36 +5,40 @@ void ft_childproc(t_tree *tree, t_md *md)
     char **cmd;
     int **fd;
     t_tree *next;
+    char program[256];
 
     fd = md->fd;
     cmd = tree->args;
     next = tree->right;
+    ft_memset(program, '\0', 256);
+    ft_strlcat(program, "/bin/", ft_strlen("/bin/") + 1);
+    ft_strlcat(program, *cmd, 50);
     if (fd[IPIPE][RDEND] != -1)
     {
-        printf("flag10\n");
+        fprintf(stderr, "flag10\n");
         dup2(fd[IPIPE][RDEND], STDIN_FILENO);
         close(fd[IPIPE][RDEND]);
     }
     if (is_lredir(next->tok))
     {
-        printf("flag11\n");
+        fprintf(stderr, "flag11\n");
         return ;
         /* ft_leftredir(md); //esto catearia el archivo y borraria el node de la llist */
     }
     else if (is_pipe(next->tok))
     {
-        printf("flag12, %s\n", *cmd);
+        fprintf(stderr, "flag12\n");
         dup2(fd[OPIPE][WREND], STDOUT_FILENO);
     }
     else if (is_rredir(next->tok))
     {
-        printf("flag13\n");
+        fprintf(stderr, "flag13\n");
         return ;
         /* ft_rightredir(md); */
     }
-    printf("flag14\n");
+    fprintf(stderr, "flag14\n");
     close(fd[OPIPE][RDEND]);
-    execve(cmd[0], cmd, *(md->env));
+    execve(program, cmd, NULL);
     close(fd[OPIPE][WREND]);
 }
 
@@ -42,20 +46,21 @@ void ft_parentproc(t_tree *tree, t_md *md)
 {
     pid_t pid;
 
-    tree = *(md->tree);
-    printf("flag00, %s, %s\n", (tree->args)[0], (tree->args[1]));
-    execve(*(tree->args), tree->args, NULL);
-    if (tree ->right)
+    if (tree->right)
     {
-        printf("flag01\n");
+        printf("flag03\n");
         if (pipe(md->fd[OPIPE]) == -1)
             ft_cleanup(md);
     }
     if ((pid = fork()) == -1)
         ft_cleanup(md);
     if (pid == 0)
+    {
+        fprintf(stderr, "flag04\n");
+        ft_printtreeinerror(tree);
         ft_childproc(tree, md);
-    printf("flag02\n");
+    }
+    printf("flag05\n");
     md->fd[IPIPE][RDEND] = md->fd[OPIPE][RDEND];
     md->fd[IPIPE][WREND] = md->fd[OPIPE][WREND];
     close(md->fd[IPIPE][WREND]);
@@ -69,7 +74,12 @@ void ft_execcmd(t_md *md)
     while (tree)
     {
         if (tree->type == TREE_CMD)
+        {
+            fprintf(stderr, "this is stderror\n");
+            printf("flag000\n");
+            /* ft_printtree(tree); */
             ft_parentproc(tree, md);
+        }
         tree = tree->right;
     }
 }
