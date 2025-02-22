@@ -1,18 +1,18 @@
-/* ************************************************************************* */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/01 23:32:57 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/01/01 23:33:02 by iubieta-         ###   ########.fr       */
+/*   Created: 2025/02/22 17:27:11 by iubieta-          #+#    #+#             */
+/*   Updated: 2025/02/22 17:28:27 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int add_redir_token(char *input, t_token **tokens)
+static int	add_redir_token(char *input, t_token **tokens)
 {
 	int	i;
 
@@ -40,9 +40,9 @@ static int add_redir_token(char *input, t_token **tokens)
 	return (i);
 }
 
-static int add_env_var_token(char *input, t_token **tokens)
+static int	add_env_var_token(char *input, t_token **tokens)
 {
-	int	i;
+	int		i;
 	char	start;
 	char	*word;
 
@@ -67,10 +67,10 @@ static int add_env_var_token(char *input, t_token **tokens)
 	return (i);
 }
 
-static int add_word_token(char *input, t_token **tokens)
+static int	add_word_token(char *input, t_token **tokens)
 {
-	int i;
-	int start;
+	int	i;
+	int	start;
 
 	i = 0;
 	if (input[i])
@@ -95,11 +95,11 @@ static int add_word_token(char *input, t_token **tokens)
 	return (++i);
 }
 
-t_token *tokenize(char *input)
+t_token	*tokenize(char *input)
 {
-	t_token *tokens;
-	int i;
-	int j;
+	t_token	*tokens;
+	int		i;
+	int		j;
 
 	tokens = NULL;
 	i = 0;

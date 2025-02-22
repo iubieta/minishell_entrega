@@ -1,30 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/22 16:15:10 by iubieta-          #+#    #+#             */
+/*   Updated: 2025/02/22 16:22:03 by iubieta-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void ft_echo(t_tree *node)
+void	ft_echo(t_tree *node)
 {
-    int i;
-    int flag;
-    char **args;
+	int		i;
+	int		flag;
+	char	**args;
 
-    flag = 0;
-    args = node->args;
-    if (args[1] == NULL)
-    {
-        printf("\n");
-        return;
-    }
-    i = 0;
-    if (strncmp(args[++i], "-n", 2) == 0)
-        flag = 1;
-    i+= flag;
-    if (args[i])
-        printf("%s", args[i]);
-    else
-        return;
-    while (args[++i])
-        printf(" %s", args[i]);
-    if (!flag)
-        printf("\n");
+	flag = 0;
+	args = node->args;
+	if (args[1] == NULL)
+	{
+		printf("\n");
+		return ;
+	}
+	i = 0;
+	if (strncmp(args[++i], "-n", 2) == 0)
+		flag = 1;
+	i += flag;
+	if (args[i])
+		printf("%s", args[i]);
+	else
+		return ;
+	while (args[++i])
+		printf(" %s", args[i]);
+	if (!flag)
+		printf("\n");
 }
 
 /* int main (void) */

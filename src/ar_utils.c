@@ -102,4 +102,3 @@ void	ft_arfree(char **array)
 	array = NULL;
 	return ;
 }
-

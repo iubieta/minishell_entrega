@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 13:16:20 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/01/02 13:25:00 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/02/22 16:47:32 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 void	ft_pwd(char **args)
 {
-	char *current_dir;
+	char	*current_dir;
 
 	if (args && args[1])
 	{
 		printf("pwd: too many arguments\n");
 		return ;
 	}
-
 	current_dir = getcwd(NULL, 0);
 	printf("%s\n", current_dir);
 }

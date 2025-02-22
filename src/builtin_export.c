@@ -6,18 +6,27 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 16:44:15 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/01/12 19:38:54 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/02/22 16:46:39 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_armod(char	**ar_pos, char	*str)
+{
+	char	*del;
+
+	del = *ar_pos;
+	*ar_pos = ft_strdup(str);
+	free(del);
+	del = NULL;
+}
 
 void	ft_export(char ***env_ptr, char **args)
 {
 	char	**env;
 	size_t	i;
 	size_t	j;
-	char	*del;
 	char	*var;
 
 	if (!args || !env_ptr)
@@ -30,14 +39,9 @@ void	ft_export(char ***env_ptr, char **args)
 	while (args[i])
 	{
 		var = ft_substr(args[i], 0, ft_indexof(args[i], '='));
-		j = ft_envfind(env, var); 
+		j = ft_envfind(env, var);
 		if (env[j])
-		{
-			del = env[j];
-			env[j] = ft_strdup(args[i]);
-			free(del);
-			del = NULL;
-		}
+			ft_armod(&env[j], args[i]);
 		else
 			env = ft_arcat(env, args[i]);
 		i++;
@@ -132,4 +136,3 @@ void	ft_export(char ***env_ptr, char **args)
 // 	ft_arfree(args);
 //
 // }
-//

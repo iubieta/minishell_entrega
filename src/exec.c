@@ -1,25 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/22 16:49:50 by iubieta-          #+#    #+#             */
+/*   Updated: 2025/02/22 16:57:46 by iubieta-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void ft_childproc(t_tree *tree, t_md *md)
+void	ft_childproc(t_tree *tree, t_md *md)
 {
-    char **cmd;
-    int **fd;
-    t_tree *next;
-    char program[256];
+	char	**cmd;
+	int		**fd;
+	t_tree	*next;
+	char	program[256];
 
-    fd = md->fd;
-    cmd = tree->args;
-    next = tree->right;
-    ft_memset(program, '\0', 256);
-    ft_strlcat(program, "/bin/", ft_strlen("/bin/") + 1);
-    ft_strlcat(program, *cmd, 50);
-    if (fd[IPIPE][RDEND] != -1)
-    {
-        fprintf(stderr, "flag10\n");
-        dup2(fd[IPIPE][RDEND], STDIN_FILENO);
-        close(fd[IPIPE][RDEND]);
-    }
-    fprintf(stderr, "flag10.5\n");
+	fd = md->fd;
+	cmd = tree->args;
+	next = tree->right;
+	ft_memset(program, '\0', 256);
+	ft_strlcat(program, "/bin/", ft_strlen("/bin/") + 1);
+	ft_strlcat(program, *cmd, 50);
+	if (fd[IPIPE][RDEND] != -1)
+	{
+		fprintf(stderr, "flag10\n");
+		dup2(fd[IPIPE][RDEND], STDIN_FILENO);
+		close(fd[IPIPE][RDEND]);
+	}
+	fprintf(stderr, "flag10.5\n");
 	if (next)
 	{
 		if (is_lredir(next->tok))
@@ -41,49 +53,51 @@ void ft_childproc(t_tree *tree, t_md *md)
 		}
 	}
 	fprintf(stderr, "flag14\n");
-    close(fd[OPIPE][RDEND]);
-    execve(program, cmd, NULL);
-    close(fd[OPIPE][WREND]);
+	close(fd[OPIPE][RDEND]);
+	execve(program, cmd, NULL);
+	close(fd[OPIPE][WREND]);
 }
 
-void ft_parentproc(t_tree *tree, t_md *md)
+void	ft_parentproc(t_tree *tree, t_md *md)
 {
-    pid_t pid;
+	pid_t	pid;
 
-    if (tree->right)
-    {
-        printf("flag03\n");
-        if (pipe(md->fd[OPIPE]) == -1)
-            ft_cleanup(md);
-    }
-    if ((pid = fork()) == -1)
-        ft_cleanup(md);
-    if (pid == 0)
-    {
-        fprintf(stderr, "flag04\n");
-        ft_printtreeinerror(tree);
-        ft_childproc(tree, md);
-    }
-    printf("flag05\n");
-    md->fd[IPIPE][RDEND] = md->fd[OPIPE][RDEND];
-    md->fd[IPIPE][WREND] = md->fd[OPIPE][WREND];
-    close(md->fd[IPIPE][WREND]);
-    waitpid(pid, NULL, 0);
+	if (tree->right)
+	{
+		printf("flag03\n");
+		if (pipe(md->fd[OPIPE]) == -1)
+			ft_cleanup(md);
+	}
+	pid = fork();
+	if (pid == -1)
+		ft_cleanup(md);
+	if (pid == 0)
+	{
+		fprintf(stderr, "flag04\n");
+		ft_printtreeinerror(tree);
+		ft_childproc(tree, md);
+	}
+	printf("flag05\n");
+	md->fd[IPIPE][RDEND] = md->fd[OPIPE][RDEND];
+	md->fd[IPIPE][WREND] = md->fd[OPIPE][WREND];
+	close(md->fd[IPIPE][WREND]);
+	waitpid(pid, NULL, 0);
 }
 
-void ft_execcmd(t_md *md)
+void	ft_execcmd(t_md *md)
 {
-    t_tree *tree;
-    tree = *(md->tree);
-    while (tree)
-    {
-        if (tree->type == TREE_CMD)
-        {
-            fprintf(stderr, "this is stderror\n");
-            printf("flag000\n");
-            /* ft_printtree(tree); */
-            ft_parentproc(tree, md);
-        }
-        tree = tree->right;
-    }
+	t_tree	*tree;
+
+	tree = *(md->tree);
+	while (tree)
+	{
+		if (tree->type == TREE_CMD)
+		{
+			fprintf(stderr, "this is stderror\n");
+			printf("flag000\n");
+			/* ft_printtree(tree); */
+			ft_parentproc(tree, md);
+		}
+		tree = tree->right;
+	}
 }
