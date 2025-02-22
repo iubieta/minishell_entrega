@@ -34,6 +34,7 @@ void	ft_childproc(t_tree *tree, t_md *md)
 	fprintf(stderr, "flag10.5\n");
 	if (next)
 	{
+        fprintf(stderr, "flag10.6 %p\n", next);
 		if (is_lredir(next->tok))
 		{
 			fprintf(stderr, "flag11\n");
