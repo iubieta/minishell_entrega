@@ -6,11 +6,13 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:49:50 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/02/22 16:57:46 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/02/23 22:38:22 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 void	ft_childproc(t_tree *tree, t_md *md)
 {
@@ -102,3 +104,4 @@ void	ft_execcmd(t_md *md)
 		tree = tree->right;
 	}
 }
+

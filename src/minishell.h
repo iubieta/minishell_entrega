@@ -120,6 +120,7 @@ char	*ft_expand_var(char **env, char *var);
 
 char **ft_dup2parray(char **array);
 
+char	*ft_findbin(char *bin);
 
 // Tree linked list utils
 void ft_freetreenode(t_tree *n);

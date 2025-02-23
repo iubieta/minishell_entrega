@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/22 17:04:07 by iubieta-          #+#    #+#             */
+/*   Updated: 2025/02/22 17:42:41 by iubieta-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include <readline/readline.h>
 // #include <string.h>
@@ -23,17 +35,17 @@
 // TEST EXEC: BEGINING //
 int main(void)
 {
-    t_md *md;
-    char *s;
+	t_md *md;
+	char *s;
 
-    printf("=== TEST EXEC===\n");
-    s = strdup("cat Makefile | grep -i SRC | wc -l");
-    printf("\nTest 1: input = <i>%s<\\i>\n", s);
-    md = ft_initmetadata();
-    *(md->tok) = tokenize(s);
-    buildtreestruct(md);
-    /* ft_printtree(*(md->tree)); */
-    ft_execcmd(md);
+	printf("=== TEST EXEC===\n");
+	s = strdup("cat Makefile | grep -i SRC | wc -l");
+	printf("\nTest 1: input = <i>%s<\\i>\n", s);
+	md = ft_initmetadata();
+	*(md->tok) = tokenize(s);
+	buildtreestruct(md);
+	/* ft_printtree(*(md->tree)); */
+	ft_execcmd(md);
 }
 // TEST EXEC: ENDING//
 
