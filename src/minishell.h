@@ -90,11 +90,11 @@ void ft_rightredir(t_tree *t, int fd[2][2], char **env);
 void ft_leftredir(t_tree *t, t_md *md);
 
 // Init
-t_md *ft_initmetadata(void);
-int **initfdarray(void);
-void ft_cleanup(t_md *metad);
+t_md	*ft_initmetadata(void);
+int		**initfdarray(void);
+void	ft_cleanup(t_md *metad);
 void	sig_init();
-void ft_exitwithmallocerror(t_md *md);
+void	ft_exitwithmallocerror(t_md *md);
 
 // Builtins
 // void	ft_echo(t_ast_node *node);

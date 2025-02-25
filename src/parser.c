@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <time.h>
 
 t_tree	*buildtreenode(t_token *token, t_md *md)
 {
@@ -33,6 +34,8 @@ t_tree	*buildtreenode(t_token *token, t_md *md)
 	*(md->tok) = token->right;
 	token->right = NULL;
 	node->args = ft_tokensto2parray(node->tok, md);
+	node->left = NULL;
+	node->right = NULL;
 	return (node);
 }
 
@@ -48,7 +51,10 @@ void	buildtreestruct(t_md *md)
 		if (!tmp)
 			*(md->tree) = node;
 		else
+		{
 			tmp->right = node;
+			node->left = tmp;
+		}
 		tmp = node;
 	}
 }

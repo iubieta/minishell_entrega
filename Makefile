@@ -6,7 +6,7 @@ INCLUDE = inc/
 SRC_DIR	= src/
 OBJ_DIR	= obj/
 CC		= gcc
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra -g
 RM		= rm -f
 
 LIBFT		= $(addprefix $(INCLUDE), libft/)
@@ -29,14 +29,17 @@ WHITE = \033[0;97m
 
 # signals
 
-SRC_FILES	=	minishell \
+SRC_FILES	=	minishell init signals\
 				tokenizer2 token_utils \
-				parser \
-				str_utils \
-				init \
+				parser redir_types \
+				str_utils ar_utils \
 				tree_utils \
-				exec \
-				redir_types
+				exec exec_utils \
+				builtin_pwd builtin_cd \
+				builtin_echo \
+				builtin_exit \
+				builtin_env builtin_export builtin_unset env_utils \
+
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))

@@ -29,33 +29,33 @@ void	ft_childproc(t_tree *tree, t_md *md)
 	ft_strlcat(program, *cmd, 50);
 	if (fd[IPIPE][RDEND] != -1)
 	{
-		fprintf(stderr, "flag10\n");
+		//fprintf(stderr, "flag10\n");
 		dup2(fd[IPIPE][RDEND], STDIN_FILENO);
 		close(fd[IPIPE][RDEND]);
 	}
-	fprintf(stderr, "flag10.5\n");
+	//fprintf(stderr, "flag10.5\n");
 	if (next)
 	{
-        fprintf(stderr, "flag10.6 %p\n", next);
+        //fprintf(stderr, "flag10.6 %p\n", next);
 		if (is_lredir(next->tok))
 		{
-			fprintf(stderr, "flag11\n");
+			//fprintf(stderr, "flag11\n");
 			return ;
 			/* ft_leftredir(md); //esto catearia el archivo y borraria el node de la llist */
 		}
 		else if (is_pipe(next->tok))
 		{
-			fprintf(stderr, "flag12\n");
+			//fprintf(stderr, "flag12\n");
 			dup2(fd[OPIPE][WREND], STDOUT_FILENO);
 		}
 		else if (is_rredir(next->tok))
 		{
-			fprintf(stderr, "flag13\n");
+			//fprintf(stderr, "flag13\n");
 			return ;
 			/* ft_rightredir(md); */
 		}
 	}
-	fprintf(stderr, "flag14\n");
+	//fprintf(stderr, "flag14\n");
 	close(fd[OPIPE][RDEND]);
 	execve(program, cmd, NULL);
 	close(fd[OPIPE][WREND]);
@@ -67,7 +67,7 @@ void	ft_parentproc(t_tree *tree, t_md *md)
 
 	if (tree->right)
 	{
-		printf("flag03\n");
+		//printf("flag03\n");
 		if (pipe(md->fd[OPIPE]) == -1)
 			ft_cleanup(md);
 	}
@@ -76,11 +76,11 @@ void	ft_parentproc(t_tree *tree, t_md *md)
 		ft_cleanup(md);
 	if (pid == 0)
 	{
-		fprintf(stderr, "flag04\n");
+		//fprintf(stderr, "flag04\n");
 		ft_printtreeinerror(tree);
 		ft_childproc(tree, md);
 	}
-	printf("flag05\n");
+	//printf("flag05\n");
 	md->fd[IPIPE][RDEND] = md->fd[OPIPE][RDEND];
 	md->fd[IPIPE][WREND] = md->fd[OPIPE][WREND];
 	close(md->fd[IPIPE][WREND]);
@@ -96,8 +96,8 @@ void	ft_execcmd(t_md *md)
 	{
 		if (tree->type == TREE_CMD)
 		{
-			fprintf(stderr, "this is stderror\n");
-			printf("flag000\n");
+			//fprintf(stderr, "this is stderror\n");
+			//printf("flag000\n");
 			/* ft_printtree(tree); */
 			ft_parentproc(tree, md);
 		}

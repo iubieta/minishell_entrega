@@ -37,11 +37,11 @@ char	*ft_findbin(char *bin)
 }
 // TEST 
 //
-int	main()
-{
-	printf("Ejecutable: %s\n", ft_findbin("./a.out"));
-	printf("Ejecutable: %s\n", ft_findbin("../minishell"));
-	printf("Ejecutable: %s\n", ft_findbin("/pwd"));
-	printf("Ejecutable: %s\n", ft_findbin("/vim"));
-	printf("Ejecutable: %s\n", ft_findbin("/nada"));
-}
+// int	main()
+// {
+// 	printf("Ejecutable: %s\n", ft_findbin("./a.out"));
+// 	printf("Ejecutable: %s\n", ft_findbin("../minishell"));
+// 	printf("Ejecutable: %s\n", ft_findbin("/pwd"));
+// 	printf("Ejecutable: %s\n", ft_findbin("/vim"));
+// 	printf("Ejecutable: %s\n", ft_findbin("/nada"));
+// }

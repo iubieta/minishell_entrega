@@ -60,9 +60,11 @@ char	**ft_tokensto2parray(t_token *tok, t_md *md)
 		return (NULL);
 	cur = tok;
 	i = 1;
-	cur = cur->right;
 	while (cur != NULL)
+	{
 		i++;
+		cur = cur->right;
+	}
 	arr = (char **)ft_calloc(i + 1, sizeof(char *));
 	if (arr == NULL)
 		ft_exitwithmallocerror(md);

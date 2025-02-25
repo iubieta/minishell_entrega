@@ -14,39 +14,59 @@
 #include <readline/readline.h>
 // #include <string.h>
 
+ // void	prompt_loop()
+ // {
+ // 	char *line;
+ //
+ // 	sig_init();
+ // 	while (1)
+ // 	{
+ // 		line = readline(">>");
+ // 		if (!line)
+ // 		{
+ // 			printf("exit\n");
+ // 			break;
+ // 		}
+ // 	}
+ // }
 // TEST SIGNALS: BEGGINING //
-/* void	prompt_loop() */
-/* { */
-/* 	char *line; */
+int main()
+{
+	t_md	*md;
+	char	*input;
 
-/* 	sig_init(); */
-/* 	while (1) */
-/* 	{ */
-/* 		line = readline(">>"); */
-/* 		if (!line) */
-/* 		{ */
-/* 			printf("exit\n"); */
-/* 			break; */
-/* 		} */
-/* 	} */
-/* } */
+ 	while (1)
+ 	{
+ 		input = readline(">>");
+ 		if (!input)
+ 		{
+ 			printf("exit\n");
+ 			break;
+ 		}
+		md = ft_initmetadata();
+		*(md->tok) = tokenize(input);
+		buildtreestruct(md);
+		ft_printtree(*(md->tree));
+		ft_execcmd(md);
+ 	}
+}
 // TEST SIGNALS: ENDING //
 
 // TEST EXEC: BEGINING //
-int main(void)
-{
-	t_md *md;
-	char *s;
-
-	printf("=== TEST EXEC===\n");
-	s = strdup("cat Makefile | grep -i SRC | wc -l");
-	printf("\nTest 1: input = <i>%s<\\i>\n", s);
-	md = ft_initmetadata();
-	*(md->tok) = tokenize(s);
-	buildtreestruct(md);
-	/* ft_printtree(*(md->tree)); */
-	ft_execcmd(md);
-}
+// int main(void)
+// {
+// 	t_md *md;
+// 	char *s;
+//
+// 	printf("=== TEST EXEC===\n");
+// 	s = strdup("cat Makefile | grep -i SRC | wc -l");
+// 	printf("\nTest 1: input = <i>%s<\\i>\n", s);
+// 	md = ft_initmetadata();
+// 	*(md->tok) = tokenize(s);
+// 	buildtreestruct(md);
+// 	/* ft_printtree(*(md->tree)); */
+// 	ft_execcmd(md);
+// }
 // TEST EXEC: ENDING//
 
 
