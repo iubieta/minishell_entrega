@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
+/*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:14:26 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/02/22 17:23:53 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/03/08 12:53:01 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,19 @@ int	count_quoted_chars(char *input)
 			i++;
 	}
 	return (i);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	unsigned char	*cs1;
+	unsigned char	*cs2;
+
+	cs1 = (unsigned char *) s1;
+	cs2 = (unsigned char *) s2;
+	while (*cs1 == *cs2 && *cs1 && *cs2)
+	{
+		cs1 ++;
+		cs2 ++;
+	}
+	return (*cs1 - *cs2);
 }

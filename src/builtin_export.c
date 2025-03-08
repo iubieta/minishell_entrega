@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
+/*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 16:44:15 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/02/22 16:46:39 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:42:37 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_export(char ***env_ptr, char **args)
 		printf("export: not enough arguments\n");
 		return ;
 	}
-	i = 0;
+	i = 1;
 	env = *env_ptr;
 	while (args[i])
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
+/*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 17:04:07 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/02/22 17:42:41 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/03/08 12:42:08 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int main()
 	t_md	*md;
 	char	*input;
 
+	md = ft_initmetadata();
  	while (1)
  	{
  		input = readline(">>");
@@ -43,10 +44,9 @@ int main()
  			printf("exit\n");
  			break;
  		}
-		md = ft_initmetadata();
 		*(md->tok) = tokenize(input);
 		buildtreestruct(md);
-		ft_printtree(*(md->tree));
+		//ft_printtree(*(md->tree));
 		ft_execcmd(md);
  	}
 }

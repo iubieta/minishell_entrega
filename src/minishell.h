@@ -67,7 +67,7 @@ typedef struct s_md
 	struct s_token **tok;
 	struct s_tree **tree;
 	int **fd;
-	char ***env;
+	char **env;
 } t_md;
 
 // Tokenizer
@@ -97,17 +97,19 @@ void	sig_init();
 void	ft_exitwithmallocerror(t_md *md);
 
 // Builtins
-// void	ft_echo(t_ast_node *node);
+void	ft_echo(char **args);
 void	ft_pwd(char **args);
 void	ft_cd(char **args);
 void	ft_env(char **env);
 void	ft_export(char ***env_ptr, char **args);
 void	ft_unset(char ***env_ptr, char **args);
+void	ft_exit(t_md *md);
 
 // Utils
 size_t	ft_indexof(char *str, char c);
 int		is_special_char(char c);
 int		count_quoted_chars(char *input);
+int		ft_strcmp(const char *s1, const char *s2);
 
 char	**ft_arremove(char **array, size_t del);
 char	**ft_arcat(char **array, char *ptr);

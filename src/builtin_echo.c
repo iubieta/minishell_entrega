@@ -3,23 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
+/*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:15:10 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/02/22 16:22:03 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:29:40 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_echo(t_tree *node)
+void	ft_echo(char **args)
 {
 	int		i;
 	int		flag;
-	char	**args;
 
 	flag = 0;
-	args = node->args;
 	if (args[1] == NULL)
 	{
 		printf("\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
+/*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 19:08:36 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/02/22 17:02:51 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:26:49 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_cleanup(t_md *md)
 	ft_freetree(md->tree);
 	free(md->fd[0]);
 	free(md->fd);
-	ft_free2parray(md->env[0]);
+	ft_free2parray(md->env);
 	free(md);
 	md = NULL;
 }
@@ -48,10 +48,12 @@ void	ft_exitwithmallocerror(t_md *md)
 t_md	*ft_initmetadata(void)
 {
 	t_md	*md;
-	/* extern char **environ; */
+	extern char **environ;
+	
 	md = (t_md *)malloc(sizeof(t_md));
 	if (md == NULL)
 		ft_exitwithmallocerror(md);
+	md->env = ft_dup2parray(environ);
 	md->tok = (t_token **)malloc(sizeof(t_token *));
 	if (md->tok == NULL)
 		ft_exitwithmallocerror(md);

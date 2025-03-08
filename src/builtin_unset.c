@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
+/*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 15:55:07 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/02/22 16:48:00 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:52:17 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,15 @@ void	ft_unset(char ***env_ptr, char **args)
 		printf("unset: not enough arguments\n");
 		return ;
 	}
-	i = 0;
+	i = 1;
 	env = *env_ptr;
 	while (args[i])
 	{
 		j = ft_envfind(env, args[i]);
 		if (!env[j])
 			printf("unset: %s: invalid parameter name\n", args[i]);
-		env = ft_arremove(env, j);
+		else
+			env = ft_arremove(env, j);
 		i++;
 	}
 	*env_ptr = env;

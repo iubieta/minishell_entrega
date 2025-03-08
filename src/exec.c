@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
+/*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:49:50 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/02/23 22:38:22 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:53:23 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_parentproc(t_tree *tree, t_md *md)
 	if (pid == 0)
 	{
 		//fprintf(stderr, "flag04\n");
-		ft_printtreeinerror(tree);
+		//ft_printtreeinerror(tree);
 		ft_childproc(tree, md);
 	}
 	//printf("flag05\n");
@@ -87,6 +87,36 @@ void	ft_parentproc(t_tree *tree, t_md *md)
 	waitpid(pid, NULL, 0);
 }
 
+// REVISAR
+
+int is_builtin(char *cmd)
+{
+    return (!ft_strcmp(cmd, "cd") || 
+			!ft_strcmp(cmd, "export") ||
+			!ft_strcmp(cmd, "unset") ||
+            !ft_strcmp(cmd, "env") || 
+			!ft_strcmp(cmd, "exit") || 
+			!ft_strcmp(cmd, "echo") ||
+            !ft_strcmp(cmd, "pwd"));
+}
+
+void execute_builtin(char **args, t_md *md)
+{
+    if (!ft_strcmp(args[0], "cd"))
+        ft_cd(args);
+	else if (!ft_strcmp(args[0], "export"))
+        ft_export(&md->env, args);
+    else if (!ft_strcmp(args[0], "unset"))
+        ft_unset(&md->env, args);
+    else if (!ft_strcmp(args[0], "env"))
+        ft_env(md->env);
+	else if (!ft_strcmp(args[0], "exit"))
+		ft_exit(md);
+	else if (!ft_strcmp(args[0], "echo"))
+        ft_echo(args);
+    else if (!ft_strcmp(args[0], "pwd"))
+        ft_pwd(args);
+}
 void	ft_execcmd(t_md *md)
 {
 	t_tree	*tree;
@@ -99,7 +129,11 @@ void	ft_execcmd(t_md *md)
 			//fprintf(stderr, "this is stderror\n");
 			//printf("flag000\n");
 			/* ft_printtree(tree); */
-			ft_parentproc(tree, md);
+			if (is_builtin(tree->args[0]))
+				execute_builtin(tree->args, md);
+			else
+				ft_parentproc(tree, md);
+			// Buscar como implementar builtins sin forkear
 		}
 		tree = tree->right;
 	}

@@ -30,7 +30,7 @@ El algoritmo se basa en una funcion recursiva que profundiza a medida que encuen
 1. Resolver las operaciones a medida que se navega el arbol.
 2. Navegar el arbol y reordenarlo en forma de linked list.
 
-# Variebles de entorno
+# Variables de entorno
 
 export:
 - Si getenv() NO es NULL: hacer free al *p devueldo, luego strdup con el nuevo valor y *p = valor_nuevo
@@ -42,3 +42,14 @@ se detecta la necesidad de crear una varialbe nueva que contenga las varibles de
 - Cada vez que se introduzca un comando de tipo definir variable, se appendeara un nuevo valor a esta variable "localenv"
 - cuando se llame a export cojeremos la variable definida en "localenv" y la appendearemos al extern char *environ
 - SIEMPRE vamos a trabajar sobre "localenv".
+
+# Cosas que no funcionan
+
+- Comillas: hace cosas raras con las primeras y ultimas letras
+- Exit:
+	- Falta el builtin
+	- A veces cuando ejecutas varios comandos hay que hacer varios exits (ctrl+D) para cerrar la shell
+- Leaks:
+	- 
+- Historial: no se si deberia funcionar con teclas o con ctrl+r. De momento creo que existe el historial pero no es funcional.
+- Redirecciones
