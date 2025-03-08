@@ -53,3 +53,8 @@ se detecta la necesidad de crear una varialbe nueva que contenga las varibles de
 	- 
 - Historial: no se si deberia funcionar con teclas o con ctrl+r. De momento creo que existe el historial pero no es funcional.
 - Redirecciones
+- Ejecucion con ruta absoluta : /bin/ls
+- Valores de retorno: $?
+- Ctrl-C
+- Ctrl-\
+- Comandos sin sentido
