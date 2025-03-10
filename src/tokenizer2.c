@@ -34,6 +34,7 @@ char	**split_quotation_blobs(char *s, char c)
 		else if (*(p - 1) != '\\')
 			arr[++i] = p;
 		p++;
+	    p = ft_strchr(p, c);
 	}
 	if (i % 2 != 0)
 		return (perror(ERR_QUOTE), NULL);

@@ -58,7 +58,7 @@ char	**ft_dup2parray(char **array)
 	i = 0;
 	while (array[i])
 	{
-		p[i] = array[i];
+		p[i] = ft_strdup(array[i]);
 		i++;
 	}
 	return (p);
