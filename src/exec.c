@@ -19,14 +19,17 @@ void	ft_childproc(t_tree *tree, t_md *md)
 	char	**cmd;
 	int		**fd;
 	t_tree	*next;
-	char	program[256];
+	//char	program[256];
+	char	*program;
 
 	fd = md->fd;
 	cmd = tree->args;
 	next = tree->right;
-	ft_memset(program, '\0', 256);
-	ft_strlcat(program, "/bin/", ft_strlen("/bin/") + 1);
-	ft_strlcat(program, *cmd, 50);
+	// ft_memset(program, '\0', 256);
+	//ft_strlcat(program, "/bin/", ft_strlen("/bin/") + 1);
+	//ft_strlcat(program, *cmd, 50);
+	program = ft_findbin(*cmd);
+	// printf("path exec: %s\n", program);
 	if (fd[IPIPE][RDEND] != -1)
 	{
 		//fprintf(stderr, "flag10\n");
