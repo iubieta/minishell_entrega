@@ -17,7 +17,7 @@
 - Asegúrate de que `minishell` compila sin errores.
 - El `Makefile` no debe relinkear.
 
-### 🔹 Comandos Simples & Variables Globales
+### 🔹 Comandos Simples & Variables Globales FUNCIONANDO
 
 - Ejecuta un comando simple con una ruta absoluta (`/bin/ls`).
 - Pregunta cuántas variables globales usa el estudiante y por qué.
@@ -27,7 +27,7 @@
 > - ❌ `Crash`  
 > - ❌ `Trabajo incompleto`
 
-### 🔹 Argumentos
+### 🔹 Argumentos FUNCIONANDO
 
 - Ejecuta un comando simple con argumentos sin comillas (`/bin/ls -l`).
 - Repite con diferentes combinaciones.
@@ -36,23 +36,23 @@
 > - ❌ `Crash`  
 > - ❌ `Trabajo incompleto`
 
-### 🔹 Comando `echo`
+### 🔹 Comando `echo` REVISAR
 
 - Ejecuta `echo` con y sin argumentos.
-- Prueba con `-n` y varias combinaciones.
+- Prueba con `-n` y varias combinaciones. -> OJO: no funciona igual que en bash
 
-### 🔹 Comando `exit`
+### 🔹 Comando `exit` FUNCIONANDO
 
 - Ejecuta `exit` con y sin argumentos.
 - Repite varias veces y reinicia `minishell`.
 
-### 🔹 Valor de Retorno (`$?`)
+### 🔹 Valor de Retorno (`$?`) REVISAR
 
 - Ejecuta un comando (`/bin/ls`) y luego `echo $?` para verificar el valor de retorno.
 - Prueba con comandos erróneos (`/bin/ls archivo_inexistente`).
 - Experimenta con `expr $? + $?`.
 
-### 🔹 Señales (`ctrl-C`, `ctrl-D`, `ctrl-\`)
+### 🔹 Señales (`ctrl-C`, `ctrl-D`, `ctrl-\`) REVISAR
 
 - `ctrl-C` en un prompt vacío debe mostrar una nueva línea con el prompt.
 - `ctrl-D` en un prompt vacío debe cerrar `minishell`.
@@ -60,26 +60,26 @@
 - `ctrl-\` en un prompt vacío no debe hacer nada.
 - Prueba señales mientras ejecutas comandos bloqueantes (`cat`, `grep`).
 
-### 🔹 Comillas Dobles `"..."`
+### 🔹 Comillas Dobles `"..."` FUNCIONANDO
 
 - Ejecuta comandos con argumentos en comillas dobles (ej. `echo "Hola mundo"`).
 - Prueba `echo "cat lol.c | cat > lol.c"`.
 
-### 🔹 Comillas Simples `'...'`
+### 🔹 Comillas Simples `'...'` FUNCIONANDO
 
 - Prueba comandos con comillas simples.
 - `echo '$USER'` debe imprimir `"$USER"` sin expandirlo.
 
-### 🔹 Comando `env`
+### 🔹 Comando `env` FUNCIONANDO
 
 - Verifica que `env` muestra las variables de entorno.
 
-### 🔹 Comando `export`
+### 🔹 Comando `export` REVISAR : PARCHE para juntar comillas despues del igual
 
 - Crea y reemplaza variables de entorno con `export`.
 - Verifica los cambios con `env`.
 
-### 🔹 Comando `unset`
+### 🔹 Comando `unset` FUNCIONANDO
 
 - Usa `unset` para eliminar variables de entorno.
 - Verifica los cambios con `env`.

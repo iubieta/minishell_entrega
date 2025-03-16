@@ -24,7 +24,10 @@ void	ft_env(char **env)
 		if (ft_strchr(*env, '='))
 			printf("%s\n", *env);
 		else
+		{
+			printf("%s\n", *env);
 			printf("env: string with invalid format on env array\n");
+		}
 		env++;
 	}
 }
