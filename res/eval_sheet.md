@@ -84,16 +84,16 @@
 - Usa `unset` para eliminar variables de entorno.
 - Verifica los cambios con `env`.
 
-### 🔹 Comando `cd`
+### 🔹 Comando `cd` FUNCIONANDO
 
 - Usa `cd` para cambiar de directorio y verifica con `/bin/ls`.
 - Prueba con `.` y `..`.
 
-### 🔹 Comando `pwd`
+### 🔹 Comando `pwd` FUNCIONANDO
 
 - Ejecuta `pwd` en distintos directorios.
 
-### 🔹 Rutas Relativas
+### 🔹 Rutas Relativas REVISAR
 
 - Ejecuta comandos con rutas relativas.
 - Prueba rutas complejas (`../../bin/ls`).
@@ -101,5 +101,69 @@
 ### 🔹 Variable `$PATH`
 
 - Ejecuta comandos sin especificar la ruta (`ls`, `wc`, etc.).
-- Elimina `$
+- Elimina `$PATH` y verifica que los comandos dejan de funcionar.
+- Modifica `$PATH` y verifica el orden de búsqueda.
 
+### 🔹 Redirecciones (`<`, `>`, `>>`, `<<`)
+
+- Prueba redirecciones con diferentes comandos.
+- Asegúrate de que `<<` no actualiza el historial.
+
+### 🔹 Pipes (`|`) FUNCIONANDO
+
+- Ejecuta comandos con pipes (`cat file | grep bla | more`).
+- Prueba combinaciones incorrectas (`ls archivo_inexistente | grep bla`).
+- Mezcla pipes con redirecciones.
+
+### 🔹 Comportamiento General REVISAR
+
+- Escribe un comando y usa `ctrl-C`. El buffer debe estar limpio.
+- Usa las teclas `↑` y `↓` para navegar en el historial.
+- Asegúrate de que `minishell` no crashea con comandos inválidos (`dsbksdgbksdghsd`).
+- Prueba una línea de comandos muy larga.
+
+### 🔹 Variables de Entorno REVISAR: las comillas dobles no deberian expandir $
+
+- Ejecuta `echo $VARIABLE`.
+- Verifica que `$` es interpretado correctamente.
+- Asegúrate de que `echo "$USER"` imprime el valor de la variable.
+
+---
+
+## ⭐ Tests Opcionales (Bonus)
+
+### 🔹 `&&`, `||` y Paréntesis
+
+- Prueba operadores lógicos (`ls && echo "ok"`, `false || echo "error"`).
+- Asegura que el comportamiento sea como en Bash.
+
+### 🔹 Wildcards (`*`)
+
+- Usa `*` para listar archivos (`ls *.c`).
+
+### 🔹 Expansión de Variables
+
+- `echo "'$USER'"` debe imprimir el valor de `USER`.
+- `echo '"$USER"'` debe imprimir `"$USER"`.
+
+---
+
+## 🔍 Evaluación Final
+
+- Si el trabajo está completo, evalúa la sección de bonus.
+- Si el proyecto tiene errores graves, marca las banderas correspondientes:
+
+  | Código | Descripción |
+  |--------|------------|
+  | ✅ `Ok` | Proyecto aprobado |
+  | 🌟 `Outstanding` | Proyecto excepcional |
+  | ❌ `Empty work` | Repositorio vacío |
+  | ⚠️ `Incomplete` | Trabajo incompleto |
+  | 🛑 `Invalid compilation` | Error de compilación |
+  | 🚫 `Norme` | No sigue la Norme |
+  | 💀 `Crash` | Programa crashea |
+  | ❓ `Incomplete group` | Grupo incompleto |
+  | ⚠️ `Leaks` | Fugas de memoria |
+  | ⛔ `Forbidden function` | Uso de funciones prohibidas |
+
+---
