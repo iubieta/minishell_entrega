@@ -6,7 +6,7 @@
 <!-- By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+       -->
 <!--                                              +#+#+#+#+#+   +#+          -->
 <!-- Created: 2025/03/23 17:46:38 by iubieta-          #+#    #+#            -->
-<!-- Updated: 2025/03/23 18:49:45 by iubieta-         ###   ########.fr      -->
+<!-- Updated: 2025/03/23 19:53:34 by iubieta-         ###   ########.fr      -->
 <!--                                                                         -->
 <!-- *********************************************************************** -->
 
@@ -58,7 +58,7 @@
 - Ejecuta `exit` con y sin argumentos.
 - Repite varias veces y reinicia `minishell`.
 
-### 🔹 Valor de Retorno (`$?`) REVISAR
+### 🔹 Valor de Retorno (`$?`) FUNCIONANDO
 
 - Ejecuta un comando (`/bin/ls`) y luego `echo $?` para verificar el valor de retorno.
 - Prueba con comandos erróneos (`/bin/ls archivo_inexistente`).
@@ -108,7 +108,7 @@
 ### 🔹 Rutas Relativas REVISAR
 
 - Ejecuta comandos con rutas relativas.
-- Prueba rutas complejas (`../../bin/ls`).
+- Prueba rutas complejas (`../../bin/ls`). ` FUNCIONA SIEMPRE, no deberia`
 
 ### 🔹 Variable `$PATH`
 
@@ -134,7 +134,7 @@
 - Asegúrate de que `minishell` no crashea con comandos inválidos (`dsbksdgbksdghsd`).
 - Prueba una línea de comandos muy larga.
 
-### 🔹 Variables de Entorno REVISAR: las comillas dobles no deberian expandir $
+### 🔹 Variables de Entorno REVISAR: las comillas dobles deberian expandir $
 
 - Ejecuta `echo $VARIABLE`.
 - Verifica que `$` es interpretado correctamente.
