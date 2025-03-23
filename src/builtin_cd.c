@@ -6,13 +6,13 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 13:27:13 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/01/02 13:59:52 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/03/23 19:36:05 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_cd(char **args)
+int	ft_cd(char **args)
 {
 	char	*path;
 
@@ -20,16 +20,20 @@ void	ft_cd(char **args)
 	{
 		path = getenv("HOME");
 		chdir(path);
-		return ;
+		return (0);
 	}
 	if (args[2])
 	{
 		printf("cd: too many arguments\n");
-		return ;
+		return (1);
 	}
 	path = args[1];
 	if (chdir (path) == -1)
-		perror("cd");
+	{
+		perror("cd: ");
+		return (1);
+	}
+	return (0);
 }
 
 // TEST

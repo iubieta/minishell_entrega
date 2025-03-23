@@ -68,6 +68,8 @@ typedef struct s_md
 	struct s_tree **tree;
 	int **fd;
 	char **env;
+	int	status;
+	int	exit_code;
 } t_md;
 
 // Tokenizer
@@ -97,12 +99,13 @@ void	sig_init();
 void	ft_exitwithmallocerror(t_md *md);
 
 // Builtins
-void	ft_echo(char **args);
-void	ft_pwd(char **args);
-void	ft_cd(char **args);
-void	ft_env(char **env);
-void	ft_export(char ***env_ptr, char **args);
-void	ft_unset(char ***env_ptr, char **args);
+int	ft_echo(char **args);
+int	ft_pwd(char **args);
+int	ft_cd(char **args);
+int	ft_env(char **env);
+int	ft_export(char ***env_ptr, char **args);
+int	ft_unset(char ***env_ptr, char **args);
+
 void	ft_exit(t_md *md);
 
 // Utils

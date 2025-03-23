@@ -45,10 +45,6 @@ se detecta la necesidad de crear una varialbe nueva que contenga las varibles de
 
 # Cosas que no funcionan
 
-- Comillas: hace cosas raras con las primeras y ultimas letras
-- Exit:
-	- Falta el builtin
-	- A veces cuando ejecutas varios comandos hay que hacer varios exits (ctrl+D) para cerrar la shell
 - Leaks:
 	- 
 - Historial: no se si deberia funcionar con teclas o con ctrl+r. De momento creo que existe el historial pero no es funcional.

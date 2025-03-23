@@ -12,17 +12,18 @@
 
 #include "minishell.h"
 
-void	ft_pwd(char **args)
+int	ft_pwd(char **args)
 {
 	char	*current_dir;
 
 	if (args && args[1])
 	{
 		printf("pwd: too many arguments\n");
-		return ;
+		return (1);
 	}
 	current_dir = getcwd(NULL, 0);
 	printf("%s\n", current_dir);
+	return (0);
 }
 
 // TEST

@@ -6,13 +6,13 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:15:10 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/03/08 17:29:40 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/03/23 19:28:47 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_echo(char **args)
+int	ft_echo(char **args)
 {
 	int		i;
 	int		flag;
@@ -21,7 +21,7 @@ void	ft_echo(char **args)
 	if (args[1] == NULL)
 	{
 		printf("\n");
-		return ;
+		return (0);
 	}
 	i = 0;
 	if (strncmp(args[++i], "-n", 2) == 0)
@@ -30,11 +30,12 @@ void	ft_echo(char **args)
 	if (args[i])
 		printf("%s", args[i]);
 	else
-		return ;
+		return (0);
 	while (args[++i])
 		printf(" %s", args[i]);
 	if (!flag)
 		printf("\n");
+	return (0);
 }
 
 /* int main (void) */

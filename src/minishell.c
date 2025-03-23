@@ -6,14 +6,13 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 17:04:07 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/03/08 12:42:08 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/03/23 18:47:04 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <readline/readline.h>
 // #include <string.h>
-
  // void	prompt_loop()
  // {
  // 	char *line;
@@ -39,16 +38,27 @@ int main()
 	while (1) 
 	{ 
 		input = readline(">>"); 
+		// printf("input: %s\n", input);
 		if (!input) 
 		{ 
 			printf("exit\n"); 
 			break; 
-		} 
-		*(md->tok) = tokenize(input); 
+		}
+		if (input[0])
+		{
+			*(md->tok) = tokenize(input); 
+			// print_tokens_forward(*(md->tok)); 
+			buildtreestruct(md); 
+			// ft_printtree(*(md->tree));
+			ft_execcmd(md);
+			// ft_cleanup(md);
+			// md = ft_initmetadata();
+		}
+		// printf("1\n");
 		// print_tokens_forward(*(md->tok)); 
-		buildtreestruct(md); 
-		// ft_printtree(*(md->tree));
-		ft_execcmd(md); 
+		// printf("2\n");
+		// if (md->tree)
+		// 	ft_printtree(*(md->tree));
 	} 
 } 
 

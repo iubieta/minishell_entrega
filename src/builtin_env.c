@@ -6,18 +6,18 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:23:04 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/03/08 17:34:38 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/03/23 19:15:04 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(char **env)
+int	ft_env(char **env)
 {
 	if (!env)
 	{
 		printf("ft_env: env array doesnt exist\n");
-		return ;
+		return (1);
 	}
 	while (*env)
 	{
@@ -30,6 +30,7 @@ void	ft_env(char **env)
 		}
 		env++;
 	}
+	return (0);
 }
 
 // TEST

@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 16:44:15 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/03/08 17:42:37 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/03/23 19:46:25 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_armod(char	**ar_pos, char	*str)
 	del = NULL;
 }
 
-void	ft_export(char ***env_ptr, char **args)
+int	ft_export(char ***env_ptr, char **args)
 {
 	char	**env;
 	char	*var;
@@ -34,23 +34,23 @@ void	ft_export(char ***env_ptr, char **args)
 	if (!args || !env_ptr)
 	{
 		printf("export: not enough arguments\n");
-		return ;
+		return (1);
 	}
-	ft_arprint(args);
+	// ft_arprint(args);
 	i = 1;
 	env = *env_ptr;
 	while (args[i])
 	{
-		printf("export: args[i]=%s\n", args[i]);
+		// printf("export: args[i]=%s\n", args[i]);
 		len = ft_strlen(args[i]);
 		//REVISAR: ñapa?? revisar leaks de memoria
 		if (len == (ft_indexof(args[i], '=') + 1))
 		{
 			var = ft_substr(args[i], 0, ft_indexof(args[i], '=' + 1));
-			printf("export: var=%s\n", var);
+			// printf("export: var=%s\n", var);
 			i++;
 			args[i] = ft_strjoin(var, args[i]);
-			printf("export: new args[i]=%s\n", args[i]);
+			// printf("export: new args[i]=%s\n", args[i]);
 		}
 		var = ft_substr(args[i], 0, ft_indexof(args[i], '='));
 		j = ft_envfind(env, var);
@@ -61,6 +61,7 @@ void	ft_export(char ***env_ptr, char **args)
 		i++;
 	}
 	*env_ptr = env;
+	return (0);
 }
 
 // TEST

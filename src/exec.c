@@ -6,11 +6,12 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:49:50 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/03/08 17:53:23 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/03/23 19:40:03 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -41,8 +42,7 @@ void	ft_childproc(t_tree *tree, t_md *md)
 	{
         //fprintf(stderr, "flag10.6 %p\n", next);
 		if (is_lredir(next->tok))
-		{
-			//fprintf(stderr, "flag11\n");
+		{			//fprintf(stderr, "flag11\n");
 			return ;
 			/* ft_leftredir(md); //esto catearia el archivo y borraria el node de la llist */
 		}
@@ -67,6 +67,7 @@ void	ft_childproc(t_tree *tree, t_md *md)
 void	ft_parentproc(t_tree *tree, t_md *md)
 {
 	pid_t	pid;
+	int		status;
 
 	if (tree->right)
 	{
@@ -87,7 +88,21 @@ void	ft_parentproc(t_tree *tree, t_md *md)
 	md->fd[IPIPE][RDEND] = md->fd[OPIPE][RDEND];
 	md->fd[IPIPE][WREND] = md->fd[OPIPE][WREND];
 	close(md->fd[IPIPE][WREND]);
-	waitpid(pid, NULL, 0);
+	// Guardo el codigo de salida
+	waitpid(pid, &status, 0);
+	// printf("Status: %i\n", status);
+	if (WIFEXITED(status))
+	{
+		md->exit_code = WEXITSTATUS(status);
+		// printf("Exit code %i\n", md->exit_code);
+	}
+	else if (WIFSIGNALED(status))
+	{
+		md->exit_code = 128 + WTERMSIG(status);
+		// printf("Exit code %i\n", md->exit_code);
+	}
+	else
+		md->exit_code = 1; // valor por defecto si nada aplica
 }
 
 // REVISAR
@@ -105,20 +120,20 @@ int is_builtin(char *cmd)
 
 void execute_builtin(char **args, t_md *md)
 {
-    if (!ft_strcmp(args[0], "cd"))
-        ft_cd(args);
+	if (!ft_strcmp(args[0], "cd"))
+		md->exit_code = ft_cd(args);
 	else if (!ft_strcmp(args[0], "export"))
-        ft_export(&md->env, args);
-    else if (!ft_strcmp(args[0], "unset"))
-        ft_unset(&md->env, args);
-    else if (!ft_strcmp(args[0], "env"))
-        ft_env(md->env);
+		md->exit_code = ft_export(&md->env, args);
+	else if (!ft_strcmp(args[0], "unset"))
+		md->exit_code = ft_unset(&md->env, args);
+	else if (!ft_strcmp(args[0], "env"))
+		md->exit_code = ft_env(md->env);
 	else if (!ft_strcmp(args[0], "exit"))
 		ft_exit(md);
 	else if (!ft_strcmp(args[0], "echo"))
-        ft_echo(args);
-    else if (!ft_strcmp(args[0], "pwd"))
-        ft_pwd(args);
+		md->exit_code = ft_echo(args);
+	else if (!ft_strcmp(args[0], "pwd"))
+		md->exit_code = ft_pwd(args);
 }
 void	ft_execcmd(t_md *md)
 {

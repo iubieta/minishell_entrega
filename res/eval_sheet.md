@@ -1,3 +1,15 @@
+<!-- *********************************************************************** -->
+<!--                                                                         -->
+<!--                                                      :::      ::::::::  -->
+<!-- eval_sheet.md                                      :+:      :+:    :+:  -->
+<!--                                                  +:+ +:+         +:+    -->
+<!-- By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+       -->
+<!--                                              +#+#+#+#+#+   +#+          -->
+<!-- Created: 2025/03/23 17:46:38 by iubieta-          #+#    #+#            -->
+<!-- Updated: 2025/03/23 18:49:45 by iubieta-         ###   ########.fr      -->
+<!--                                                                         -->
+<!-- *********************************************************************** -->
+
 # Minishell Evaluation Tests
 
 ## 📌 Introducción
@@ -36,10 +48,10 @@
 > - ❌ `Crash`  
 > - ❌ `Trabajo incompleto`
 
-### 🔹 Comando `echo` REVISAR
+### 🔹 Comando `echo` FUNCIONANDO
 
 - Ejecuta `echo` con y sin argumentos.
-- Prueba con `-n` y varias combinaciones. -> OJO: no funciona igual que en bash
+- Prueba con `-n` y varias combinaciones.
 
 ### 🔹 Comando `exit` FUNCIONANDO
 

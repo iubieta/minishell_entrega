@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 17:33:22 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/03/08 16:18:18 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/03/23 18:24:15 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,16 @@ char	**ft_tokensto2parray(t_token *tok, t_md *md)
 	while (cur)
 	{
 		if (cur->type != TOKEN_ENV_VAR)
-			arr[i] = cur->value;
+			if (cur->value[1] == '?')
+				arr[i] = ft_itoa(md->exit_code);
+			else
+				arr[i] = cur->value;
 		else
+		{
 			arr[i] = ft_expand_var(md->env, cur->value);
-		//printf("tokensto2parray: %s\n", arr[i]);
+			printf("%s", arr[i]);
+		}
+		// printf("tokensto2parray: %s\n", arr[i]);
 		cur = cur->right;
 		i++;
 	}
