@@ -64,12 +64,12 @@
 - Prueba con comandos erróneos (`/bin/ls archivo_inexistente`).
 - Experimenta con `expr $? + $?`.
 
-### 🔹 Señales (`ctrl-C`, `ctrl-D`, `ctrl-\`) REVISAR
+### 🔹 Señales (`ctrl-C`, `ctrl-D`, `ctrl-\`) FUNCIONANDO ??
 
 - `ctrl-C` en un prompt vacío debe mostrar una nueva línea con el prompt.
 - `ctrl-D` en un prompt vacío debe cerrar `minishell`.
 - `ctrl-C` tras escribir debe limpiar el buffer.
-- `ctrl-\` en un prompt vacío no debe hacer nada.
+- `ctrl-\` en un prompt vacío no debe hacer nada. REVISAR
 - Prueba señales mientras ejecutas comandos bloqueantes (`cat`, `grep`).
 
 ### 🔹 Comillas Dobles `"..."` FUNCIONANDO

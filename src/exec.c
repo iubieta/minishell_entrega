@@ -23,6 +23,7 @@ void	ft_childproc(t_tree *tree, t_md *md)
 	//char	program[256];
 	char	*program;
 
+	sig_reset();
 	fd = md->fd;
 	cmd = tree->args;
 	next = tree->right;
@@ -76,10 +77,12 @@ void	ft_parentproc(t_tree *tree, t_md *md)
 			ft_cleanup(md);
 	}
 	pid = fork();
+	sig_ignore();
 	if (pid == -1)
 		ft_cleanup(md);
 	if (pid == 0)
 	{
+		sig_default();
 		//fprintf(stderr, "flag04\n");
 		//ft_printtreeinerror(tree);
 		ft_childproc(tree, md);

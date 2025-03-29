@@ -37,6 +37,7 @@ int main()
 	md = ft_initmetadata(); 
 	while (1) 
 	{ 
+		sig_init();
 		input = readline(">>"); 
 		// printf("input: %s\n", input);
 		if (!input) 

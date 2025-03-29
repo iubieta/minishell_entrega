@@ -95,8 +95,13 @@ void ft_leftredir(t_tree *t, t_md *md);
 t_md	*ft_initmetadata(void);
 int		**initfdarray(void);
 void	ft_cleanup(t_md *metad);
-void	sig_init();
 void	ft_exitwithmallocerror(t_md *md);
+
+// Signals
+void	sig_init();
+void	sig_ignore(void);
+void	sig_default(void);
+void	sig_reset(void);
 
 // Builtins
 int	ft_echo(char **args);
