@@ -29,7 +29,7 @@
 - Asegúrate de que `minishell` compila sin errores.
 - El `Makefile` no debe relinkear.
 
-### 🔹 Comandos Simples & Variables Globales FUNCIONANDO
+### 🔹 Comandos Simples & Variables Globales REVISAR BUFFER
 
 - Ejecuta un comando simple con una ruta absoluta (`/bin/ls`).
 - Pregunta cuántas variables globales usa el estudiante y por qué.
@@ -64,7 +64,7 @@
 - Prueba con comandos erróneos (`/bin/ls archivo_inexistente`).
 - Experimenta con `expr $? + $?`.
 
-### 🔹 Señales (`ctrl-C`, `ctrl-D`, `ctrl-\`) FUNCIONANDO ??
+### 🔹 Señales (`ctrl-C`, `ctrl-D`, `ctrl-\`) REVISAR ctrl-\
 
 - `ctrl-C` en un prompt vacío debe mostrar una nueva línea con el prompt.
 - `ctrl-D` en un prompt vacío debe cerrar `minishell`.
@@ -105,12 +105,12 @@
 
 - Ejecuta `pwd` en distintos directorios.
 
-### 🔹 Rutas Relativas REVISAR
+### 🔹 Rutas Relativas FUNCIONANDO
 
 - Ejecuta comandos con rutas relativas.
 - Prueba rutas complejas (`../../bin/ls`). ` FUNCIONA SIEMPRE, no deberia`
 
-### 🔹 Variable `$PATH`
+### 🔹 Variable `$PATH` FUNCIONANDO
 
 - Ejecuta comandos sin especificar la ruta (`ls`, `wc`, etc.).
 - Elimina `$PATH` y verifica que los comandos dejan de funcionar.

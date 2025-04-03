@@ -30,7 +30,9 @@ void	ft_childproc(t_tree *tree, t_md *md)
 	// ft_memset(program, '\0', 256);
 	//ft_strlcat(program, "/bin/", ft_strlen("/bin/") + 1);
 	//ft_strlcat(program, *cmd, 50);
-	program = ft_findbin(*cmd);
+	program = *cmd;
+	if (**cmd != '/' && **cmd != '.')
+		program = ft_findbin(*cmd);
 	// printf("path exec: %s\n", program);
 	if (fd[IPIPE][RDEND] != -1)
 	{
@@ -61,7 +63,10 @@ void	ft_childproc(t_tree *tree, t_md *md)
 	}
 	//fprintf(stderr, "flag14\n");
 	close(fd[OPIPE][RDEND]);
-	execve(program, cmd, NULL);
+	if (execve(program, cmd, NULL) == -1)
+	{
+		ft_putstr_fd("Command not found\n", 2);
+	}
 	close(fd[OPIPE][WREND]);
 }
 
