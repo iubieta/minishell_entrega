@@ -29,38 +29,53 @@
  // 	}
  // }
 // TEST SIGNALS: BEGGINING //
-int main() 
+int main(int argc, char **argv) 
 { 
 	t_md	*md; 
 	char	*input; 
 
 	md = ft_initmetadata(); 
-	while (1) 
-	{ 
-		sig_init();
-		input = readline(">>"); 
-		// printf("input: %s\n", input);
-		if (!input) 
-		{ 
-			printf("exit\n"); 
-			break; 
-		}
-		if (input[0])
+	if (argc == 1)
+	{
+		while (1) 
 		{
-			*(md->tok) = tokenize(input); 
+			sig_init();
+			input = readline(">>"); 
+			// printf("input: %s\n", input);
+			if (!input) 
+			{ 
+				printf("exit\n"); 
+				break; 
+			}
+			if (input[0])
+			{
+				*(md->tok) = tokenize(input); 
+				// print_tokens_forward(*(md->tok)); 
+				buildtreestruct(md); 
+				// ft_printtree(*(md->tree));
+				ft_execcmd(md);
+				// ft_cleanup(md);
+				// md = ft_initmetadata();
+			}
+			// printf("1\n");
 			// print_tokens_forward(*(md->tok)); 
-			buildtreestruct(md); 
-			// ft_printtree(*(md->tree));
-			ft_execcmd(md);
-			// ft_cleanup(md);
-			// md = ft_initmetadata();
-		}
-		// printf("1\n");
+			// printf("2\n");
+			// if (md->tree)
+			// 	ft_printtree(*(md->tree));
+		} 
+	}
+	else
+	{
+		input = ft_artostr(++argv);
+		// printf("%s\n", input);
+		*(md->tok) = tokenize(input); 
 		// print_tokens_forward(*(md->tok)); 
-		// printf("2\n");
-		// if (md->tree)
-		// 	ft_printtree(*(md->tree));
-	} 
+		buildtreestruct(md); 
+		// ft_printtree(*(md->tree));
+		ft_execcmd(md);
+		// ft_cleanup(md);
+		// md = ft_initmetadata();
+	}
 } 
 
 // TEST SIGNALS: ENDING //

@@ -13,7 +13,7 @@
 NAME	= libft.a
 CC	= gcc
 
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra -g
 
 # Colors
 DEF_COLOR = \033[0;39m

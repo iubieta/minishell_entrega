@@ -118,6 +118,7 @@ size_t	ft_indexof(char *str, char c);
 int		is_special_char(char c);
 int		count_quoted_chars(char *input);
 int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_artostr(char **ar);
 
 char	**ft_arremove(char **array, size_t del);
 char	**ft_arcat(char **array, char *ptr);

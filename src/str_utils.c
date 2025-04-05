@@ -58,3 +58,23 @@ int	ft_strcmp(const char *s1, const char *s2)
 	}
 	return (*cs1 - *cs2);
 }
+
+char *ft_artostr(char **ar)
+{
+	char	*str;
+	char	*del;
+
+	str = ft_calloc(10, sizeof(char));
+	while (ar && *ar)
+	{
+		del = str;
+		str = ft_strjoin(str, *ar);
+		free(del);
+		del = str;
+		str = ft_strjoin(str, " ");
+		free(del);
+		ar++;
+	}
+	del = NULL;
+	return (str);
+}
