@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 19:08:36 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/03/08 17:26:49 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/04/13 19:33:23 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ t_md	*ft_initmetadata(void)
 	if (md->tree == NULL)
 		ft_exitwithmallocerror(md);
 	md->fd = initfdarray();
+	md->prompt = NULL;
 	return (md);
 }

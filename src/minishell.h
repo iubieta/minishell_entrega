@@ -70,6 +70,7 @@ typedef struct s_md
 	char **env;
 	int	status;
 	int	exit_code;
+	char *prompt;
 } t_md;
 
 // Tokenizer
@@ -132,6 +133,8 @@ char	*ft_expand_var(char **env, char *var);
 char **ft_dup2parray(char **array);
 
 char	*ft_findbin(char *bin);
+
+char	*get_prompt(t_md md);
 
 // Tree linked list utils
 void ft_freetreenode(t_tree *n);
