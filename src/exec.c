@@ -27,27 +27,18 @@ void	ft_childproc(t_tree *tree, t_md *md)
 	fd = md->fd;
 	cmd = tree->args;
 	next = tree->right;
-	// ft_memset(program, '\0', 256);
-	//ft_strlcat(program, "/bin/", ft_strlen("/bin/") + 1);
-	//ft_strlcat(program, *cmd, 50);
-	program = *cmd;
+program = *cmd;
 	if (**cmd != '/' && **cmd != '.')
 		program = ft_findbin(*cmd);
-	// printf("path exec: %s\n", program);
 	if (fd[IPIPE][RDEND] != -1)
 	{
-		//fprintf(stderr, "flag10\n");
 		dup2(fd[IPIPE][RDEND], STDIN_FILENO);
 		close(fd[IPIPE][RDEND]);
 	}
-	//fprintf(stderr, "flag10.5\n");
 	if (next)
 	{
-        //fprintf(stderr, "flag10.6 %p\n", next);
-		if (is_lredir(next->tok))
-		{			//fprintf(stderr, "flag11\n");
-			return ;
-			/* ft_leftredir(md); //esto catearia el archivo y borraria el node de la llist */
+		if (is_redir_in(next->tok))
+			tree = handle_redir_in(tree, md);
 		}
 		else if (is_pipe(next->tok))
 		{
@@ -63,7 +54,7 @@ void	ft_childproc(t_tree *tree, t_md *md)
 	}
 	//fprintf(stderr, "flag14\n");
 	close(fd[OPIPE][RDEND]);
-	if (execve(program, cmd, NULL) == -1)
+	if (execve(program, cmd, md->env) == -1)
 	{
 		ft_putstr_fd("Command not found\n", 2);
 	}
@@ -75,9 +66,8 @@ void	ft_parentproc(t_tree *tree, t_md *md)
 	pid_t	pid;
 	int		status;
 
-	if (tree->right)
+	if (is_pipe(tree->right))
 	{
-		//printf("flag03\n");
 		if (pipe(md->fd[OPIPE]) == -1)
 			ft_cleanup(md);
 	}
@@ -143,25 +133,22 @@ void execute_builtin(char **args, t_md *md)
 	else if (!ft_strcmp(args[0], "pwd"))
 		md->exit_code = ft_pwd(args);
 }
+
+
+
 void	ft_execcmd(t_md *md)
 {
-	t_tree	*tree;
+	t_tree *n;
 
-	tree = *(md->tree);
-	while (tree)
+	md->nodeact = *(md->tree);
+	n = md->nodeact;
+	while (is_lredir(n->right->tok) || is_rredir(n->right->tok))
 	{
-		if (tree->type == TREE_CMD)
-		{
-			//fprintf(stderr, "this is stderror\n");
-			//printf("flag000\n");
-			/* ft_printtree(tree); */
-			if (is_builtin(tree->args[0]))
-				execute_builtin(tree->args, md);
-			else
-				ft_parentproc(tree, md);
-			// Buscar como implementar builtins sin forkear
-		}
-		tree = tree->right;
-	}
-}
 
+
+	}
+
+
+	while (md->nodeact)
+		ft_parentproc(md->nodeact, md);
+}

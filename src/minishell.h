@@ -66,6 +66,7 @@ typedef struct s_md
 {
 	struct s_token **tok;
 	struct s_tree **tree;
+	struct s_tree *nodeact;
 	int **fd;
 	char **env;
 	int	status;
@@ -147,4 +148,11 @@ int is_lredir(t_token *token);
 int is_rredir(t_token *token);
 int is_pipe(t_token *token);
 
+
+int	is_redir_in(t_token *token);
+int	is_redir_hdoc(t_token *token);
+int	is_redir_out(t_token *token);
+int	is_redir_append(t_token *token);
+
+void handle_redir_in(t_tree *node, t_md *md);
 #endif
