@@ -39,6 +39,38 @@ t_tree	*buildtreenode(t_token *token, t_md *md)
 	return (node);
 }
 
+/*
+ * This function aims to reorganize the tree to accomodate
+ * left redirs into an orthogonal direction
+ */
+void recompose_tree(t_md *md)
+{
+	t_tree *node;
+	t_tree *p;
+	t_tree *t;
+
+	node = *(md->tree);
+	while (node)
+	{
+		p = node;
+		while (p && !is_pipe(p->tok))
+		{
+			if (!is_redir(p->tok))
+			{
+				p = p->right;
+				continue ;
+			}
+			if (node->left != NULL)
+				ft_freetree(node->left);
+			node->left = p;
+			node->right = p->right->right;
+			p->right->right = NULL;
+			p = node;
+		}
+		node = node->right;
+	}
+}
+
 void	buildtreestruct(t_md *md)
 {
 	t_tree	*node;
