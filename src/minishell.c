@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 17:04:07 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/03/23 18:47:04 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/04/13 20:04:08 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int main(int argc, char **argv)
 		while (1) 
 		{
 			sig_init();
-			input = readline(">>"); 
+			md->prompt = get_prompt(*md);
+			input = readline(md->prompt); 
 			// printf("input: %s\n", input);
 			if (!input) 
 			{ 
@@ -49,6 +50,7 @@ int main(int argc, char **argv)
 			}
 			if (input[0])
 			{
+				add_history(input);
 				*(md->tok) = tokenize(input); 
 				// print_tokens_forward(*(md->tok)); 
 				buildtreestruct(md); 

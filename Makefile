@@ -39,6 +39,7 @@ SRC_FILES	=	minishell init signals\
 				builtin_echo \
 				builtin_exit \
 				builtin_env builtin_export builtin_unset env_utils \
+				prompt
 
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
