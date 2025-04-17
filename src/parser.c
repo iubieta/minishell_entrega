@@ -6,7 +6,7 @@
 /*   By: iubieta <iubieta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:19:09 by iubieta           #+#    #+#             */
-/*   Updated: 2025/04/20 21:57:02 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/04/20 22:07:19 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void recompose_tree(t_md *md)
 				p = p->right;
 				continue ;
 			}
-			if (node->down!= NULL)
+			if (node->down != NULL)
 				freetree(&(node->down));
 			node->down = p;
 			node->right = p->right->right;

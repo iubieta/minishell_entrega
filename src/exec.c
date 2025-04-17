@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:49:50 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/04/20 21:54:10 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/04/20 22:01:50 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	childproc(t_tree *tree, t_md *md)
 	next = tree->right;
 	program = *cmd;
 	if (**cmd != '/' && **cmd != '.')
-		program = ft_findbin(*cmd);
+		program = findbin(*cmd);
 	if (tree->down)
 		handle_redirs(tree->down);
 	if (fd[IPIPE][RDEND] != -1)
@@ -52,7 +52,7 @@ void	childproc(t_tree *tree, t_md *md)
 	close(fd[OPIPE][WREND]);
 }
 
-void	ft_parentproc(t_tree *tree, t_md *md)
+void	parentproc(t_tree *tree, t_md *md)
 {
 	pid_t	pid;
 	int		status;
@@ -82,6 +82,8 @@ void	ft_parentproc(t_tree *tree, t_md *md)
 	else
 		md->exit_code = 1; // valor por defecto si nada aplica
 }
+
+// REVISAR
 
 int is_builtin(char *cmd)
 {
@@ -114,7 +116,7 @@ void execute_builtin(char **args, t_md *md)
 
 
 
-void	ft_execcmd(t_md *md)
+void	execcmd(t_md *md)
 {
 	t_tree	*tree;
 
@@ -124,10 +126,10 @@ void	ft_execcmd(t_md *md)
 		if (tree->type == TREE_CMD)
 		{
 			//fprintf(stderr, "this is stderror\n");
-			/* ft_printtree(tree); */
+			/* printtree(tree); */
 			//if (is_builtin(tree->args[0]))
 				//execute_builtin(tree->args, md);
-			ft_parentproc(tree, md);
+			parentproc(tree, md);
 			// Buscar como implementar builtins sin forkear
 		}
 		tree = tree->right;
@@ -145,5 +147,5 @@ void	ft_execcmd(t_md *md)
 
 
 	/* while (md->nodeact) */
-	/* 	ft_parentproc(md->nodeact, md); */
+	/* 	parentproc(md->nodeact, md); */
 }
