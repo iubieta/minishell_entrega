@@ -50,6 +50,7 @@ typedef struct s_tree
 	char          **paths;
 	struct s_tree *left;
 	struct s_tree *right;
+	struct s_tree *down;
 }	t_tree;
 
 // Token binary tree struct
@@ -83,6 +84,7 @@ void print_tokens_forward(t_token *tokens);
 
 // Parser
 void buildtreestruct(t_md *md);
+void recompose_tree(t_md *md);
 t_tree *buildtreenode(t_token *token, t_md *md);
 char **buildcommand(t_token *t, int words);
 
@@ -157,5 +159,6 @@ int	is_redir_hdoc(t_token *token);
 int	is_redir_out(t_token *token);
 int	is_redir_append(t_token *token);
 
-void handle_redir_in(t_tree *node, t_md *md);
+// handle redirs
+void handle_redirs(t_tree *tree);
 #endif

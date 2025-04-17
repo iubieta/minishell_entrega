@@ -31,7 +31,7 @@ WHITE = \033[0;97m
 
 SRC_FILES	=	minishell init signals\
 				tokenizer2 token_utils \
-				parser redir_types \
+				parser redir_types redir_types2\
 				str_utils ar_utils \
 				tree_utils \
 				exec exec_utils \
@@ -39,6 +39,7 @@ SRC_FILES	=	minishell init signals\
 				builtin_echo \
 				builtin_exit \
 				builtin_env builtin_export builtin_unset env_utils \
+				handle_redir \
 				prompt
 
 

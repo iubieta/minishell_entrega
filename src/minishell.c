@@ -54,7 +54,7 @@ int main(int argc, char **argv)
 				*(md->tok) = tokenize(input); 
 				// print_tokens_forward(*(md->tok)); 
 				buildtreestruct(md); 
-				// ft_printtree(*(md->tree));
+                recompose_tree(md);
 				ft_execcmd(md);
 				// ft_cleanup(md);
 				// md = ft_initmetadata();

@@ -108,6 +108,12 @@ void	ft_printtree(t_tree *tree)
 			args++;
 		}
 		printf("\n");
+		if (t->down)
+		{
+			printf("START: printing down node\n");
+			ft_printtree(t->down);
+			printf("FINISH: printing down node\n");
+		}
 		t = t->right;
 	}
 }

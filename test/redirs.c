@@ -5,7 +5,7 @@
 
 // EUREKA
 //
-// NO Olvidar truncar entre redireccones para cargarse cada archivo
+// NO Olvidar truncar entre redireccones para cargarse cada archivovoid
 
 int main (int argc, char **argv, char **env)
 {
