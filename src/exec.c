@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:49:50 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/03/23 19:40:03 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/04/20 21:54:10 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void execute_builtin(char **args, t_md *md);
-int is_builtin(char *cmd);
+void	execute_builtin(char **args, t_md *md);
+int		is_builtin(char *cmd);
 
-void	ft_childproc(t_tree *tree, t_md *md)
+void	childproc(t_tree *tree, t_md *md)
 {
 	char	**cmd;
 	int		**fd;
@@ -60,16 +60,16 @@ void	ft_parentproc(t_tree *tree, t_md *md)
 	if (tree && tree->right && is_pipe(tree->right->tok))
 	{
 		if (pipe(md->fd[OPIPE]) == -1)
-			ft_cleanup(md);
+			cleanup(md);
 	}
 	pid = fork();
 	sig_ignore();
 	if (pid == -1)
-		ft_cleanup(md);
+		cleanup(md);
 	if (pid == 0)
 	{
 		sig_default();
-		ft_childproc(tree, md);
+		childproc(tree, md);
 	}
 	md->fd[IPIPE][RDEND] = md->fd[OPIPE][RDEND];
 	md->fd[IPIPE][WREND] = md->fd[OPIPE][WREND];
@@ -82,8 +82,6 @@ void	ft_parentproc(t_tree *tree, t_md *md)
 	else
 		md->exit_code = 1; // valor por defecto si nada aplica
 }
-
-// REVISAR
 
 int is_builtin(char *cmd)
 {
@@ -99,19 +97,19 @@ int is_builtin(char *cmd)
 void execute_builtin(char **args, t_md *md)
 {
 	if (!ft_strcmp(args[0], "cd"))
-		md->exit_code = ft_cd(args);
+		md->exit_code = cd(args);
 	else if (!ft_strcmp(args[0], "export"))
 		md->exit_code = ft_export(&md->env, args);
 	else if (!ft_strcmp(args[0], "unset"))
-		md->exit_code = ft_unset(&md->env, args);
+		md->exit_code = unset(&md->env, args);
 	else if (!ft_strcmp(args[0], "env"))
-		md->exit_code = ft_env(md->env);
+		md->exit_code = env(md->env);
 	else if (!ft_strcmp(args[0], "exit"))
-		ft_exit(md);
+		clean_exit(md);
 	else if (!ft_strcmp(args[0], "echo"))
-		md->exit_code = ft_echo(args);
+		md->exit_code = echo(args);
 	else if (!ft_strcmp(args[0], "pwd"))
-		md->exit_code = ft_pwd(args);
+		md->exit_code = pwd(args);
 }
 
 

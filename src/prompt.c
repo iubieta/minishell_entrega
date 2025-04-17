@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:10:32 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/04/13 19:47:45 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/04/20 21:58:46 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ char	*get_prompt(t_md md)
 	cur_dir = getcwd(NULL, 0);
 	cur_dir = ft_strjoin(cur_dir, "]$ ");
 	user = "[";
-	user = ft_strjoin(user, ft_expand_var(md.env, "$USER"));
-	home_dir = ft_strjoin("/home/", ft_expand_var(md.env, "$USER"));
+	user = ft_strjoin(user, expand_var(md.env, "$USER"));
+	home_dir = ft_strjoin("/home/", expand_var(md.env, "$USER"));
 	if (ft_strncmp(home_dir, cur_dir, ft_strlen(home_dir)) == 0)
 	{
 		home_dir = ft_strjoin("~", &cur_dir[ft_strlen(home_dir)]);
