@@ -22,16 +22,17 @@ char	*get_prompt(t_md md)
 	if (md.prompt)
 		free (md.prompt);
 	cur_dir = getcwd(NULL, 0);
-	cur_dir = ft_strjoin(cur_dir, "\n>");
-	user = ft_expand_var(md.env, "$USER");
-	home_dir = ft_strjoin("/home/", user);
+	cur_dir = ft_strjoin(cur_dir, "]$ ");
+	user = "[";
+	user = ft_strjoin(user, ft_expand_var(md.env, "$USER"));
+	home_dir = ft_strjoin("/home/", ft_expand_var(md.env, "$USER"));
 	if (ft_strncmp(home_dir, cur_dir, ft_strlen(home_dir)) == 0)
 	{
 		home_dir = ft_strjoin("~", &cur_dir[ft_strlen(home_dir)]);
 		free(cur_dir);
 		cur_dir = home_dir;
 	}
-	user = ft_strjoin(user, "@");
+	user = ft_strjoin(user, ":");
 	prompt = ft_strjoin(user, cur_dir);
 	free(cur_dir);
 	free(user);
