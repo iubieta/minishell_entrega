@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 17:33:22 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/04/20 22:07:32 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/04/20 22:09:33 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**tokensto2parray(t_token *tok, t_md *md)
 		exitwithmallocerror(md);
 	cur = tok;
 	i = 0;
-	while (cur)
+	while (cur != NULL)
 	{
 		if (cur->type != TOKEN_ENV_VAR)
 			if (cur->value[1] == '?')
@@ -79,7 +79,6 @@ char	**tokensto2parray(t_token *tok, t_md *md)
 				arr[i] = cur->value;
 		else
 			arr[i] = expand_var(md->env, cur->value);
-		// printf("tokensto2parray: %s\n", arr[i]);
 		cur = cur->right;
 		i++;
 	}

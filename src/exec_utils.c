@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 22:36:04 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/03/08 15:18:26 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/04/20 19:48:37 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char	*findbin(char *bin)
 	char	**paths;
 	int		i;
 
-	 // printf("findbin: bin = %s\n", bin);
 	if (access(bin, X_OK) == 0)
 		return (bin);
 	bin = ft_strjoin("/", bin);
@@ -30,21 +29,10 @@ char	*findbin(char *bin)
 	while (paths[i])
 	{
 		path = ft_strjoin(paths[i], bin);
-		// printf("findbin: path = %s\n", path);
 		if (access(path, X_OK) == 0)
-			return (ft_free2parray(paths), paths = NULL, path); // Free fuera de la funcion
+			return (ft_free2parray(paths), paths = NULL, path);
 		free(path);
 		i++;
 	}
 	return (ft_free2parray(paths), paths = NULL, NULL);
 }
-// TEST 
-//
-// int	main()
-// {
-// 	printf("Ejecutable: %s\n", findbin("./a.out"));
-// 	printf("Ejecutable: %s\n", findbin("../minishell"));
-// 	printf("Ejecutable: %s\n", findbin("/pwd"));
-// 	printf("Ejecutable: %s\n", findbin("/vim"));
-// 	printf("Ejecutable: %s\n", findbin("/nada"));
-// }

@@ -6,7 +6,7 @@
 /*   By: iubieta <iubieta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:19:09 by iubieta           #+#    #+#             */
-/*   Updated: 2025/04/20 22:07:19 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/04/20 22:09:19 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ t_tree	*buildtreenode(t_token *token, t_md *md)
  * This function aims to reorganize the tree to accomodate
  * left redirs into an orthogonal direction
  */
-void recompose_tree(t_md *md)
+void	recompose_tree(t_md *md)
 {
-	t_tree *node;
-	t_tree *p;
+	t_tree	*node;
+	t_tree	*p;
 
 	node = *(md->tree);
 	while (node)

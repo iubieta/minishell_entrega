@@ -38,4 +38,3 @@ char	*get_prompt(t_md md)
 	free(user);
 	return (prompt);
 }
-

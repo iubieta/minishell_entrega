@@ -47,9 +47,9 @@ void	exitwithmallocerror(t_md *md)
 
 t_md	*initmetadata(void)
 {
-	t_md	*md;
-	extern char **environ;
-	
+	t_md		*md;
+	extern char	**environ;
+
 	md = (t_md *)malloc(sizeof(t_md));
 	if (md == NULL)
 		exitwithmallocerror(md);
