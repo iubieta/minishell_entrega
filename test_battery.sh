@@ -141,51 +141,53 @@ bash -c "env"
 echo 'mini: env'
 ./minishell env
 
-echo 
-echo -- TEST 8 : export (REVISAR) --
-## Export deberia exportar la variable a la shell de origen?
+# Los siguientes test no tienen sentido fuera de una shell
 
-echo
-echo 'bash: export HOLA="hola bash"'
-bash -c 'export HOLA="hola bash"'
-bash -c "'echo $HOLA'"
-echo 'mini: export HOLA="hola mini"'
-./minishell export HOLA="hola mini"
-./minishell 'echo $HOLA'
-
-echo
-echo 'bash: export HOLA="hola otra vez bash"'
-bash -c 'export HOLA="hola otra vez bash"'
-bash -c "'echo $HOLA'"
-echo 'mini: export HOLA="hola otra vez mini"'
-./minishell export HOLA="hola otra vez mini"
-./minishell 'echo $HOLA'
-
-echo 
-echo "-- TEST 8 : unset (REVISAR) --"
-
-echo
-echo 'bash: unset HOLA'
-bash -c 'HOLA="hola bash"'
-bash -c "echo HOLA = $HOLA"
-bash -c "unset HOLA"
-bash -c "echo HOLA = $HOLA"
-echo 'mini: unset HOLA'
-./minishell HOLA="hola mini"
-./minishell echo 'HOLA = $HOLA'
-./minishell unset HOLA
-./minishell echo 'HOLA = $HOLA'
-
-
-echo 
-echo "-- TEST 9 : cd, pwd --"
-
-echo
-echo 'bash: pwd, cd, pwd'
-bash -c "pwd"
-bash -c "cd .."
-bash -c "pwd"
-echo 'mini: pwd, cd, pwd '
-./minishell pwd
-./minishell cd ..
-./minishell pwd
+# echo 
+# echo "-- TEST 8 : export (REVISAR) --"
+# ## Export deberia exportar la variable a la shell de origen?
+#
+# echo
+# echo 'bash: export HOLA="hola bash"'
+# bash -c 'export HOLA="hola bash"'
+# bash -c "echo \$HOLA"
+# echo 'mini: export HOLA="hola mini"'
+# ./minishell export HOLA="hola mini"
+# ./minishell "echo \$HOLA"
+#
+# echo
+# echo 'bash: export HOLA="hola otra vez bash"'
+# bash -c 'export HOLA="hola otra vez bash"'
+# bash -c "echo \$HOLA"
+# echo 'mini: export HOLA="hola otra vez mini"'
+# ./minishell export HOLA="hola otra vez mini"
+# ./minishell 'echo $HOLA'
+#
+# echo 
+# echo "-- TEST 9 : unset (REVISAR) --"
+#
+# echo
+# echo 'bash: unset HOLA'
+# bash -c 'HOLA="hola bash"'
+# bash -c "echo HOLA = $HOLA"
+# bash -c "unset HOLA"
+# bash -c "echo HOLA = $HOLA"
+# echo 'mini: unset HOLA'
+# ./minishell HOLA="hola mini"
+# ./minishell echo 'HOLA = $HOLA'
+# ./minishell unset HOLA
+# ./minishell echo 'HOLA = $HOLA'
+#
+#
+# echo 
+# echo "-- TEST 10 : cd, pwd --"
+#
+# echo
+# echo 'bash: pwd, cd, pwd'
+# bash -c "pwd"
+# bash -c "cd .."
+# bash -c "pwd"
+# echo 'mini: pwd, cd, pwd '
+# ./minishell pwd
+# ./minishell cd ..
+# ./minishell pwd
