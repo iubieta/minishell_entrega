@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-char	*findbin(char *bin)
+char	*findbin(t_md md, char *bin)
 {
 	char	*path;
 	char	**paths;
@@ -23,7 +23,7 @@ char	*findbin(char *bin)
 	if (access(bin, X_OK) == 0)
 		return (bin);
 	bin = ft_strjoin("/", bin);
-	path = getenv("PATH");
+	path = expand_var(*md.env, "PATH");
 	paths = ft_split(path, ':');
 	i = 0;
 	while (paths[i])

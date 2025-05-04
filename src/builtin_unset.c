@@ -12,113 +12,33 @@
 
 #include "minishell.h"
 
-int	unset(char ***env_ptr, char **args)
+int	unset(t_md *md, char **args)
 {
-	char	**env;
 	size_t	i;
-	size_t	j;
+	t_var	*var;
+	t_var	*next;
 
-	if (!args || !env_ptr)
+	if (!args || !md)
 	{
 		printf("unset: not enough arguments\n");
 		return (1);
 	}
 	i = 1;
-	env = *env_ptr;
 	while (args[i])
 	{
-		j = envfind(env, args[i]);
-		if (env[j])
-			env = arremove(env, j);
+		var = varfind(*md->env, args[i]);
+		next = var->next;
+		var->key = next->key;
+		var->value = next->value;
+		var->exported = next->exported;
+		var->next = next->next;
+		free(next);
+		next = NULL;
 		i++;
 	}
-	*env_ptr = env;
+	free(md->exported);
+	md->exported = envtoarray(*md->env);
+	arprint(md->exported);
 	return (0);
 }
 
-// TEST
-// int	main()
-// {
-// 	char	**args;
-// 	char	**env;
-//
-//
-// 	printf("\n--Test 1--\n");
-// 	args = ft_calloc(10, sizeof(char *));
-// 	args[0] = ft_strdup("Var1");
-// 	args[1] = NULL;
-// 	arprint(NULL);
-// 	unset(NULL, args);
-// 	arprint(NULL);
-// 	arfree(args);
-//
-// 	printf("\n--Test 2--\n");
-// 	env = ft_calloc(10, sizeof(char *));
-// 	env[0] = ft_strdup("Var1=Value1");
-// 	env[1] = NULL;
-// 	arprint(env);
-// 	unset(&env, NULL);
-// 	arprint(env);
-// 	arfree(env);
-//
-// 	printf("\n--Test 3--\n");
-// 	env = ft_calloc(10, sizeof(char *));
-// 	env[0] = ft_strdup("Var1=Value1");
-// 	env[1] = NULL;
-// 	arprint(env);
-// 	args = ft_calloc(10, sizeof(char *));
-// 	args[0] = ft_strdup("Var1");
-// 	args[1] = NULL;
-// 	unset(&env, args);
-// 	arprint(env);
-// 	arfree(env);
-// 	arfree(args);
-//
-// 	printf("\n--Test 4--\n");
-// 	env = ft_calloc(10, sizeof(char *));
-// 	env[0] = ft_strdup("Var1=Value1");
-// 	env[1] = NULL;
-// 	arprint(env);
-// 	args = ft_calloc(10, sizeof(char *));
-// 	args[0] = ft_strdup("Var1=Value1");
-// 	args[1] = NULL;
-// 	unset(&env, args);
-// 	arprint(env);
-// 	arfree(env);
-// 	arfree(args);
-//
-// 	printf("\n--Test 5--\n");
-// 	env = ft_calloc(10, sizeof(char *));
-// 	env[0] = ft_strdup("Var1=Value1");
-// 	env[1] = ft_strdup("Var2=Value2");
-// 	env[2] = ft_strdup("Var3=Value3");
-// 	env[3] = ft_strdup("Var4=Value4");
-// 	env[4] = NULL;
-// 	arprint(env);
-// 	args = ft_calloc(10, sizeof(char *));
-// 	args[0] = ft_strdup("Var2");
-// 	args[1] = ft_strdup("Var3");
-// 	args[2] = NULL;
-// 	unset(&env, args);
-// 	arprint(env);
-// 	arfree(env);
-// 	arfree(args);
-//
-// 	printf("\n--Test 6--\n");
-// 	env = ft_calloc(10, sizeof(char *));
-// 	env[0] = ft_strdup("Var1=Value1");
-// 	env[1] = ft_strdup("Var2=Value2");
-// 	env[2] = ft_strdup("Var3=Value3");
-// 	env[3] = ft_strdup("Var4=Value4");
-// 	env[4] = NULL;
-// 	arprint(env);
-// 	args = ft_calloc(10, sizeof(char *));
-// 	args[0] = ft_strdup("Var2=Value2");
-// 	args[1] = ft_strdup("Var3");
-// 	args[2] = NULL;
-// 	unset(&env, args);
-// 	arprint(env);
-// 	arfree(env);
-// 	arfree(args);
-// }
-//

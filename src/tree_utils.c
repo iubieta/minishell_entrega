@@ -55,6 +55,7 @@ char	**tokensto2parray(t_token *tok, t_md *md)
 	t_token	*cur;
 	int		i;
 	char	**arr;
+	char	*key;
 
 	if (is_redir(tok))
 		return (NULL);
@@ -78,7 +79,10 @@ char	**tokensto2parray(t_token *tok, t_md *md)
 			else
 				arr[i] = cur->value;
 		else
-			arr[i] = expand_var(md->env, cur->value);
+		{
+			key = &(cur->value[1]);
+			arr[i] = expand_var(*md->env, key);
+		}
 		cur = cur->right;
 		i++;
 	}
