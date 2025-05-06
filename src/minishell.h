@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 19:30:00 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/04/24 22:30:44 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/05/06 20:39:31 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ int		key_cmp(char *k1, char *k2);
 t_var	*varfind(t_var	*env, char *key);
 char	*expand_var(t_var *env, char *key);
 
+int		is_var_definition(char *str);
+void	set_var(t_md *md, char *def);
 // size_t	envfind(char **env, char *var);
 // char	*expand_var(char **env, char *var);
 

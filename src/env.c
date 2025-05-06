@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 20:59:03 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/04/24 22:37:39 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/05/06 20:47:21 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,60 +50,6 @@ void	printenv(t_var	*env)
 	}
 }
 
-t_var	strtovar(char *def, int exported)
-{
-	size_t	i;
-	size_t	len;
-	t_var	var;
-	
-	i = indexof(def, '=');
-	len = ft_strlen(def);
-	var.key = ft_substr(def, 0, i);
-	var.value = ft_substr(def, i+1, len);
-	var.exported = exported;
-	var.next = NULL;
-	return(var);
-}
-
-t_var	*new_var(char *key, char *value, int exported)
-{
-	t_var	*var;
-
-	var = (t_var *)malloc(sizeof(t_var));
-	var->key = key;
-	var->value = value;
-	var->exported = exported;
-	var->next = NULL;
-	return (var);
-}
-
-t_var	*add_var(t_var *env, t_var var)
-{
-	t_var	*cur;
-
-	if (!env || !env->key)
-	{
-		env = new_var(var.key, var.value, var.exported);
-		return (env);
-	}
-	cur = env;
-	while (cur->next != NULL)
-		cur = cur->next;
-	cur->next = new_var(var.key, var.value,	var.exported);
-	return (env);
-}
-
-char	*vartostr(t_var var)
-{
-	char	*str;
-	char	*del;
-	
-	str = ft_strjoin(var.key, "=");
-	del = str;
-	str = ft_strjoin(str, var.value);
-	free(del);
-	return (str);
-}
 
 char	**envtoarray(t_var *env)
 {

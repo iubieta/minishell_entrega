@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:49:50 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/04/20 22:01:50 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/05/06 20:45:51 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	childproc(t_tree *tree, t_md *md)
 	if (next)
 		dup2(fd[OPIPE][WREND], STDOUT_FILENO);
 	close(fd[OPIPE][RDEND]);
-	printf("bin=%s\n", program);
+	// printf("bin=%s\n", program);
 	if (program)
-		execve(program, cmd, envtoarray(*md->env));
+		execve(program, cmd, md->exported);
 	else
 	{
 		ft_putstr_fd("Command not found\n", 2);
@@ -66,6 +66,11 @@ void	parentproc(t_tree *tree, t_md *md)
 	}
 	if (is_builtin(tree->args[0]))
 		execute_builtin(tree->args, md);
+	else if (is_var_definition(tree->args[0]) == 1)
+	{
+		// printf("Var definition\n");
+		set_var(md, tree->args[0]);
+	}
 	else
 	{
 		pid = fork();
