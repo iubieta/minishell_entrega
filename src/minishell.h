@@ -200,5 +200,5 @@ int		is_redir_out(t_token *token);
 int		is_redir_append(t_token *token);
 
 // handle redirs
-void	handle_redirs(t_tree *node);
+int	handle_redirs(t_tree *node);
 #endif
