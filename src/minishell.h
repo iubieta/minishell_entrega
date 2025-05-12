@@ -95,6 +95,7 @@ typedef struct s_md
 	int				status;
 	int				exit_code;
 	char			*prompt;
+	int has_output_redir;
 }	t_md;
 
 // Tokenizer
@@ -200,5 +201,5 @@ int		is_redir_out(t_token *token);
 int		is_redir_append(t_token *token);
 
 // handle redirs
-int	handle_redirs(t_tree *node);
+void handle_redirs(t_tree *tree, t_md *md);
 #endif

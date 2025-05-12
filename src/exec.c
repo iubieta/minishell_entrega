@@ -22,7 +22,6 @@ void	childproc(t_tree *tree, t_md *md)
 {
 	char	**cmd;
 	int		**fd;
-	int		cur_fd;
 	t_tree	*next;
 	//char	program[256];
 	char	*program;
@@ -35,13 +34,13 @@ void	childproc(t_tree *tree, t_md *md)
 	if (**cmd != '/' && **cmd != '.')
 		program = findbin(*md, *cmd);
 	if (tree->down)
-		cur_fd = handle_redirs(tree->down);
+		handle_redirs(tree->down, md);
 	if (fd[IPIPE][RDEND] != -1)
 	{
 		dup2(fd[IPIPE][RDEND], STDIN_FILENO);
 		close(fd[IPIPE][RDEND]);
 	}
-	if (next)
+	if (next || md->has_output_redir == 1)
 		dup2(fd[OPIPE][WREND], STDOUT_FILENO);
 	close(fd[OPIPE][RDEND]);
 	// printf("bin=%s\n", program);
@@ -53,7 +52,6 @@ void	childproc(t_tree *tree, t_md *md)
 		exit(127);
 	}
 	close(fd[OPIPE][WREND]);
-	close(cur_fd);
 }
 
 void	parentproc(t_tree *tree, t_md *md)
