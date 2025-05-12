@@ -6,13 +6,13 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 17:33:22 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/03/23 19:56:02 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/04/20 22:09:33 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_freetreenode(t_tree *n)
+void	freetreenode(t_tree *n)
 {
 	if (n->args != NULL)
 		ft_free2parray(n->args);
@@ -20,7 +20,7 @@ void	ft_freetreenode(t_tree *n)
 	return ;
 }
 
-void	ft_freetree(t_tree **head)
+void	freetree(t_tree **head)
 {
 	t_tree	*cur;
 	t_tree	*tmp;
@@ -30,13 +30,13 @@ void	ft_freetree(t_tree **head)
 	{
 		tmp = cur;
 		cur = cur->right;
-		ft_freetreenode(tmp);
+		freetreenode(tmp);
 	}
 	head = NULL;
 	return ;
 }
 
-void	ft_deletetreenode(t_tree *n, t_tree **head)
+void	deletetreenode(t_tree *n, t_tree **head)
 {
 	t_tree	*cur;
 	t_tree	*tmp;
@@ -45,12 +45,12 @@ void	ft_deletetreenode(t_tree *n, t_tree **head)
 	while (cur->right != n)
 		cur = cur->right;
 	tmp = n->right;
-	ft_freetreenode(n);
+	freetreenode(n);
 	cur->right = tmp;
 	return ;
 }
 
-char	**ft_tokensto2parray(t_token *tok, t_md *md)
+char	**tokensto2parray(t_token *tok, t_md *md)
 {
 	t_token	*cur;
 	int		i;
@@ -67,10 +67,10 @@ char	**ft_tokensto2parray(t_token *tok, t_md *md)
 	}
 	arr = (char **)ft_calloc(i + 1, sizeof(char *));
 	if (arr == NULL)
-		ft_exitwithmallocerror(md);
+		exitwithmallocerror(md);
 	cur = tok;
 	i = 0;
-	while (cur)
+	while (cur != NULL)
 	{
 		if (cur->type != TOKEN_ENV_VAR)
 			if (cur->value[1] == '?')
@@ -78,15 +78,14 @@ char	**ft_tokensto2parray(t_token *tok, t_md *md)
 			else
 				arr[i] = cur->value;
 		else
-			arr[i] = ft_expand_var(md->env, cur->value);
-		// printf("tokensto2parray: %s\n", arr[i]);
+			arr[i] = expand_var(md->env, cur->value);
 		cur = cur->right;
 		i++;
 	}
 	return (arr);
 }
 
-void	ft_printtree(t_tree *tree)
+void	printtree(t_tree *tree)
 {
 	t_tree	*t;
 	char	**args;
@@ -111,14 +110,14 @@ void	ft_printtree(t_tree *tree)
 		if (t->down)
 		{
 			printf("START: printing down node\n");
-			ft_printtree(t->down);
+			printtree(t->down);
 			printf("FINISH: printing down node\n");
 		}
 		t = t->right;
 	}
 }
 
-void	ft_printtreeinerror(t_tree *tree)
+void	printtreeinerror(t_tree *tree)
 {
 	t_tree	*t;
 	char	**args;

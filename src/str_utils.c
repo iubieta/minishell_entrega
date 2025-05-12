@@ -6,13 +6,13 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:14:26 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/03/08 12:53:01 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/04/20 20:12:55 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	ft_indexof(char *str, char c)
+size_t	indexof(char *str, char c)
 {
 	size_t	i;
 
@@ -59,7 +59,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (*cs1 - *cs2);
 }
 
-char *ft_artostr(char **ar)
+char	*artostr(char **ar)
 {
 	char	*str;
 	char	*del;

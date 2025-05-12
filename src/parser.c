@@ -6,7 +6,7 @@
 /*   By: iubieta <iubieta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:19:09 by iubieta           #+#    #+#             */
-/*   Updated: 2025/02/22 17:12:30 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/04/20 22:09:19 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_tree	*buildtreenode(t_token *token, t_md *md)
 		return (NULL);
 	node = (t_tree *)malloc(sizeof(t_tree));
 	if (node == NULL)
-		ft_exitwithmallocerror(md);
+		exitwithmallocerror(md);
 	node->tok = token;
 	if (is_redir(token))
 		node->type = TREE_REDIR;
@@ -33,7 +33,7 @@ t_tree	*buildtreenode(t_token *token, t_md *md)
 	}
 	*(md->tok) = token->right;
 	token->right = NULL;
-	node->args = ft_tokensto2parray(node->tok, md);
+	node->args = tokensto2parray(node->tok, md);
 	node->left = NULL;
 	node->down = NULL;
 	node->right = NULL;
@@ -44,10 +44,10 @@ t_tree	*buildtreenode(t_token *token, t_md *md)
  * This function aims to reorganize the tree to accomodate
  * left redirs into an orthogonal direction
  */
-void recompose_tree(t_md *md)
+void	recompose_tree(t_md *md)
 {
-	t_tree *node;
-	t_tree *p;
+	t_tree	*node;
+	t_tree	*p;
 
 	node = *(md->tree);
 	while (node)
@@ -60,8 +60,8 @@ void recompose_tree(t_md *md)
 				p = p->right;
 				continue ;
 			}
-			if (node->down!= NULL)
-				ft_freetree(&(node->down));
+			if (node->down != NULL)
+				freetree(&(node->down));
 			node->down = p;
 			node->right = p->right->right;
 			p->right->right = NULL;

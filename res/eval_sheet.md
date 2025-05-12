@@ -86,7 +86,7 @@
 
 - Verifica que `env` muestra las variables de entorno.
 
-### 🔹 Comando `export` REVISAR : PARCHE para juntar comillas despues del igual
+### 🔹 Comando `export` REVISAR : FUNCIONAMIENTO GENERAL y PARCHE para juntar comillas despues del igual
 
 - Crea y reemplaza variables de entorno con `export`.
 - Verifica los cambios con `env`.
