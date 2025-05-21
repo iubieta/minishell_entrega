@@ -39,6 +39,24 @@ t_tree	*buildtreenode(t_token *token, t_md *md)
 	node->right = NULL;
 	return (node);
 }
+// Appends a pair of redir node and its argument to the down position of previous
+// node. Used to build redir_command linked list
+
+void	next_pair_to_down(t_tree *node)
+{
+	t_tree	*next;
+
+	if (!node->right)
+		return;
+	next = node->right;
+	node->down = next;
+	if (next->right)
+		next = next->right;
+	if (next->right)
+		next = next->right;
+	node->right = next;
+	next->right = NULL;
+}
 
 /*
  * This function aims to reorganize the tree to accomodate
@@ -60,16 +78,19 @@ void	recompose_tree(t_md *md)
 				p = p->right;
 				continue ;
 			}
-			if (node->down != NULL)
-				freetree(&(node->down));
-			node->down = p;
-			node->right = p->right->right;
-			p->right->right = NULL;
+			next_pair_to_down(node);
+			printtree(*(md->tree));
+			// if (node->down != NULL)
+			// 	freetree(&(node->down));
+			// node->down = p;
+			// node->right = p->right->right;
+			// p->right->right = NULL;
 			p = node;
 		}
 		node = node->right;
 	}
 }
+
 
 void	buildtreestruct(t_md *md)
 {
