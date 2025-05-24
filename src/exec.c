@@ -35,15 +35,20 @@ void	childproc(t_tree *tree, t_md *md)
 		program = findbin(*md, *cmd);
 	if (tree->down)
 		handle_redirs(tree->down, md);
-	if (fd[IPIPE][WREND] != -1)
+	fprintf(stderr, "IPIPE FD: %d\n", fd[IPIPE][RDEND]);
+	if (fd[IPIPE][RDEND] != -1)
 	{
-		dup2(fd[IPIPE][WREND], STDIN_FILENO);
-		close(fd[IPIPE][WREND]);
+		fprintf(stderr, "fd error\n");
+		dup2(fd[IPIPE][RDEND], STDIN_FILENO);
+		close(fd[IPIPE][RDEND]);
 	}
 	if (next || md->has_output_redir == 1)
-		dup2(fd[OPIPE][RDEND], STDOUT_FILENO);
-	close(fd[OPIPE][WREND]);
-	// printf("bin=%s\n", program);
+	{
+		fprintf(stderr, "flag 01\n");
+		dup2(fd[OPIPE][WREND], STDOUT_FILENO);
+	}
+	close(fd[OPIPE][RDEND]);
+	fprintf(stderr, "bin=%s\n", program);
 	if (program)
 		execve(program, cmd, md->exported);
 	else
@@ -61,6 +66,8 @@ void	parentproc(t_tree *tree, t_md *md)
 
 	if (tree && tree->right && is_pipe(tree->right->tok))
 	{
+		if (pipe(md->fd[IPIPE]) == -1)
+			cleanup(md);
 		if (pipe(md->fd[OPIPE]) == -1)
 			cleanup(md);
 	}

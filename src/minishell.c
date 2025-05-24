@@ -42,7 +42,7 @@ int	main(int argc, char **argv, char **env)
 				// print_tokens_forward(*(md->tok)); 
 				buildtreestruct(md);
 				recompose_tree(md);
-				// printtree(*(md->tree));
+				printtree(*(md->tree));
 				execcmd(md);
 				// cleanup(md);
 				// md = ft_initmetadata();
