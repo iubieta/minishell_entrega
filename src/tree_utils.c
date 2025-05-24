@@ -89,7 +89,7 @@ char	**tokensto2parray(t_token *tok, t_md *md)
 	return (arr);
 }
 
-void	printtree(t_tree *tree)
+void	printtree(t_tree *tree, char *c)
 {
 	t_tree	*t;
 	char	**args;
@@ -97,11 +97,11 @@ void	printtree(t_tree *tree)
 	t = tree;
 	while (t != NULL)
 	{
-		printf("TREE NODE: p=%p, right=%p, left=%p\n", t, t->right, t->left);
-		printf("type: %d\n", t->type);
+		printf("%sTREE NODE: p=%p, right=%p, left=%p\n", c, t, t->right, t->left);
+		printf("%stype: %d\n", c, t->type);
 		print_tokens_forward(t->tok);
 		args = t->args;
-		printf("args:");
+		printf("%sargs:", c);
 		while (args)
 		{
 			if (*args)
@@ -114,7 +114,7 @@ void	printtree(t_tree *tree)
 		if (t->down)
 		{
 			printf("START: printing down node\n");
-			printtree(t->down);
+			printtree(t->down, "\t");
 			printf("FINISH: printing down node\n");
 		}
 		t = t->right;

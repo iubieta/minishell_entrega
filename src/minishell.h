@@ -186,7 +186,7 @@ void	freetreenode(t_tree *n);
 void	freetree(t_tree **head);
 void	deletetreenode(t_tree *n, t_tree **head);
 char	**tokensto2parray(t_token *tok, t_md *md);
-void	printtree(t_tree *tree);
+void	printtree(t_tree *tree, char *c);
 void	printtreeinerror(t_tree *tree);
 
 // Redir types helpers
