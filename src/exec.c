@@ -35,14 +35,14 @@ void	childproc(t_tree *tree, t_md *md)
 		program = findbin(*md, *cmd);
 	if (tree->down)
 		handle_redirs(tree->down, md);
-	if (fd[IPIPE][RDEND] != -1)
+	if (fd[IPIPE][WREND] != -1)
 	{
-		dup2(fd[IPIPE][RDEND], STDIN_FILENO);
-		close(fd[IPIPE][RDEND]);
+		dup2(fd[IPIPE][WREND], STDIN_FILENO);
+		close(fd[IPIPE][WREND]);
 	}
 	if (next || md->has_output_redir == 1)
-		dup2(fd[OPIPE][WREND], STDOUT_FILENO);
-	close(fd[OPIPE][RDEND]);
+		dup2(fd[OPIPE][RDEND], STDOUT_FILENO);
+	close(fd[OPIPE][WREND]);
 	// printf("bin=%s\n", program);
 	if (program)
 		execve(program, cmd, md->exported);

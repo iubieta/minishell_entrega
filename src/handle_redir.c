@@ -22,7 +22,7 @@ void handle_redir_in(t_tree *tree, int **fd_pipe)
     if (fd_pipe[IPIPE][RDEND] != -1)
         close(fd_pipe[IPIPE][RDEND]);
     fd = open(*(tree->args), O_RDONLY);
-    fd_pipe[IPIPE][RDEND] = fd;
+    fd_pipe[IPIPE][WREND] = fd;
 }
 
 void handle_redir_out(t_tree *tree, int **fd_pipe)
@@ -32,7 +32,7 @@ void handle_redir_out(t_tree *tree, int **fd_pipe)
     if (fd_pipe[OPIPE][WREND] != -1)
         close(fd_pipe[OPIPE][WREND]);
     fd = open(*(tree->args), O_TRUNC | O_CREAT | O_WRONLY, 0777);
-    fd_pipe[OPIPE][WREND] = fd;
+    fd_pipe[OPIPE][RDEND] = fd;
 	fprintf(stderr, "out redirected\n");
 }
 
@@ -49,7 +49,8 @@ void handle_redir_hdoc(t_tree *tree, int **fd_pipe)
     end = *(tree->args);
     while (1)
     {
-        line = readline(NULL);
+        printf("end:%s\n", end);
+        line = ft_gnl(STDIN_FILENO);
         if (ft_strncmp(end, line, ft_strlen(line)) != 0)
             return ;
         ft_putstr_fd(line, fd_pipe[IPIPE][RDEND]);
