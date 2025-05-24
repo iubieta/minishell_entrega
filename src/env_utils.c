@@ -49,24 +49,6 @@ char	*expand_var(char **env, char *var)
 	return (++value);
 }
 
-// Duplicates a char** array
-char	**ardup(char **array)
-{
-	int		i;
-	char	**p;
-
-	if (!array)
-		return (NULL);
-	p = ft_calloc(arlen(array) + 1, sizeof(char *));
-	i = 0;
-	while (array[i])
-	{
-		p[i] = ft_strdup(array[i]);
-		i++;
-	}
-	return (p);
-}
-
 // TEST
 // int	main()
 // {

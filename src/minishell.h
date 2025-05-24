@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 19:30:00 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/04/20 22:08:23 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/05/06 20:39:31 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <ctype.h>
 # include <fcntl.h>
+# include <limits.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -73,6 +74,15 @@ typedef struct s_token
 	struct s_token	*right;
 }	t_token;
 
+typedef struct s_var
+{
+	char			*key;
+	char			*value;
+	int				exported;
+	struct s_var	*next;
+}	t_var;
+
+
 // Structure pointing to key variables
 typedef struct s_md
 {
@@ -80,10 +90,12 @@ typedef struct s_md
 	struct s_tree	**tree;
 	struct s_tree	*nodeact;
 	int				**fd;
-	char			**env;
+	struct s_var	**env;
+	char			**exported;
 	int				status;
 	int				exit_code;
 	char			*prompt;
+	int has_output_redir;
 }	t_md;
 
 // Tokenizer
@@ -99,6 +111,29 @@ void	recompose_tree(t_md *md);
 t_tree	*buildtreenode(t_token *token, t_md *md);
 char	**buildcommand(t_token *t, int words);
 
+// Enviroment
+t_var	*initenv();
+void	printenv(t_var	*env);
+t_var	strtovar(char *def, int exported);
+char	*vartostr(t_var var);
+char	**envtoarray(t_var *env);
+t_var	*new_var(char *key, char *value, int exported);
+t_var	*add_var(t_var *env, t_var var);
+int		key_cmp(char *k1, char *k2);
+t_var	*varfind(t_var	*env, char *key);
+char	*expand_var(t_var *env, char *key);
+
+int		is_var_definition(char *str);
+void	set_var(t_md *md, char *def);
+// size_t	envfind(char **env, char *var);
+// char	*expand_var(char **env, char *var);
+
+// Init
+t_md	*initmetadata(char **env);
+int		**initfdarray(void);
+void	cleanup(t_md *metad);
+void	exitwithmallocerror(t_md *md);
+
 // Exec
 void	childproc(t_tree *tree, t_md *md);
 void	parentproc(t_tree *tree, t_md *md);
@@ -106,11 +141,6 @@ void	execcmd(t_md *md);
 void	rightredir(t_tree *t, int fd[2][2], char **env);
 void	leftredir(t_tree *t, t_md *md);
 
-// Init
-t_md	*initmetadata(void);
-int		**initfdarray(void);
-void	cleanup(t_md *metad);
-void	exitwithmallocerror(t_md *md);
 
 // Signals
 void	sig_init(void);
@@ -122,9 +152,12 @@ void	sig_reset(void);
 int		echo(char **args);
 int		pwd(char **args);
 int		cd(char **args);
+// int		env(char **env);
+// int		ft_export(char ***env_ptr, char **args);
+// int		unset(char ***env_ptr, char **args);
 int		env(char **env);
-int		ft_export(char ***env_ptr, char **args);
-int		unset(char ***env_ptr, char **args);
+int		ft_export(t_md *md, char **args);
+int		unset(t_md *md, char **args);
 
 void	clean_exit(t_md *md);
 
@@ -141,12 +174,10 @@ size_t	arlen(char **array);
 void	arprint(char **array);
 void	arfree(char **array);
 
-size_t	envfind(char **env, char *var);
-char	*expand_var(char **env, char *var);
 
 char	**ardup(char **array);
 
-char	*findbin(char *bin);
+char	*findbin(t_md md, char *bin);
 
 char	*get_prompt(t_md md);
 
@@ -155,7 +186,7 @@ void	freetreenode(t_tree *n);
 void	freetree(t_tree **head);
 void	deletetreenode(t_tree *n, t_tree **head);
 char	**tokensto2parray(t_token *tok, t_md *md);
-void	printtree(t_tree *tree);
+void	printtree(t_tree *tree, char *c);
 void	printtreeinerror(t_tree *tree);
 
 // Redir types helpers
@@ -170,5 +201,5 @@ int		is_redir_out(t_token *token);
 int		is_redir_append(t_token *token);
 
 // handle redirs
-void	handle_redirs(t_tree *node);
+void handle_redirs(t_tree *tree, t_md *md);
 #endif

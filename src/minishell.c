@@ -13,14 +13,17 @@
 #include "minishell.h"
 #include <readline/readline.h>
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **env)
 { 
 	t_md	*md;
 	char	*input;
 
-	md = initmetadata();
+	md = initmetadata(env);
+	//printenv(*md->env);
+	// arprint(envtoarray(*md->env));
 	if (argc == 1)
 	{
+		printf("Hello from minishell!\n");
 		while (1)
 		{
 			sig_init();
@@ -39,7 +42,7 @@ int	main(int argc, char **argv)
 				// print_tokens_forward(*(md->tok)); 
 				buildtreestruct(md);
 				recompose_tree(md);
-				// printtree(*(md->tree));
+				printtree(*(md->tree), " ");
 				execcmd(md);
 				// cleanup(md);
 				// md = ft_initmetadata();
@@ -53,13 +56,14 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
+		printf("Hello and goodbye from minishell!\n");
 		input = artostr(++argv);
 		// printf("%s\n", input);
 		*(md->tok) = tokenize(input);
 		// print_tokens_forward(*(md->tok)); 
 		buildtreestruct(md);
 		// printtree(*(md->tree));
-		execcmd(md);
+		// execcmd(md);
 		// cleanup(md);
 		// md = ft_initmetadata();
 	}

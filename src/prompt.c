@@ -20,12 +20,12 @@ char	*get_prompt(t_md md)
 	char	*home_dir;
 
 	if (md.prompt)
-		free (md.prompt);
+		free(md.prompt);
 	cur_dir = getcwd(NULL, 0);
 	cur_dir = ft_strjoin(cur_dir, "]$ ");
 	user = "[";
-	user = ft_strjoin(user, expand_var(md.env, "$USER"));
-	home_dir = ft_strjoin("/home/", expand_var(md.env, "$USER"));
+	user = ft_strjoin(user, expand_var(*md.env, "USER"));
+	home_dir = ft_strjoin("/home/", expand_var(*md.env, "USER"));
 	if (ft_strncmp(home_dir, cur_dir, ft_strlen(home_dir)) == 0)
 	{
 		home_dir = ft_strjoin("~", &cur_dir[ft_strlen(home_dir)]);

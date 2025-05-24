@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:49:50 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/04/20 22:01:50 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/05/06 20:45:51 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,29 @@ void	childproc(t_tree *tree, t_md *md)
 	next = tree->right;
 	program = *cmd;
 	if (**cmd != '/' && **cmd != '.')
-		program = findbin(*cmd);
+		program = findbin(*md, *cmd);
 	if (tree->down)
-		handle_redirs(tree->down);
+		handle_redirs(tree->down, md);
+	fprintf(stderr, "IPIPE FD: %d\n", fd[IPIPE][RDEND]);
 	if (fd[IPIPE][RDEND] != -1)
 	{
+		fprintf(stderr, "fd error\n");
 		dup2(fd[IPIPE][RDEND], STDIN_FILENO);
 		close(fd[IPIPE][RDEND]);
 	}
-	if (next)
+	if (next || md->has_output_redir == 1)
+	{
+		fprintf(stderr, "flag 01\n");
 		dup2(fd[OPIPE][WREND], STDOUT_FILENO);
+	}
 	close(fd[OPIPE][RDEND]);
-	if (is_builtin(tree->args[0]))
-		execute_builtin(tree->args, md);
-	else if (execve(program, cmd, md->env) == -1)
+	fprintf(stderr, "bin=%s\n", program);
+	if (program)
+		execve(program, cmd, md->exported);
+	else
 	{
 		ft_putstr_fd("Command not found\n", 2);
+		exit(127);
 	}
 	close(fd[OPIPE][WREND]);
 }
@@ -59,17 +66,29 @@ void	parentproc(t_tree *tree, t_md *md)
 
 	if (tree && tree->right && is_pipe(tree->right->tok))
 	{
+		if (pipe(md->fd[IPIPE]) == -1)
+			cleanup(md);
 		if (pipe(md->fd[OPIPE]) == -1)
 			cleanup(md);
 	}
-	pid = fork();
-	sig_ignore();
-	if (pid == -1)
-		cleanup(md);
-	if (pid == 0)
+	if (is_builtin(tree->args[0]))
+		execute_builtin(tree->args, md);
+	else if (is_var_definition(tree->args[0]) == 1)
 	{
-		sig_default();
-		childproc(tree, md);
+		// printf("Var definition\n");
+		set_var(md, tree->args[0]);
+	}
+	else
+	{
+		pid = fork();
+		sig_ignore();
+		if (pid == -1)
+			cleanup(md);
+		if (pid == 0)
+		{
+			sig_default();
+			childproc(tree, md);
+		}
 	}
 	md->fd[IPIPE][RDEND] = md->fd[OPIPE][RDEND];
 	md->fd[IPIPE][WREND] = md->fd[OPIPE][WREND];
@@ -83,8 +102,6 @@ void	parentproc(t_tree *tree, t_md *md)
 		md->exit_code = 1; // valor por defecto si nada aplica
 }
 
-// REVISAR
-
 int is_builtin(char *cmd)
 {
     return (!ft_strcmp(cmd, "cd") || 
@@ -92,7 +109,7 @@ int is_builtin(char *cmd)
 			!ft_strcmp(cmd, "unset") ||
             !ft_strcmp(cmd, "env") || 
 			!ft_strcmp(cmd, "exit") || 
-			!ft_strcmp(cmd, "echo") ||
+			//!ft_strcmp(cmd, "echo") ||
             !ft_strcmp(cmd, "pwd"));
 }
 
@@ -101,11 +118,11 @@ void execute_builtin(char **args, t_md *md)
 	if (!ft_strcmp(args[0], "cd"))
 		md->exit_code = cd(args);
 	else if (!ft_strcmp(args[0], "export"))
-		md->exit_code = ft_export(&md->env, args);
+		md->exit_code = ft_export(md, args);
 	else if (!ft_strcmp(args[0], "unset"))
-		md->exit_code = unset(&md->env, args);
+		md->exit_code = unset(md, args);
 	else if (!ft_strcmp(args[0], "env"))
-		md->exit_code = env(md->env);
+		md->exit_code = env(md->exported);
 	else if (!ft_strcmp(args[0], "exit"))
 		clean_exit(md);
 	else if (!ft_strcmp(args[0], "echo"))

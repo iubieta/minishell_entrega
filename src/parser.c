@@ -6,7 +6,7 @@
 /*   By: iubieta <iubieta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:19:09 by iubieta           #+#    #+#             */
-/*   Updated: 2025/04/20 22:09:19 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/05/24 14:07:03 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,36 @@ t_tree	*buildtreenode(t_token *token, t_md *md)
 	node->right = NULL;
 	return (node);
 }
+// Appends a pair of redir node and its argument to the down position of previous
+// node. Used to build redir_command linked list
+
+void	next_pair_to_down(t_tree *node)
+{
+	t_tree *next;
+	t_tree *p;
+
+	if (!(node->right))
+		return;
+	next = node->right;
+	p = node->down;
+	if (p)
+	{
+		while(p->right)
+			p = p->right;
+		p->right = next;
+	}
+	else
+		p = next;
+	if (next->right)
+		next = next->right;
+	if (next->right)
+		node->right = next->right;
+	else
+		node->right = NULL;
+	next->right = NULL;
+	if (!node->down)
+		node->down = p;
+}
 
 /*
  * This function aims to reorganize the tree to accomodate
@@ -47,29 +77,25 @@ t_tree	*buildtreenode(t_token *token, t_md *md)
 void	recompose_tree(t_md *md)
 {
 	t_tree	*node;
-	t_tree	*p;
+	t_token *tok;
 
 	node = *(md->tree);
 	while (node)
 	{
-		p = node;
-		while (p && !is_pipe(p->tok))
+		tok = NULL;
+		if (node->right)
+			tok = node->right->tok;
+		while (is_redir(tok) && !is_pipe(tok))
 		{
-			if (!is_redir(p->tok))
-			{
-				p = p->right;
-				continue ;
-			}
-			if (node->down != NULL)
-				freetree(&(node->down));
-			node->down = p;
-			node->right = p->right->right;
-			p->right->right = NULL;
-			p = node;
+			next_pair_to_down(node);
+			tok = NULL;
+			if (node->right)
+				tok = node->right->tok;
 		}
 		node = node->right;
 	}
 }
+
 
 void	buildtreestruct(t_md *md)
 {

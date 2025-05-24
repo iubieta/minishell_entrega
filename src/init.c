@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
+#include <strings.h>
 
 int	**initfdarray(void)
 {
@@ -34,7 +36,7 @@ void	cleanup(t_md *md)
 	freetree(md->tree);
 	free(md->fd[0]);
 	free(md->fd);
-	ft_free2parray(md->env);
+	// ft_free2parray(md->env);
 	free(md);
 	md = NULL;
 }
@@ -45,15 +47,16 @@ void	exitwithmallocerror(t_md *md)
 	exit(EXIT_FAILURE);
 }
 
-t_md	*initmetadata(void)
+t_md	*initmetadata(char **environ)
 {
 	t_md		*md;
-	extern char	**environ;
 
 	md = (t_md *)malloc(sizeof(t_md));
 	if (md == NULL)
 		exitwithmallocerror(md);
-	md->env = ardup(environ);
+	md->env = (t_var **)malloc(sizeof(t_var *));
+	*md->env = initenv();
+	md->exported = ardup(environ);
 	md->tok = (t_token **)malloc(sizeof(t_token *));
 	if (md->tok == NULL)
 		exitwithmallocerror(md);

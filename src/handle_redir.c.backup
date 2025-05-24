@@ -1,0 +1,98 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_redir.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/20 19:11:20 by iubieta-          #+#    #+#             */
+/*   Updated: 2025/04/20 19:11:53 by iubieta-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
+
+int handle_redir_in(t_tree *tree, int fdin)
+{
+    int fd;
+
+    fd = open(*(tree->args), O_RDONLY);
+	if (fdin == -1)
+		dup2(fd, STDIN_FILENO);
+	else 
+		dup2(fd, fdin);
+    // hay que cerrar el fd mas adelante
+	return (fd);
+}
+
+int handle_redir_out(t_tree *tree, int fdout)
+{
+    int fd;
+    fd = open(*(tree->args), O_TRUNC | O_CREAT | O_WRONLY, 0777);
+	if (fdout == -1)
+		dup2(fd, STDOUT_FILENO);
+	else 
+		dup2(fd, fdout);
+    return (fd);
+}
+
+int handle_redir_hdoc(t_tree *tree, int fdin)
+{
+
+    char *end;
+    char *line;
+
+	if (fdin == -1)
+		fdin = STDIN_FILENO;
+    end = *(tree->args);
+    while (1)
+    {
+        line = readline(NULL);
+        if (ft_strncmp(end, line, ft_strlen(line)) != 0)
+            return (fdin); 
+        ft_putstr_fd(line, fdin);
+    }
+}
+
+int handle_redir_append(t_tree *tree, int fdout)
+{
+    int fd;
+	
+    fd = open(*(tree->args), O_APPEND | O_CREAT | O_WRONLY, 0777);
+    if (fd == -1)
+	{
+        perror("open error");
+	}
+	if (fdout == -1)
+		dup2(fd, STDOUT_FILENO);
+	else 
+		dup2(fd, fdout);
+    return (fd);
+}
+
+int handle_redirs(t_tree *tree, t_md *md)
+{
+    t_tree *node;
+	int	**fd;
+
+    node = tree;
+	fd = md->fd;
+	fprintf(stderr, "flag\n");
+	fprintf(stderr, "1:%i, 2:%i, 3:%i 4:%i\n", fd[0][0], fd[0][1], fd[1][0], fd[1][1]);
+    while (node)
+    {
+        if (is_redir_in(node->tok))
+            return (handle_redir_in(node->right, fd[IPIPE][RDEND]));
+        if (is_redir_out(node->tok))
+            return (handle_redir_out(node->right, fd[OPIPE][WREND]));
+        if (is_redir_hdoc(node->tok))
+            return (handle_redir_hdoc(node->right, fd[IPIPE][RDEND]));
+        if (is_redir_append(node->tok))
+            return (handle_redir_append(node->right, fd[OPIPE][WREND]));
+        node = node->right;
+    }
+	return 0;
+}

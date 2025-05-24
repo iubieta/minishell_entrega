@@ -5,7 +5,7 @@
 
 ### En caso de duda utilizar **bash** como referencia!
 
-- [ ] **1.** Mostrar una nueva entrada mientras espera el comando nuevo.
+- [x] **1.** Mostrar una nueva entrada mientras espera el comando nuevo.
 - [x] **2.** Tener una historia funcional.
 - [x] **3.** Buscar y ejecutar el ejecutable correcto (basado en la variable PATH o mediante el uso de rutas relativas o absolutas).
 - [x] **4.** Evita utilizar más de una variable global para indicar la recepción de una señal. (Prohibido utilizar estructuras tipo norm en global).

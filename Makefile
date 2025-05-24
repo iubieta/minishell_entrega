@@ -34,13 +34,14 @@ SRC_FILES	=	minishell init signals\
 				parser redir_types redir_types2\
 				str_utils ar_utils \
 				tree_utils \
-				exec exec_utils \
 				builtin_pwd builtin_cd \
 				builtin_echo \
 				builtin_exit \
-				builtin_env builtin_export builtin_unset env_utils \
 				handle_redir \
-				prompt
+				prompt \
+				env \
+				exec exec_utils \
+				builtin_export builtin_unset builtin_env var_definition # env_utils \
 
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
