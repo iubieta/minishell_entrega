@@ -6,7 +6,7 @@
 /*   By: iubieta <iubieta@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:19:09 by iubieta           #+#    #+#             */
-/*   Updated: 2025/04/20 22:09:19 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/05/24 14:07:03 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ void	next_pair_to_down(t_tree *node)
 	if (next->right)
 		next = next->right;
 	if (next->right)
-		next = next->right;
-	node->right = next;
+		node->right = next->right;
+	else
+		node.right = NULL;
 	next->right = NULL;
 }
 
