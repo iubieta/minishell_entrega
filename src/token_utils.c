@@ -62,7 +62,7 @@ void	print_tokens_forward(t_token *tokens)
 {
 	while (tokens)
 	{
-		printf("Token: %-10s Type: %d\n", tokens->value, tokens->type);
+		fprintf(stderr, "Token: %-10s Type: %d\n", tokens->value, tokens->type);
 		tokens = tokens->right;
 	}
 }
