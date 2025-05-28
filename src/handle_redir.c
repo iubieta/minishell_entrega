@@ -23,9 +23,11 @@ void handle_redir_in(t_tree *tree, int **fd_pipe)
         close(fd_pipe[IPIPE][RDEND]);
     fd = open(*(tree->args), O_RDONLY);
 	if (fd == -1)
-		perror("handle redir in:");
+    {
+		perror("minishell");
+        exit(1);
+    }
     fd_pipe[IPIPE][RDEND] = fd;
-	fprintf(stderr, "in redirected\n");
 }
 
 void handle_redir_out(t_tree *tree, int **fd_pipe)
@@ -36,30 +38,44 @@ void handle_redir_out(t_tree *tree, int **fd_pipe)
         close(fd_pipe[OPIPE][WREND]);
     fd = open(*(tree->args), O_TRUNC | O_CREAT | O_WRONLY, 0777);
 	if (fd == -1)
-		perror("handle redir out:");
+    {
+		perror("minishell");
+        exit(1);
+    }
     fd_pipe[OPIPE][WREND] = fd;
-	fprintf(stderr, "out redirected\n");
 }
 
 void handle_redir_hdoc(t_tree *tree, int **fd_pipe)
 {
-
+    int fd;
     char *end;
     char *line;
 
-
-
     if (fd_pipe[IPIPE][RDEND] != -1)
         close(fd_pipe[IPIPE][RDEND]);
+    fd = open("/tmp/hdoc.tmp", O_TRUNC | O_CREAT | O_WRONLY, 0777);
+	if (fd == -1)
+    {
+		perror("minishell");
+        exit(1);
+    }
+    fd_pipe[IPIPE][RDEND] = fd;
     end = *(tree->args);
     while (1)
     {
-        printf("end:%s\n", end);
         line = ft_gnl(STDIN_FILENO);
-        if (ft_strncmp(end, line, ft_strlen(line)) != 0)
-            return ;
+        if (ft_strncmp(end, line, ft_strlen(line) - 1) == 0)
+            break ;
         ft_putstr_fd(line, fd_pipe[IPIPE][RDEND]);
     }
+    close(fd);
+    fd = open("/tmp/hdoc.tmp", O_RDONLY);
+	if (fd == -1)
+    {
+		perror("minishell");
+        exit(1);
+    }
+    fd_pipe[IPIPE][RDEND] = fd;
 }
 
 void handle_redir_append(t_tree *tree, int **fd_pipe)
@@ -68,10 +84,7 @@ void handle_redir_append(t_tree *tree, int **fd_pipe)
 
     fd = open(*(tree->args), O_APPEND | O_CREAT | O_WRONLY, 0777);
     if (fd == -1)
-        perror("handle redir append:");
-    fprintf(stderr, "stdout: %d, fd: %d\n", STDOUT_FILENO, fd);
     fd_pipe[OPIPE][WREND] = fd;
-    fprintf(stderr, "stdout: %d, fd: %d\n", STDOUT_FILENO, fd);
 }
 
 void handle_redirs(t_tree *tree, t_md *md)
@@ -82,7 +95,6 @@ void handle_redirs(t_tree *tree, t_md *md)
     node = tree;
     while (node)
     {
-		fprintf(stderr, "flag\n");
         if (is_redir_in(node->tok))
             handle_redir_in(node->right, md->fd);
 		else if (is_redir_out(node->tok))
@@ -99,5 +111,4 @@ void handle_redirs(t_tree *tree, t_md *md)
         }
         node = node->right;
     }
-		fprintf(stderr, "handle redir end\n");
 }

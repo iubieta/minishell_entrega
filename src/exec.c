@@ -23,7 +23,6 @@ void	childproc(t_tree *tree, t_md *md)
 	char	**cmd;
 	int		**fd;
 	t_tree	*next;
-	//char	program[256];
 	char	*program;
 
 	sig_reset();
@@ -35,28 +34,29 @@ void	childproc(t_tree *tree, t_md *md)
 		program = findbin(*md, *cmd);
 	if (tree->down)
 		handle_redirs(tree->down, md);
-	fprintf(stderr, "IPIPE FD: %d\n", fd[IPIPE][RDEND]);
 	if (fd[IPIPE][RDEND] != -1)
 	{
-		fprintf(stderr, "fd error\n");
 		dup2(fd[IPIPE][RDEND], STDIN_FILENO);
 		close(fd[IPIPE][RDEND]);
 	}
+	close(fd[IPIPE][WREND]);
 	if (next || md->has_output_redir == 1)
 	{
-		fprintf(stderr, "flag 01\n");
 		dup2(fd[OPIPE][WREND], STDOUT_FILENO);
+		close(fd[OPIPE][WREND]);
 	}
 	close(fd[OPIPE][RDEND]);
-	fprintf(stderr, "bin=%s\n", program);
 	if (program)
+	{
 		execve(program, cmd, md->exported);
+	}
 	else
 	{
 		ft_putstr_fd("Command not found\n", 2);
 		exit(127);
 	}
 	close(fd[OPIPE][WREND]);
+	close(fd[IPIPE][RDEND]);
 }
 
 void	parentproc(t_tree *tree, t_md *md)
@@ -64,10 +64,13 @@ void	parentproc(t_tree *tree, t_md *md)
 	pid_t	pid;
 	int		status;
 
-	if (tree && tree->right && is_pipe(tree->right->tok))
+	if (md->fd[IPIPE][RDEND] == -1 && md->fd[IPIPE][WREND] == -1)
 	{
 		if (pipe(md->fd[IPIPE]) == -1)
 			cleanup(md);
+	}
+	if (tree && tree->right && is_pipe(tree->right->tok))
+	{
 		if (pipe(md->fd[OPIPE]) == -1)
 			cleanup(md);
 	}
@@ -90,6 +93,8 @@ void	parentproc(t_tree *tree, t_md *md)
 			childproc(tree, md);
 		}
 	}
+	if (access("/tmp/hdoc.tmp", F_OK) == 0)
+		unlink("/tmp/hdoc.tmp");
 	md->fd[IPIPE][RDEND] = md->fd[OPIPE][RDEND];
 	md->fd[IPIPE][WREND] = md->fd[OPIPE][WREND];
 	close(md->fd[IPIPE][WREND]);
