@@ -109,13 +109,39 @@ void	classify_tokens(t_token **head)
 	return ;
 }
 
+char *get_correct_spaced_tokens(char *ogs)
+{
+	char *mods;
+	int i;
+	int j;
+
+	mods = ft_calloc(ft_strlen(ogs) * 2, sizeof(char));
+	i = 0;
+	j = 0;
+	while (ogs[i] != '\0')
+	{
+		if (strchr("<>|", ogs[i]) != NULL)
+		{
+			mods[j++] = ' ';
+			mods[j++] = ogs[i++];
+			if (ogs[i] == ogs[i - 1] && ogs[i] != '|')
+				mods[j++] = ogs[i++];
+			mods[j++] = ' ';
+		}
+		else
+			mods[j++] = ogs[i++];
+	}
+	free(ogs);
+	return(mods);
+}
+
 void	append_tokens(t_token **tokens, char **arr, char *blob, char blob_type)
 {
 	int		i;
 	char	**tmp;
 
 	tmp = arr;
-	arr = ft_split(arr[0], ' ');
+	arr = ft_split(get_correct_spaced_tokens(arr[0]), ' ');
 	i = 0;
 	while (arr[i])
 		add_token(tokens, arr[i++], TOKEN_UNKNOWN);
