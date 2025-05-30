@@ -33,6 +33,7 @@ void interactive_mode(t_md *md)
 		{
 			add_history(input);
 			*(md->tok) = tokenize(input);
+			rebuild_dq_tokens(*(md->tok), *md);
 			// print_tokens_forward(*(md->tok)); 
 			buildtreestruct(md);
 			recompose_tree(md);

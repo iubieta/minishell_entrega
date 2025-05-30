@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 19:30:00 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/05/06 20:39:31 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:14:24 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define WREND 1
 # define IPIPE 0
 # define OPIPE 1
+
+# define VAR_SEP_CHARS " :"
 
 // ERRORS
 # define ERR_QUOTE "error detected during parsing: incorrect use of quotes"
@@ -125,8 +127,8 @@ char	*expand_var(t_var *env, char *key);
 
 int		is_var_definition(char *str);
 void	set_var(t_md *md, char *def);
-// size_t	envfind(char **env, char *var);
-// char	*expand_var(char **env, char *var);
+char	*expand_vars_in_dq(char *ogs, t_md md);
+void	rebuild_dq_tokens(t_token *tokens, t_md md);
 
 // Init
 t_md	*initmetadata(char **env);
