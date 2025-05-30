@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
+#include <unistd.h>
 
 int	echo(char **args)
 {
@@ -18,6 +20,7 @@ int	echo(char **args)
 	int		flag;
 
 	flag = 0;
+	fprintf(stderr, "echo builtin:"); 
 	if (args[1] == NULL)
 	{
 		printf("\n");

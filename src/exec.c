@@ -16,7 +16,8 @@
 #include <unistd.h>
 
 void	execute_builtin(char **args, t_md *md);
-int		is_builtin(char *cmd);
+int		is_main_builtin(char *cmd);
+int		is_print_builtin(char *cmd);
 
 void	childproc(t_tree *tree, t_md *md)
 {
@@ -46,7 +47,12 @@ void	childproc(t_tree *tree, t_md *md)
 		close(fd[OPIPE][WREND]);
 	}
 	close(fd[OPIPE][RDEND]);
-	if (program)
+	if (is_print_builtin(*cmd))
+	{
+		execute_builtin(cmd, md);
+		exit(0);
+	}
+	else if (program)
 	{
 		execve(program, cmd, md->exported);
 	}
@@ -74,7 +80,7 @@ void	parentproc(t_tree *tree, t_md *md)
 		if (pipe(md->fd[OPIPE]) == -1)
 			cleanup(md);
 	}
-	if (is_builtin(tree->args[0]))
+	if (is_main_builtin(tree->args[0]))
 		execute_builtin(tree->args, md);
 	else if (is_var_definition(tree->args[0]) == 1)
 	{
@@ -107,14 +113,18 @@ void	parentproc(t_tree *tree, t_md *md)
 		md->exit_code = 1; // valor por defecto si nada aplica
 }
 
-int is_builtin(char *cmd)
+int is_main_builtin(char *cmd)
 {
     return (!ft_strcmp(cmd, "cd") || 
 			!ft_strcmp(cmd, "export") ||
 			!ft_strcmp(cmd, "unset") ||
-            !ft_strcmp(cmd, "env") || 
-			!ft_strcmp(cmd, "exit") || 
-			//!ft_strcmp(cmd, "echo") ||
+			!ft_strcmp(cmd, "exit"));
+}
+
+int is_print_builtin(char *cmd)
+{
+	return (!ft_strcmp(cmd, "env") || 
+			!ft_strcmp(cmd, "echo") ||
             !ft_strcmp(cmd, "pwd"));
 }
 
@@ -149,7 +159,7 @@ void	execcmd(t_md *md)
 		{
 			//fprintf(stderr, "this is stderror\n");
 			/* printtree(tree); */
-			//if (is_builtin(tree->args[0]))
+			//if (is_main_builtin(tree->args[0]))
 				//execute_builtin(tree->args, md);
 			parentproc(tree, md);
 			// Buscar como implementar builtins sin forkear
