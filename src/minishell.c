@@ -36,7 +36,7 @@ void interactive_mode(t_md *md)
 			// print_tokens_forward(*(md->tok)); 
 			buildtreestruct(md);
 			recompose_tree(md);
-			printtreeinerror(*(md->tree)); 
+			// printtreeinerror(*(md->tree)); 
 			execcmd(md);
 			// cleanup(md);
 			// md = ft_initmetadata();

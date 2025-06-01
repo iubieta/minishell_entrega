@@ -120,7 +120,7 @@ char *get_correct_spaced_tokens(char *ogs)
 	j = 0;
 	while (ogs[i] != '\0')
 	{
-		if (strchr("<>|", ogs[i]) != NULL)
+		if (ft_strchr("<>|", ogs[i]) != NULL)
 		{
 			mods[j++] = ' ';
 			mods[j++] = ogs[i++];
@@ -131,6 +131,7 @@ char *get_correct_spaced_tokens(char *ogs)
 		else
 			mods[j++] = ogs[i++];
 	}
+	mods[j++] = ogs[i++];
 	free(ogs);
 	return(mods);
 }
