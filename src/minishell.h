@@ -29,7 +29,7 @@
 # define IPIPE 0
 # define OPIPE 1
 
-# define VAR_SEP_CHARS "@!#$%&'()*+,-./:;<=>?[]^_`{|} "
+# define VAR_SEP_CHARS "@!#$%&'()*+,-./:;<=>?[]^_`{|} \\"
 
 
 
