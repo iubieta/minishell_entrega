@@ -35,6 +35,5 @@ int	unset(t_md *md, char **args)
 	}
 	free(md->exported);
 	md->exported = envtoarray(*md->env);
-	arprint(md->exported);
 	return (0);
 }

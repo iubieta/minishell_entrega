@@ -53,18 +53,18 @@
 - Ejecuta `echo` con y sin argumentos.
 - Prueba con `-n` y varias combinaciones.
 
-### 🔹 Comando `exit` FUNCIONANDO
+### 🔹 Comando `exit` REVISAR ARGUMENTOS Y MENSAJE
 
 - Ejecuta `exit` con y sin argumentos.
 - Repite varias veces y reinicia `minishell`.
 
-### 🔹 Valor de Retorno (`$?`) FUNCIONANDO
+### 🔹 Valor de Retorno (`$?`) REVISAR BUILTINS y OTROS PROCESOS
 
 - Ejecuta un comando (`/bin/ls`) y luego `echo $?` para verificar el valor de retorno.
 - Prueba con comandos erróneos (`/bin/ls archivo_inexistente`).
 - Experimenta con `expr $? + $?`.
 
-### 🔹 Señales (`ctrl-C`, `ctrl-D`, `ctrl-\`) REVISAR ctrl-\
+### 🔹 Señales (`ctrl-C`, `ctrl-D`, `ctrl-\`) REVISAR ctrl-\ y cat y grep
 
 - `ctrl-C` en un prompt vacío debe mostrar una nueva línea con el prompt.
 - `ctrl-D` en un prompt vacío debe cerrar `minishell`.
@@ -82,9 +82,9 @@
 - Prueba comandos con comillas simples.
 - `echo '$USER'` debe imprimir `"$USER"` sin expandirlo.
 
-### 🔹 Comando `env` FUNCIONANDO
+### 🔹 Comando `env` REVISAR: Imprime varibles distintas a bash
 
-- Verifica que `env` muestra las variables de entorno.
+- Verifica que `env` muestra las variables de entorno. 
 
 ### 🔹 Comando `export` REVISAR : FUNCIONAMIENTO GENERAL y PARCHE para juntar comillas despues del igual
 
@@ -105,18 +105,18 @@
 
 - Ejecuta `pwd` en distintos directorios.
 
-### 🔹 Rutas Relativas FUNCIONANDO
+### 🔹 Rutas Relativas REVISAR
 
 - Ejecuta comandos con rutas relativas.
-- Prueba rutas complejas (`../../bin/ls`). ` FUNCIONA SIEMPRE, no deberia`
+- Prueba rutas complejas (`../../bin/ls`). ` Imprime un nuevo prompt con mensaje de "exit" `
 
-### 🔹 Variable `$PATH` FUNCIONANDO
+### 🔹 Variable `$PATH` REVISAR orden de busqueda en PATH
 
 - Ejecuta comandos sin especificar la ruta (`ls`, `wc`, etc.).
 - Elimina `$PATH` y verifica que los comandos dejan de funcionar.
-- Modifica `$PATH` y verifica el orden de búsqueda.
+- Modifica `$PATH` y verifica el orden de búsqueda.  `REVISAR`
 
-### 🔹 Redirecciones (`<`, `>`, `>>`, `<<`)
+### 🔹 Redirecciones (`<`, `>`, `>>`, `<<`) FUNCIONANDO, REVISAR: caracter `>` en HEREDOC
 
 - Prueba redirecciones con diferentes comandos.
 - Asegúrate de que `<<` no actualiza el historial.
@@ -131,10 +131,10 @@
 
 - Escribe un comando y usa `ctrl-C`. El buffer debe estar limpio.
 - Usa las teclas `↑` y `↓` para navegar en el historial.
-- Asegúrate de que `minishell` no crashea con comandos inválidos (`dsbksdgbksdghsd`).
+- Asegúrate de que `minishell` no crashea con comandos inválidos (`dsbksdgbksdghsd`). `REVISAR: mensaje commando not found`
 - Prueba una línea de comandos muy larga.
 
-### 🔹 Variables de Entorno REVISAR: las comillas dobles deberian expandir $
+### 🔹 Variables de Entorno FUNCIONANDO
 
 - Ejecuta `echo $VARIABLE`.
 - Verifica que `$` es interpretado correctamente.
