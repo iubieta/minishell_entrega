@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 16:33:21 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/03/23 18:22:15 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:04:29 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,6 @@ size_t	envfind(char **env, char *str)
 	return (i);
 }
 
-// Returns the value of var in env array
-char	*expand_var(char **env, char *var)
-{
-	size_t	i;
-	char	*value;
-
-	if (!env || !var || !*var || !var[1])
-		return (NULL);
-	var++;
-	i = envfind(env, var);
-	if (!env[i])
-		return (NULL);
-	value = ft_strchr(env[i], '=');
-	return (++value);
-}
 
 // TEST
 // int	main()

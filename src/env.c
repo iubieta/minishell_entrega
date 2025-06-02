@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 20:59:03 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/05/06 20:47:21 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:05:03 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	printenv(t_var	*env)
 	}
 }
 
-
 char	**envtoarray(t_var *env)
 {
 	char **ar;
@@ -76,17 +75,6 @@ char	**envtoarray(t_var *env)
 	}
 	return (ar);
 }
-
-char	*expand_var(t_var *env, char *key)
-{
-	t_var	*var;
-	
-	var = varfind(env, key);
-	if (var)
-		return (var->value);
-	return (NULL);
-}
-
 
 int	key_cmp(char *k1, char *k2)
 {
