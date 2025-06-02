@@ -46,7 +46,6 @@ char	*build_expanded_str(char *str, t_md md)
 	str = ft_strjoin(splited_var[2], splited_var[1]);
 	free(splited_var[0]);
 	free(splited_var[1]);
-	free(splited_var[2]);
 	return (str);
 }
 
@@ -71,8 +70,8 @@ char	*expand_vars_in_dq(char *ogs, t_md md)
 	while (array[i])
 	{
 		tmp = ft_strjoin(mods, array[i++]);
+		free(mods);
 		mods = tmp;
-		free(tmp);
 	}
 	return (mods);
 }
@@ -85,7 +84,7 @@ void	rebuild_dq_tokens(t_token *tokens, t_md md)
 	while (p)
 	{
 		if (p->type == TOKEN_BLOB_DQ)
-			expand_vars_in_dq(p->value, md);
+			p->value = expand_vars_in_dq(p->value, md);
 		p = p->right;
 	}
 }

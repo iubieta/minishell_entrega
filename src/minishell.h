@@ -29,7 +29,10 @@
 # define IPIPE 0
 # define OPIPE 1
 
-# define VAR_SEP_CHARS " :"
+# define VAR_SEP_CHARS "@!#$%&'()*+,-./:;<=>?[]^_`{|} "
+
+
+
 
 // ERRORS
 # define ERR_QUOTE "error detected during parsing: incorrect use of quotes"
