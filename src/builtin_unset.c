@@ -19,10 +19,7 @@ int	unset(t_md *md, char **args)
 	t_var	*next;
 
 	if (!args || !md)
-	{
-		printf("unset: not enough arguments\n");
-		return (1);
-	}
+		return (printf("unset: not enough arguments\n"), 1);
 	i = 1;
 	while (args[i])
 	{
@@ -41,4 +38,3 @@ int	unset(t_md *md, char **args)
 	arprint(md->exported);
 	return (0);
 }
-

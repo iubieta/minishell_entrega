@@ -29,15 +29,16 @@ WHITE = \033[0;97m
 
 # signals
 
-SRC_FILES	=	minishell init signals\
+SRC_FILES	=	minishell init signals \
 				tokenizer token_utils \
-				parser redir_types redir_types2\
-				str_utils ar_utils \
+				parser redir_types redir_types2 \
+				str_utils ar_utils ar_utils2 \
 				tree_utils \
 				builtin_pwd builtin_cd \
 				builtin_echo \
 				builtin_exit \
-				handle_redir \
+				builtin_utils \
+				handle_redir redir_utils\
 				prompt \
 				env \
 				var_definition var_expansion \

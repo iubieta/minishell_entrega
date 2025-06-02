@@ -11,8 +11,12 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
+// no funciona bien cuando se hace:
+// HOLA=hola
+// export HOLA
+// solo coge el HOLA, y no guarda HOLA=hola
+// version modificada para pasar la normi
 int	ft_export(t_md *md, char **args)
 {
 	t_var	def;
@@ -20,35 +24,64 @@ int	ft_export(t_md *md, char **args)
 	size_t	i;
 
 	if (!args || !args[1])
+		return (printf("export: not enough arguments\n"), 1);
+	i = 0;
+	while (args[++i])
 	{
-		printf("export: not enough arguments\n");
-		return (1);
-	}
-	arprint(md->exported);
-	i = 1;
-	while (args[i])
-	{
-		// Resolver problema con las comillas
-		printf("%s\n", args[i]);
 		def = strtovar(args[i], 1);
 		var = varfind(*md->env, def.key);
 		if (var)
 		{
-			printf("var found\n");
 			if (def.value)
 				var->value = def.value;
 			var->exported = 1;
 		}
 		else
 		{
-			printf("var NOT found\n");
 			var = new_var(def.key, def.value, 1);
 			add_var(*md->env, *var);
 		}
-		i++;
 	}
 	free(md->exported);
-	md->exported = envtoarray(*md->env);
-	arprint(md->exported);
-	return (0);
+	return (md->exported = envtoarray(*md->env), 0);
 }
+
+/* // Resolver problema con las comillas (linea 32) */
+/* int	ft_export(t_md *md, char **args) */
+/* { */
+/* 	t_var	def; */
+/* 	t_var	*var; */
+/* 	size_t	i; */
+
+/* 	if (!args || !args[1]) */
+/* 	{ */
+/* 		printf("export: not enough arguments\n"); */
+/* 		return (1); */
+/* 	} */
+/* 	arprint(md->exported); */
+/* 	i = 1; */
+/* 	while (args[i]) */
+/* 	{ */
+/* 		printf("%s\n", args[i]); */
+/* 		def = strtovar(args[i], 1); */
+/* 		var = varfind(*md->env, def.key); */
+/* 		if (var) */
+/* 		{ */
+/* 			printf("var found\n"); */
+/* 			if (def.value) */
+/* 				var->value = def.value; */
+/* 			var->exported = 1; */
+/* 		} */
+/* 		else */
+/* 		{ */
+/* 			printf("var NOT found\n"); */
+/* 			var = new_var(def.key, def.value, 1); */
+/* 			add_var(*md->env, *var); */
+/* 		} */
+/* 		i++; */
+/* 	} */
+/* 	free(md->exported); */
+/* 	md->exported = envtoarray(*md->env); */
+/* 	arprint(md->exported); */
+/* 	return (0); */
+/* } */

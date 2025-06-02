@@ -33,7 +33,6 @@ size_t	envfind(char **env, char *str)
 	return (i);
 }
 
-
 // TEST
 // int	main()
 // {

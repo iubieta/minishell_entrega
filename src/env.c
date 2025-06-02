@@ -16,13 +16,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-t_var	*initenv()
+t_var	*initenv(void)
 {
 	extern char	**environ;
-	t_var	*env;
-	t_var	var;
-	size_t	i;
-	
+	t_var		*env;
+	t_var		var;
+	size_t		i;
+
 	env = (t_var *)malloc(sizeof(t_var));
 	i = 0;
 	while (environ && environ[i])
@@ -31,20 +31,20 @@ t_var	*initenv()
 		env = add_var(env, var);
 		i++;
 	}
-	// printenv(env);
 	return (env);
 }
 
 void	printenv(t_var	*env)
 {
 	t_var	*cur;
-	int	i;
+	int		i;
 
 	cur = env;
 	i = 1;
 	while (cur)
 	{
-		printf("Var %i: key = %s, value = %s, exported = %i\n", i, cur->key, cur->value, cur->exported);
+		printf("Var %i: key = %s, value = %s, exported = %i\n",
+			i, cur->key, cur->value, cur->exported);
 		cur = cur->next;
 		i++;
 	}
@@ -52,7 +52,7 @@ void	printenv(t_var	*env)
 
 char	**envtoarray(t_var *env)
 {
-	char **ar;
+	char	**ar;
 	t_var	*cur;
 	size_t	len;
 	size_t	i;
@@ -98,9 +98,8 @@ t_var	*varfind(t_var	*env, char *key)
 	while (cur)
 	{
 		if (key_cmp(cur->key, key) == 0)
-			return(cur);
+			return (cur);
 		cur = cur->next;
 	}
 	return (NULL);
 }
-

@@ -36,3 +36,33 @@ char	*findbin(t_md md, char *bin)
 	}
 	return (ft_free2parray(paths), paths = NULL, NULL);
 }
+
+void	create_pipe(t_md *md, int pipeint)
+{
+	if (pipe(md->fd[pipeint]) == -1)
+		cleanup(md);
+}
+
+pid_t	create_fork(t_md *md)
+{
+	pid_t	pid;
+
+	pid = fork();
+	sig_ignore();
+	if (pid == -1)
+		cleanup(md);
+	return (pid);
+}
+
+void	handle_signals(t_md *md, pid_t pid)
+{
+	int	status;
+
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		md->exit_code = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		md->exit_code = 128 + WTERMSIG(status);
+	else
+		md->exit_code = 1;
+}
