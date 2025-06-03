@@ -164,7 +164,7 @@ int		env(char **env);
 int		ft_export(t_md *md, char **args);
 int		unset(t_md *md, char **args);
 
-void	clean_exit(t_md *md);
+int	clean_exit(char **args, t_md *md);
 
 // Utils
 size_t	indexof(char *str, char c);

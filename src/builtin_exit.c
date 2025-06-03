@@ -11,9 +11,27 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
-void	clean_exit(t_md *md)
+int	clean_exit(char **args, t_md *md)
 {
+	int i;
+
+	printf("exit\n");
+	if (arlen(args) < 2)
+		exit(0);
+	if (arlen(args) > 2)
+		return (ft_putstr_fd("minishell: exit: too many arguments\n", 2), 1);
+	i = 0;
+	while (args[1][i])
+	{
+		if (!ft_isdigit(args[1][i]))
+		{
+			ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
+			exit(2);
+		}
+		i++;
+	}
 	cleanup(md);
-	exit(1);
+	exit(ft_atoi(args[1]));
 }

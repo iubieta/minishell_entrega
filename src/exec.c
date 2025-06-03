@@ -110,7 +110,7 @@ void	execute_builtin(char **args, t_md *md)
 	else if (!ft_strcmp(args[0], "env"))
 		md->exit_code = env(md->exported);
 	else if (!ft_strcmp(args[0], "exit"))
-		clean_exit(md);
+		clean_exit(args, md);
 	else if (!ft_strcmp(args[0], "echo"))
 		md->exit_code = echo(args);
 	else if (!ft_strcmp(args[0], "pwd"))
