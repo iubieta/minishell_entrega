@@ -32,14 +32,9 @@ int	ft_export(t_md *md, char **args)
 		var = varfind(*md->env, def.key);
 		if (var)
 		{
-			if (def.value)
+			if (ft_strncmp(def.value, "", 1) != 0)
 				var->value = def.value;
 			var->exported = 1;
-		}
-		else
-		{
-			var = new_var(def.key, def.value, 1);
-			add_var(*md->env, *var);
 		}
 	}
 	free(md->exported);
