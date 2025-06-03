@@ -42,6 +42,7 @@ typedef enum e_toktype
 	TOKEN_WORD,				// For commands and arguments
 	TOKEN_BLOB_SQ,			// For quote blocks of type `'`
 	TOKEN_BLOB_DQ,			// For quote blocks of type `"`
+	TOKEN_VAR_DEF,			// For variable definitions USER=name
 	TOKEN_ENV_VAR,			// For environment variables '$'
 	TOKEN_REDIR_APPEND,		// For '>>' redirection
 	TOKEN_REDIR_OUT,		// For '>' redirection
@@ -136,7 +137,7 @@ void	rebuild_dq_tokens(t_token *tokens, t_md md);
 // Init
 t_md	*initmetadata(char **env);
 int		**initfdarray(void);
-void	cleanup(t_md *metad);
+void	cleanup(t_md *md, int mode);
 void	exitwithmallocerror(t_md *md);
 
 // Exec
@@ -172,6 +173,7 @@ int		is_special_char(char c);
 int		count_quoted_chars(char *input);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*artostr(char **ar);
+int		isblankline(char *line);
 
 char	**arremove(char **array, size_t del);
 char	**arcat(char **array, char *ptr);

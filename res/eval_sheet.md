@@ -29,7 +29,7 @@
 - Asegúrate de que `minishell` compila sin errores.
 - El `Makefile` no debe relinkear.
 
-### 🔹 Comandos Simples & Variables Globales REVISAR BUFFER
+### 🔹 Comandos Simples & Variables Globales REVISAR BUFFER: al poner espacios o tabs, se ejecuta el ultimo comando no vacio
 
 - Ejecuta un comando simple con una ruta absoluta (`/bin/ls`).
 - Pregunta cuántas variables globales usa el estudiante y por qué.

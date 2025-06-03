@@ -23,26 +23,30 @@ void interactive_mode(t_md *md)
 		sig_init();
 		md->prompt = get_prompt(*md);
 		input = readline(md->prompt);
+		
 		// printf("input: %s\n", input);
 		if (!input)
 		{ 
 			printf("exit\n");
 			break;
 		}
-		if (input[0])
+		if (input[0] && !isblankline(input))
 		{
 			add_history(input);
 			*(md->tok) = tokenize(input);
+			// print_tokens_forward(*(md->tok)); 
 			rebuild_dq_tokens(*(md->tok), *md);
 			// print_tokens_forward(*(md->tok)); 
 			buildtreestruct(md);
 			recompose_tree(md);
 			// printtreeinerror(*(md->tree)); 
 			execcmd(md);
-			// cleanup(md);
+			cleanup(md, 0);
 			// md = ft_initmetadata();
 		}
 	} 
+	free(md);
+	md = NULL;
 }
 
 void command_mode(t_md *md, char *input)
@@ -55,7 +59,7 @@ void command_mode(t_md *md, char *input)
 	recompose_tree(md);
 	printtreeinerror(*(md->tree));
 	execcmd(md);
-	// cleanup(md);
+	// cleanup(md, 1);
 	// md = ft_initmetadata();
 }
 

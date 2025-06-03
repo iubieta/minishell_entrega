@@ -40,7 +40,7 @@ char	*findbin(t_md md, char *bin)
 void	create_pipe(t_md *md, int pipeint)
 {
 	if (pipe(md->fd[pipeint]) == -1)
-		cleanup(md);
+		cleanup(md, 1);
 }
 
 pid_t	create_fork(t_md *md)
@@ -50,7 +50,7 @@ pid_t	create_fork(t_md *md)
 	pid = fork();
 	sig_ignore();
 	if (pid == -1)
-		cleanup(md);
+		cleanup(md, 1);
 	return (pid);
 }
 

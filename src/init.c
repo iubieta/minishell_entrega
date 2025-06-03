@@ -31,19 +31,22 @@ int	**initfdarray(void)
 }
 
 // Queda pendiente de adaptar, pero va a ser necesario para despues
-void	cleanup(t_md *md)
+void	cleanup(t_md *md, int mode)
 {
 	freetree(md->tree);
 	free(md->fd[0]);
 	free(md->fd);
 	// ft_free2parray(md->env);
-	free(md);
-	md = NULL;
+	if (mode == 1)
+	{
+		free(md);
+		md = NULL;
+	}
 }
 
 void	exitwithmallocerror(t_md *md)
 {
-	cleanup(md);
+	cleanup(md, 1);
 	exit(EXIT_FAILURE);
 }
 

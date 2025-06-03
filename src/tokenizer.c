@@ -82,6 +82,8 @@ t_toktype	determine_token_type(char *s)
 		return (TOKEN_REDIR_APPEND);
 	else if (ft_memcmp(s, "<<", 3) == 0)
 		return (TOKEN_REDIR_HEREDOC);
+	else if (is_var_definition(s))
+		return (TOKEN_VAR_DEF);
 	else if (s[0] == '$' && ft_strlen(s) > 1)
 	{
 		if (isalpha(s[1]))
@@ -153,6 +155,30 @@ void	append_tokens(t_token **tokens, char **arr, char *blob, char blob_type)
 		add_token(tokens, blob, TOKEN_BLOB_SQ);
 }
 
+void	concat_var_def_dq(t_token **tokens)
+{
+	t_token	*p;
+	t_token *del;
+
+	p = *tokens;
+	while (p->right)
+	{
+		if (p->type != TOKEN_VAR_DEF)
+		{
+			p = p->right;
+			continue;
+		}
+		else if (p->right->type == TOKEN_BLOB_SQ || p->right->type == TOKEN_BLOB_DQ)
+		{
+			ft_strjoin(p->value, p->right->value);
+			del = p->right;
+			p->right = p->right->right;
+			free_tokens(del);
+		}
+		p = p->right;
+	}
+}
+
 t_token	*tokenize(char *s)
 {
 	t_token	*tokens;
@@ -172,5 +198,6 @@ t_token	*tokenize(char *s)
 		append_tokens(&tokens, arr, blob, c);
 	}
 	classify_tokens(&tokens);
+	concat_var_def_dq(&tokens);
 	return (tokens);
 }
