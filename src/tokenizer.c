@@ -159,6 +159,7 @@ void	concat_var_def_dq(t_token **tokens)
 {
 	t_token	*p;
 	t_token *del;
+	char	*tmp;
 
 	p = *tokens;
 	while (p->right)
@@ -170,7 +171,15 @@ void	concat_var_def_dq(t_token **tokens)
 		}
 		else if (p->right->type == TOKEN_BLOB_SQ || p->right->type == TOKEN_BLOB_DQ)
 		{
-			ft_strjoin(p->value, p->right->value);
+			tmp = ft_strjoin(p->value, "\"");
+			free(p->value);
+			p->value = tmp;
+			tmp = ft_strjoin(p->value, p->right->value);
+			free(p->value);
+			p->value = tmp;
+			tmp = ft_strjoin(p->value, "\"");
+			free(p->value);
+			p->value = tmp;
 			del = p->right;
 			p->right = p->right->right;
 			free_tokens(del);
@@ -198,6 +207,6 @@ t_token	*tokenize(char *s)
 		append_tokens(&tokens, arr, blob, c);
 	}
 	classify_tokens(&tokens);
-	concat_var_def_dq(&tokens);
+	// concat_var_def_dq(&tokens);
 	return (tokens);
 }

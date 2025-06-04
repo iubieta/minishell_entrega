@@ -42,7 +42,7 @@ typedef enum e_toktype
 	TOKEN_WORD,				// For commands and arguments
 	TOKEN_BLOB_SQ,			// For quote blocks of type `'`
 	TOKEN_BLOB_DQ,			// For quote blocks of type `"`
-	TOKEN_VAR_DEF,			// For variable definitions USER=name
+	// TOKEN_VAR_DEF,			// For variable definitions USER=name
 	TOKEN_ENV_VAR,			// For environment variables '$'
 	TOKEN_REDIR_APPEND,		// For '>>' redirection
 	TOKEN_REDIR_OUT,		// For '>' redirection
@@ -130,7 +130,7 @@ t_var	*varfind(t_var	*env, char *key);
 char	*expand_var(t_var *env, char *key);
 
 int		is_var_definition(char *str);
-void	set_var(t_md *md, char *def);
+void	set_var(t_md *md, char **args);
 char	*expand_vars_in_dq(char *ogs, t_md md);
 void	rebuild_dq_tokens(t_token *tokens, t_md md);
 

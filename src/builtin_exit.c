@@ -32,6 +32,6 @@ int	clean_exit(char **args, t_md *md)
 		}
 		i++;
 	}
-	cleanup(md);
+	cleanup(md, 1);
 	exit(ft_atoi(args[1]));
 }

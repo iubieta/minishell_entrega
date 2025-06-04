@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 #include <limits.h>
+#include <stdio.h>
 
 // Returns the value of var in env array
 char	*expand_var(t_var *env, char *key)
@@ -19,6 +20,7 @@ char	*expand_var(t_var *env, char *key)
 	t_var	*var;
 	
 	var = varfind(env, key);
+	fprintf(stderr, "flag expand_var: var=%s, value=%s\n", var->key, var->value);
 	if (var)
 		return (var->value);
 	return (NULL);

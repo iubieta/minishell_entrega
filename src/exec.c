@@ -81,7 +81,7 @@ void	parentproc(t_tree *tree, t_md *md)
 	if (is_main_builtin(tree->args[0]))
 		execute_builtin(tree->args, md);
 	else if (is_var_definition(tree->args[0]) == 1)
-		set_var(md, tree->args[0]);
+		set_var(md, tree->args);
 	else
 	{
 		pid = create_fork(md);

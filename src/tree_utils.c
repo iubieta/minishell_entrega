@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
 void	freetreenode(t_tree *n)
 {
@@ -81,6 +82,7 @@ char	**tokensto2parray(t_token *tok, t_md *md)
 		else
 		{
 			key = &(cur->value[1]);
+			fprintf(stderr, "flag key: %s\n", key); 
 			arr[i] = expand_var(*md->env, key);
 		}
 		cur = cur->right;

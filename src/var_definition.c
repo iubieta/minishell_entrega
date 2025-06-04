@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
 int	is_var_definition(char *str)
 {
@@ -23,17 +24,22 @@ int	is_var_definition(char *str)
 	if(!ft_strchr(str, '='))
 		return (0);
 	equal = ft_strchr(str, '=');
-	if (!equal || !equal[1])
+	// if (!equal || !equal[1])
+	if (!equal) 
 		return (0);
 	return (1);
 }
 
-void set_var(t_md *md, char *def)
+void set_var(t_md *md, char **args)
 {
 	t_var	var;
 
-	var = strtovar(def, 0);
+	var = strtovar(args[0], 0);
+	if (ft_strncmp(var.value, "", 1) == 0)
+		var.value = ft_strdup(args[1]);
+	fprintf(stderr, "var: %s=%s\n", var.key, var.value); 
 	add_var(*md->env, var);
+	printenv(*md->env);
 }
 
 t_var	strtovar(char *def, int exported)
