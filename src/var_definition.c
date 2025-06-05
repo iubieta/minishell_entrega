@@ -53,8 +53,11 @@ void set_var(t_md *md, char **args)
 	var = strtovar(args[0], 0);
 	fprintf(stderr, "flag100: %s, %s, %d\n", var.key, var.value, var.exported);
 	if (ft_strncmp(var.value, "", 1) == 0)
-		var.value = ft_strdup(args[1]);
-	//fprintf(stderr, "var: %s=%s\n", var.key, var.value);
+	{
+		var.value = "";
+		update_var(*md->env, var);
+		return ;
+	}
 	if (var_exists(*md->env, var) == 1)
 		update_var(*md->env, var);
 	else

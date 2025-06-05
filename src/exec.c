@@ -49,8 +49,11 @@ void	childproc(t_tree *tree, t_md *md)
 	sig_reset();
 	cmd = tree->args;
 	program = *cmd;
+	fprintf(stderr, "flag000: %s\n", program);
 	if (**cmd != '/' && **cmd != '.')
 		program = findbin(*md, *cmd);
+	fprintf(stderr, "flag001: %s\n", program);
+	fprintf(stderr, "flag001: %d\n", access(program, X_OK));
 	if (tree->down)
 		handle_redirs(tree->down, md);
 	handle_pipes(tree, md);
@@ -59,11 +62,13 @@ void	childproc(t_tree *tree, t_md *md)
 		execute_builtin(cmd, md);
 		exit(0);
 	}
-	else if (program)
+	else if (program && access(program, X_OK) != -1)
 		execve(program, cmd, md->exported);
 	else
 	{
-		perror("exec:childproc");
+		ft_putstr_fd(ft_strjoin(*cmd, ": command not found\n"), 2);
+		close(md->fd[OPIPE][WREND]);
+		close(md->fd[IPIPE][RDEND]);
 		exit(127);
 	}
 	close(md->fd[OPIPE][WREND]);

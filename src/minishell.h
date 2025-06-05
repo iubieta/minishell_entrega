@@ -191,6 +191,8 @@ char	*findbin(t_md md, char *bin);
 
 char	*get_prompt(t_md md);
 
+t_token	*traverse_tokens(t_token *token);
+
 // Tree linked list utils
 void	freetreenode(t_tree *n);
 void	freetree(t_tree **head);

@@ -63,6 +63,24 @@ void	free_tokens(t_token *tokens)
 	}
 }
 
+// traverses tokens until condition met, then returs token.
+// used to build tree nodes from a linked list of tokens
+t_token	*traverse_tokens(t_token *token)
+{
+	while (1)
+	{
+		if (is_redir(token->right))
+			break ;
+		if (token->right == NULL)
+			break ;
+		if (token->right->type == TOKEN_VAR_DEF)
+			break ;
+		token = token->right;
+	}
+	return (token);
+}
+
+
 void	print_tokens_forward(t_token *tokens)
 {
 	while (tokens)

@@ -75,14 +75,15 @@ char	**tokensto2parray(t_token *tok, t_md *md)
 	while (cur != NULL)
 	{
 		if (cur->type != TOKEN_ENV_VAR)
+		{
 			if (cur->value[1] == '?')
 				arr[i] = ft_itoa(md->exit_code);
 			else
 				arr[i] = cur->value;
+		}
 		else
 		{
 			key = &(cur->value[1]);
-			fprintf(stderr, "flag key: %s\n", key); 
 			arr[i] = expand_var(*md->env, key);
 		}
 		cur = cur->right;

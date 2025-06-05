@@ -11,7 +11,15 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <time.h>
+
+// Initializes new tree node to defaults
+void	inittreenode(t_tree *node, t_md *md)
+{
+	node->args = tokensto2parray(node->tok, md);
+	node->left = NULL;
+	node->down = NULL;
+	node->right = NULL;
+}
 
 t_tree	*buildtreenode(t_token *token, t_md *md)
 {
@@ -28,42 +36,28 @@ t_tree	*buildtreenode(t_token *token, t_md *md)
 	else
 	{
 		node->type = TREE_CMD;
-		//while (!is_redir(token->right) && token->right != NULL)
-			//token = token->right;
-		while (1)
-		{
-			if (is_redir(token->right))
-				break ;
-			if (token->right == NULL)
-				break ;
-			if (token->right->type == TOKEN_VAR_DEF)
-				break ;
-			token = token->right;
-		}
+		token = traverse_tokens(token);
 	}
 	*(md->tok) = token->right;
 	token->right = NULL;
-	node->args = tokensto2parray(node->tok, md);
-	node->left = NULL;
-	node->down = NULL;
-	node->right = NULL;
+	inittreenode(node, md);
 	return (node);
 }
-// Appends a pair of redir node and its argument to the down position of previous
-// node. Used to build redir_command linked list
 
+// Appends a pair of redir node and its argument to the down position of
+// previous node. Used to build redir_command linked list
 void	next_pair_to_down(t_tree *node)
 {
-	t_tree *next;
-	t_tree *p;
+	t_tree	*next;
+	t_tree	*p;
 
 	if (!(node->right))
-		return;
+		return ;
 	next = node->right;
 	p = node->down;
 	if (p)
 	{
-		while(p->right)
+		while (p->right)
 			p = p->right;
 		p->right = next;
 	}
@@ -87,7 +81,7 @@ void	next_pair_to_down(t_tree *node)
 void	recompose_tree(t_md *md)
 {
 	t_tree	*node;
-	t_token *tok;
+	t_token	*tok;
 
 	node = *(md->tree);
 	while (node)
@@ -105,7 +99,6 @@ void	recompose_tree(t_md *md)
 		node = node->right;
 	}
 }
-
 
 void	buildtreestruct(t_md *md)
 {
