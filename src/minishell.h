@@ -42,7 +42,7 @@ typedef enum e_toktype
 	TOKEN_WORD,				// For commands and arguments
 	TOKEN_BLOB_SQ,			// For quote blocks of type `'`
 	TOKEN_BLOB_DQ,			// For quote blocks of type `"`
-	// TOKEN_VAR_DEF,			// For variable definitions USER=name
+	TOKEN_VAR_DEF,			// For variable definitions USER=name
 	TOKEN_ENV_VAR,			// For environment variables '$'
 	TOKEN_REDIR_APPEND,		// For '>>' redirection
 	TOKEN_REDIR_OUT,		// For '>' redirection
@@ -109,6 +109,7 @@ t_token	*tokenize(char *s);
 t_token	*new_token(char *value, int type);
 t_token	*add_token(t_token **root, char *value, int type);
 void	free_tokens(t_token *tokens);
+void	free_token(t_token *token);
 void	print_tokens_forward(t_token *tokens);
 
 // Parser
@@ -123,8 +124,10 @@ void	printenv(t_var	*env);
 t_var	strtovar(char *def, int exported);
 char	*vartostr(t_var var);
 char	**envtoarray(t_var *env);
+int	var_exists(t_var *env, t_var var);
 t_var	*new_var(char *key, char *value, int exported);
 t_var	*add_var(t_var *env, t_var var);
+t_var	*update_var(t_var *env, t_var var);
 int		key_cmp(char *k1, char *k2);
 t_var	*varfind(t_var	*env, char *key);
 char	*expand_var(t_var *env, char *key);

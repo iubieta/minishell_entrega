@@ -37,7 +37,10 @@ char	**split_quotation_blobs(char *s, char c)
 		p = ft_strchr(p, c);
 	}
 	if (i % 2 != 0)
-		return (perror(ERR_QUOTE), NULL);
+	{
+		perror(ERR_QUOTE);
+		exit(1);
+	}
 	while (i > 0)
 	{
 		tmp = arr[i];
@@ -155,39 +158,6 @@ void	append_tokens(t_token **tokens, char **arr, char *blob, char blob_type)
 		add_token(tokens, blob, TOKEN_BLOB_SQ);
 }
 
-void	concat_var_def_dq(t_token **tokens)
-{
-	t_token	*p;
-	t_token *del;
-	char	*tmp;
-
-	p = *tokens;
-	while (p->right)
-	{
-		if (p->type != TOKEN_VAR_DEF)
-		{
-			p = p->right;
-			continue;
-		}
-		else if (p->right->type == TOKEN_BLOB_SQ || p->right->type == TOKEN_BLOB_DQ)
-		{
-			tmp = ft_strjoin(p->value, "\"");
-			free(p->value);
-			p->value = tmp;
-			tmp = ft_strjoin(p->value, p->right->value);
-			free(p->value);
-			p->value = tmp;
-			tmp = ft_strjoin(p->value, "\"");
-			free(p->value);
-			p->value = tmp;
-			del = p->right;
-			p->right = p->right->right;
-			free_tokens(del);
-		}
-		p = p->right;
-	}
-}
-
 t_token	*tokenize(char *s)
 {
 	t_token	*tokens;
@@ -207,6 +177,5 @@ t_token	*tokenize(char *s)
 		append_tokens(&tokens, arr, blob, c);
 	}
 	classify_tokens(&tokens);
-	// concat_var_def_dq(&tokens);
 	return (tokens);
 }

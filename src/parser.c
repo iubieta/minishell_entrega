@@ -28,8 +28,18 @@ t_tree	*buildtreenode(t_token *token, t_md *md)
 	else
 	{
 		node->type = TREE_CMD;
-		while (!is_redir(token->right) && token->right != NULL)
+		//while (!is_redir(token->right) && token->right != NULL)
+			//token = token->right;
+		while (1)
+		{
+			if (is_redir(token->right))
+				break ;
+			if (token->right == NULL)
+				break ;
+			if (token->right->type == TOKEN_VAR_DEF)
+				break ;
 			token = token->right;
+		}
 	}
 	*(md->tok) = token->right;
 	token->right = NULL;

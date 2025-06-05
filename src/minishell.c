@@ -34,12 +34,13 @@ void interactive_mode(t_md *md)
 		{
 			add_history(input);
 			*(md->tok) = tokenize(input);
-			print_tokens_forward(*(md->tok)); 
+			//print_tokens_forward(*(md->tok));
 			rebuild_dq_tokens(*(md->tok), *md);
-			print_tokens_forward(*(md->tok)); 
+			//print_tokens_forward(*(md->tok));
 			buildtreestruct(md);
+			//printtreeinerror(*(md->tree));
 			recompose_tree(md);
-			printtreeinerror(*(md->tree)); 
+			printtreeinerror(*(md->tree));
 			execcmd(md);
 			cleanup(md, 0);
 			// md = ft_initmetadata();
@@ -54,7 +55,7 @@ void command_mode(t_md *md, char *input)
 	fprintf(stderr, "Hello and goodbye from minishell!\n");
 	// printf("%s\n", input);
 	*(md->tok) = tokenize(input);
-	// print_tokens_forward(*(md->tok)); 
+	// print_tokens_forward(*(md->tok));
 	buildtreestruct(md);
 	recompose_tree(md);
 	printtreeinerror(*(md->tree));

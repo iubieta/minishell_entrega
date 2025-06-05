@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
 int	is_var_definition(char *str)
 {
@@ -30,16 +29,37 @@ int	is_var_definition(char *str)
 	return (1);
 }
 
+int	var_exists(t_var *env, t_var var)
+{
+	t_var	*cur;
+
+	if (!env || !env->key)
+		return (-1);
+	cur = env;
+	while (cur != NULL)
+	{
+		if (ft_strcmp(cur->key, var.key) == 0)
+			return (1);
+		cur = cur->next;
+	}
+	return (0);
+
+}
+
 void set_var(t_md *md, char **args)
 {
 	t_var	var;
 
 	var = strtovar(args[0], 0);
+	fprintf(stderr, "flag100: %s, %s, %d\n", var.key, var.value, var.exported);
 	if (ft_strncmp(var.value, "", 1) == 0)
 		var.value = ft_strdup(args[1]);
-	fprintf(stderr, "var: %s=%s\n", var.key, var.value); 
-	add_var(*md->env, var);
-	printenv(*md->env);
+	//fprintf(stderr, "var: %s=%s\n", var.key, var.value);
+	if (var_exists(*md->env, var) == 1)
+		update_var(*md->env, var);
+	else
+		add_var(*md->env, var);
+	printenv(*md->env); //flag
 }
 
 t_var	strtovar(char *def, int exported)
@@ -67,6 +87,23 @@ t_var	*new_var(char *key, char *value, int exported)
 	var->exported = exported;
 	var->next = NULL;
 	return (var);
+}
+
+t_var	*update_var(t_var *env, t_var var)
+{
+	t_var	*cur;
+
+	if (!env || !env->key)
+	{
+		env = new_var(var.key, var.value, var.exported);
+		return (env);
+	}
+	cur = env;
+	while (cur->next != NULL && ft_strcmp(cur->key, var.key) != 0)
+		cur = cur->next;
+	free(cur->value);
+	cur->value = var.value;
+	return (env);
 }
 
 t_var	*add_var(t_var *env, t_var var)

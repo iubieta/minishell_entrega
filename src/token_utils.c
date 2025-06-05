@@ -45,6 +45,12 @@ t_token	*add_token(t_token **root, char *value, int type)
 	return (*root);
 }
 
+void	free_token(t_token *token)
+{
+		free(token->value);
+		free(token);
+}
+
 void	free_tokens(t_token *tokens)
 {
 	t_token	*tmp;
@@ -53,8 +59,7 @@ void	free_tokens(t_token *tokens)
 	{
 		tmp = tokens;
 		tokens = tokens->right;
-		free(tmp->value);
-		free(tmp);
+		free_token(tmp);
 	}
 }
 
