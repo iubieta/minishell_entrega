@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 19:30:00 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/05/30 18:14:24 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/06/05 21:45:25 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@
 # define OPIPE 1
 
 # define VAR_SEP_CHARS "@!#$%&'()*+,-./:;<=>?[]^_`{|} \\"
-
-
-
 
 // ERRORS
 # define ERR_QUOTE "error detected during parsing: incorrect use of quotes"
@@ -88,7 +85,6 @@ typedef struct s_var
 	struct s_var	*next;
 }	t_var;
 
-
 // Structure pointing to key variables
 typedef struct s_md
 {
@@ -101,7 +97,7 @@ typedef struct s_md
 	int				status;
 	int				exit_code;
 	char			*prompt;
-	int has_output_redir;
+	int				has_output_redir;
 }	t_md;
 
 // Tokenizer
@@ -111,6 +107,8 @@ t_token	*add_token(t_token **root, char *value, int type);
 void	free_tokens(t_token *tokens);
 void	free_token(t_token *token);
 void	print_tokens_forward(t_token *tokens);
+void	append_tokens(t_token **tokens, char **arr, char *blob, char blob_type);
+void	classify_tokens(t_token **head);
 
 // Parser
 void	buildtreestruct(t_md *md);
@@ -119,12 +117,12 @@ t_tree	*buildtreenode(t_token *token, t_md *md);
 char	**buildcommand(t_token *t, int words);
 
 // Enviroment
-t_var	*initenv();
+t_var	*initenv(void);
 void	printenv(t_var	*env);
 t_var	strtovar(char *def, int exported);
 char	*vartostr(t_var var);
 char	**envtoarray(t_var *env);
-int	var_exists(t_var *env, t_var var);
+int		var_exists(t_var *env, t_var var);
 t_var	*new_var(char *key, char *value, int exported);
 t_var	*add_var(t_var *env, t_var var);
 t_var	*update_var(t_var *env, t_var var);
@@ -150,7 +148,6 @@ void	execcmd(t_md *md);
 void	rightredir(t_tree *t, int fd[2][2], char **env);
 void	leftredir(t_tree *t, t_md *md);
 
-
 // Signals
 void	sig_init(void);
 void	sig_ignore(void);
@@ -168,7 +165,7 @@ int		env(char **env);
 int		ft_export(t_md *md, char **args);
 int		unset(t_md *md, char **args);
 
-int	clean_exit(char **args, t_md *md);
+int		clean_exit(char **args, t_md *md);
 
 // Utils
 size_t	indexof(char *str, char c);
@@ -183,7 +180,6 @@ char	**arcat(char **array, char *ptr);
 size_t	arlen(char **array);
 void	arprint(char **array);
 void	arfree(char **array);
-
 
 char	**ardup(char **array);
 
@@ -213,5 +209,5 @@ int		is_redir_out(t_token *token);
 int		is_redir_append(t_token *token);
 
 // handle redirs
-void handle_redirs(t_tree *tree, t_md *md);
+void	handle_redirs(t_tree *tree, t_md *md);
 #endif

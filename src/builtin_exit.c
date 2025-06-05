@@ -15,7 +15,7 @@
 
 int	clean_exit(char **args, t_md *md)
 {
-	int i;
+	int	i;
 
 	printf("exit\n");
 	if (arlen(args) < 2)

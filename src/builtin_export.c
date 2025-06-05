@@ -25,6 +25,8 @@ int	ft_export(t_md *md, char **args)
 
 	if (!args || !args[1])
 		return (printf("export: not enough arguments\n"), 1);
+		// Cuando se define la variable en el export no lo recoge como argumento
+		// lo separa: export | definicion
 	i = 0;
 	while (args[++i])
 	{

@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 17:33:22 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/04/20 22:09:33 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/06/05 22:11:15 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,11 @@ void	deletetreenode(t_tree *n, t_tree **head)
 	return ;
 }
 
-char	**tokensto2parray(t_token *tok, t_md *md)
+void	fill_array_from_tokens(char **arr, t_token *cur, t_md *md)
 {
-	t_token	*cur;
 	int		i;
-	char	**arr;
 	char	*key;
 
-	if (is_redir(tok))
-		return (NULL);
-	cur = tok;
-	i = 1;
-	while (cur != NULL)
-	{
-		i++;
-		cur = cur->right;
-	}
-	arr = (char **)ft_calloc(i + 1, sizeof(char *));
-	if (arr == NULL)
-		exitwithmallocerror(md);
-	cur = tok;
 	i = 0;
 	while (cur != NULL)
 	{
@@ -89,6 +74,28 @@ char	**tokensto2parray(t_token *tok, t_md *md)
 		cur = cur->right;
 		i++;
 	}
+}
+
+char	**tokensto2parray(t_token *tok, t_md *md)
+{
+	t_token	*cur;
+	int		i;
+	char	**arr;
+
+	if (is_redir(tok))
+		return (NULL);
+	cur = tok;
+	i = 1;
+	while (cur != NULL)
+	{
+		i++;
+		cur = cur->right;
+	}
+	arr = (char **)ft_calloc(i + 1, sizeof(char *));
+	if (arr == NULL)
+		exitwithmallocerror(md);
+	cur = tok;
+	fill_array_from_tokens(arr, cur, md);
 	return (arr);
 }
 

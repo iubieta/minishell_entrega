@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:49:50 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/05/06 20:45:51 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/06/05 21:05:40 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,33 @@ void	handle_pipes(t_tree *tree, t_md *md)
 	close(fd[OPIPE][RDEND]);
 }
 
+void	execute_builtin_in_child(char **args, t_md *md)
+{
+	if (!ft_strcmp(args[0], "cd"))
+		md->exit_code = cd(args);
+	else if (!ft_strcmp(args[0], "export"))
+		md->exit_code = ft_export(md, args);
+	else if (!ft_strcmp(args[0], "unset"))
+		md->exit_code = unset(md, args);
+	else if (!ft_strcmp(args[0], "env"))
+		md->exit_code = env(md->exported);
+	else if (!ft_strcmp(args[0], "exit"))
+		clean_exit(args, md);
+	else if (!ft_strcmp(args[0], "echo"))
+		md->exit_code = echo(args);
+	else if (!ft_strcmp(args[0], "pwd"))
+		md->exit_code = pwd(args);
+	exit(0);
+}
+
+void	command_not_found(char *cmd, t_md *md)
+{
+	ft_putstr_fd(ft_strjoin(cmd, ": command not found\n"), 2);
+	close(md->fd[OPIPE][WREND]);
+	close(md->fd[IPIPE][RDEND]);
+	exit(127);
+}
+
 void	childproc(t_tree *tree, t_md *md)
 {
 	char	**cmd;
@@ -58,19 +85,11 @@ void	childproc(t_tree *tree, t_md *md)
 		handle_redirs(tree->down, md);
 	handle_pipes(tree, md);
 	if (is_print_builtin(*cmd))
-	{
-		execute_builtin(cmd, md);
-		exit(0);
-	}
+		execute_builtin_in_child(cmd, md);
 	else if (program && access(program, X_OK) != -1)
 		execve(program, cmd, md->exported);
 	else
-	{
-		ft_putstr_fd(ft_strjoin(*cmd, ": command not found\n"), 2);
-		close(md->fd[OPIPE][WREND]);
-		close(md->fd[IPIPE][RDEND]);
-		exit(127);
-	}
+		command_not_found(*cmd, md);
 	close(md->fd[OPIPE][WREND]);
 	close(md->fd[IPIPE][RDEND]);
 }
@@ -102,35 +121,4 @@ void	parentproc(t_tree *tree, t_md *md)
 	md->fd[IPIPE][WREND] = md->fd[OPIPE][WREND];
 	close(md->fd[IPIPE][WREND]);
 	handle_signals(md, pid);
-}
-
-void	execute_builtin(char **args, t_md *md)
-{
-	if (!ft_strcmp(args[0], "cd"))
-		md->exit_code = cd(args);
-	else if (!ft_strcmp(args[0], "export"))
-		md->exit_code = ft_export(md, args);
-	else if (!ft_strcmp(args[0], "unset"))
-		md->exit_code = unset(md, args);
-	else if (!ft_strcmp(args[0], "env"))
-		md->exit_code = env(md->exported);
-	else if (!ft_strcmp(args[0], "exit"))
-		clean_exit(args, md);
-	else if (!ft_strcmp(args[0], "echo"))
-		md->exit_code = echo(args);
-	else if (!ft_strcmp(args[0], "pwd"))
-		md->exit_code = pwd(args);
-}
-
-void	execcmd(t_md *md)
-{
-	t_tree	*tree;
-
-	tree = *(md->tree);
-	while (tree)
-	{
-		if (tree->type == TREE_CMD)
-			parentproc(tree, md);
-		tree = tree->right;
-	}
 }

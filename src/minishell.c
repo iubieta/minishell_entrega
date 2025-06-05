@@ -13,23 +13,30 @@
 #include "minishell.h"
 #include <readline/readline.h>
 
-void interactive_mode(t_md *md)
+int	isblankline(char *line)
+{
+	while (*line != '\0')
+	{
+		if (*line != ' ' && (*line < '\a' || *line > '\r'))
+			return (0);
+		line++;
+	}
+	return (1);
+}
+
+void	interactive_mode(t_md *md)
 {
 	char	*input;
 
-	fprintf(stderr, "Hello from minishell!\n");
+	ft_putstr_fd("Hello from minishell!\n", 2);
 	while (1)
 	{
 		sig_init();
 		md->prompt = get_prompt(*md);
 		input = readline(md->prompt);
-		
 		// printf("input: %s\n", input);
 		if (!input)
-		{ 
-			printf("exit\n");
-			break;
-		}
+			clean_exit(NULL, md);
 		if (input[0] && !isblankline(input))
 		{
 			add_history(input);
@@ -45,12 +52,10 @@ void interactive_mode(t_md *md)
 			cleanup(md, 0);
 			// md = ft_initmetadata();
 		}
-	} 
-	free(md);
-	md = NULL;
+	}
 }
 
-void command_mode(t_md *md, char *input)
+void	command_mode(t_md *md, char *input)
 {
 	fprintf(stderr, "Hello and goodbye from minishell!\n");
 	// printf("%s\n", input);
@@ -65,7 +70,7 @@ void command_mode(t_md *md, char *input)
 }
 
 int	main(int argc, char **argv, char **env)
-{ 
+{
 	t_md	*md;
 
 	md = initmetadata(env);
@@ -75,5 +80,4 @@ int	main(int argc, char **argv, char **env)
 		interactive_mode(md);
 	else
 		command_mode(md, artostr(++argv));
-} 
-
+}

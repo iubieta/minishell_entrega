@@ -78,14 +78,3 @@ char	*artostr(char **ar)
 	del = NULL;
 	return (str);
 }
-
-int	isblankline(char *line)
-{
-	while (*line != '\0')
-	{
-		if (*line != ' ' && (*line < '\a' || *line > '\r') )
-			return(0);
-		line++;
-	}
-	return (1);
-}

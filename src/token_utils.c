@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 20:47:39 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/02/22 17:26:27 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/06/05 21:47:22 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ t_token	*add_token(t_token **root, char *value, int type)
 
 void	free_token(t_token *token)
 {
-		free(token->value);
-		free(token);
+	free(token->value);
+	free(token);
 }
 
 void	free_tokens(t_token *tokens)
@@ -79,7 +79,6 @@ t_token	*traverse_tokens(t_token *token)
 	}
 	return (token);
 }
-
 
 void	print_tokens_forward(t_token *tokens)
 {
