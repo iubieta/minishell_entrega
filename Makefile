@@ -30,7 +30,7 @@ WHITE = \033[0;97m
 # signals
 
 SRC_FILES	=	minishell init signals \
-				tokenizer token_utils \
+				tokenizer token_utils token_utils2 \
 				parser redir_types redir_types2 \
 				str_utils ar_utils ar_utils2 \
 				tree_utils \
@@ -41,8 +41,8 @@ SRC_FILES	=	minishell init signals \
 				handle_redir redir_utils\
 				prompt \
 				env \
-				var_definition var_expansion \
-				exec exec_utils \
+				var_definition var_expansion var_expansion_dq var_utils \
+				exec exec_utils exec_utils2 \
 				builtin_export builtin_unset builtin_env # env_utils \
 
 
