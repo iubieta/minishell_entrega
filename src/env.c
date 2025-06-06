@@ -61,18 +61,20 @@ char	**envtoarray(t_var *env)
 	cur = env;
 	while (cur)
 	{
-		len++;
+		if (cur->exported == 1)
+			len++;
 		cur = cur->next;
 	}
 	ar = (char **)malloc(sizeof(char *) * (len + 1));
 	i = 0;
 	cur = env;
-	while (cur)
+	while (cur && i < len)
 	{
-		ar[i] = vartostr(*cur);
+		if (cur->exported == 1)
+			ar[i++] = vartostr(*cur);
 		cur = cur->next;
-		i++;
 	}
+	ar[len] = NULL;
 	return (ar);
 }
 

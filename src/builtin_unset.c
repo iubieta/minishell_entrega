@@ -12,36 +12,46 @@
 
 #include "minishell.h"
 
+void	update_env_export(t_md *md);
+
+void	var_remove(t_var **env, char *key)
+{
+	t_var	*cur;
+	t_var	*prev;
+
+	cur = *env;
+	prev = NULL;
+	while (cur)
+	{
+		if (key_cmp(cur->key, key) == 0)
+		{
+			if (prev)
+				prev->next = cur->next;
+			else
+				*env = cur->next;
+			free(cur->key);
+			free(cur->value);
+			free(cur);
+			cur = NULL;
+			return ;
+		}
+		prev = cur;
+		cur = cur->next;
+	}
+}
+
 int	unset(t_md *md, char **args)
 {
 	size_t	i;
-	t_var	*var;
-	t_var	*next;
 
 	if (!args || !md)
 		return (printf("unset: not enough arguments\n"), 1);
 	i = 1;
 	while (args[i])
 	{
-		var = varfind(*md->env, args[i]);
-		next = var->next;
-		if (next)
-		{
-			var->key = next->key;
-			var->value = next->value;
-			var->exported = next->exported;
-			var->next = next->next;
-			free(next);
-			next = NULL;
-		}
-		else
-		{
-			free(var);
-			var = NULL;
-		}
+		var_remove(md->env, args[i]);
 		i++;
 	}
-	free(md->exported);
-	md->exported = envtoarray(*md->env);
+	update_env_export(md);
 	return (0);
 }
