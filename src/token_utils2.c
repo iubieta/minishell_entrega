@@ -24,6 +24,8 @@ t_toktype	determine_token_type(char *s)
 		return (TOKEN_REDIR_APPEND);
 	else if (ft_memcmp(s, "<<", 3) == 0)
 		return (TOKEN_REDIR_HEREDOC);
+	else if (ft_memcmp(s, "export", 7) == 0)
+		return (TOKEN_EXPORT);
 	else if (is_var_definition(s))
 		return (TOKEN_VAR_DEF);
 	else if (s[0] == '$' && ft_strlen(s) > 1)

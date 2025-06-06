@@ -39,6 +39,7 @@ typedef enum e_toktype
 	TOKEN_WORD,	
 	TOKEN_BLOB_SQ,
 	TOKEN_BLOB_DQ,
+	TOKEN_EXPORT,
 	TOKEN_VAR_DEF,
 	TOKEN_ENV_VAR,
 	TOKEN_REDIR_APPEND,
@@ -122,6 +123,7 @@ void	printenv(t_var	*env);
 t_var	strtovar(char *def, int exported);
 char	*vartostr(t_var var);
 char	**envtoarray(t_var *env);
+void	update_env_export(t_md *md);
 int		var_exists(t_var *env, t_var var);
 t_var	*new_var(char *key, char *value, int exported);
 t_var	*add_var(t_var *env, t_var var);
@@ -187,7 +189,8 @@ char	*findbin(t_md md, char *bin);
 
 char	*get_prompt(t_md md);
 
-t_token	*traverse_tokens(t_token *token);
+t_token	*traverse_tokens(t_token *token, t_toktype type);
+// t_token	*traverse_tokens(t_token *token);
 
 // Tree linked list utils
 void	freetreenode(t_tree *n);

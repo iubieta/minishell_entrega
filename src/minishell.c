@@ -40,8 +40,10 @@ void	interactive_mode(t_md *md)
 		{
 			add_history(input);
 			*(md->tok) = tokenize(input);
+			print_tokens_forward(*md->tok);
 			rebuild_dq_tokens(*(md->tok), *md);
 			buildtreestruct(md);
+			printtreeinerror(*md->tree);
 			recompose_tree(md);
 			execcmd(md);
 			cleanup(md, 0);

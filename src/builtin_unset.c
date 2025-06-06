@@ -12,8 +12,6 @@
 
 #include "minishell.h"
 
-void	update_env_export(t_md *md);
-
 void	var_remove(t_var **env, char *key)
 {
 	t_var	*cur;

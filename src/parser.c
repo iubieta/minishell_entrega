@@ -36,7 +36,7 @@ t_tree	*buildtreenode(t_token *token, t_md *md)
 	else
 	{
 		node->type = TREE_CMD;
-		token = traverse_tokens(token);
+		token = traverse_tokens(token, token->type);
 	}
 	*(md->tok) = token->right;
 	token->right = NULL;

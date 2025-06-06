@@ -82,10 +82,10 @@ void	set_var(t_md *md, char **args)
 	{
 		var.value = "";
 		update_var(*md->env, var);
-		return ;
 	}
-	if (var_exists(*md->env, var) == 1)
+	else if (var_exists(*md->env, var) == 1)
 		update_var(*md->env, var);
 	else
 		add_var(*md->env, var);
+	update_env_export(md);
 }
