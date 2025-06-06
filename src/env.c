@@ -31,6 +31,7 @@ t_var	*initenv(void)
 		env = add_var(env, var);
 		i++;
 	}
+	add_var(env, *new_var("EXIT_CODE", "0", 0));
 	return (env);
 }
 

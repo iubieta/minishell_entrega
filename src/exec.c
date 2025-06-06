@@ -43,6 +43,8 @@ void	handle_pipes(t_tree *tree, t_md *md)
 
 void	execute_builtin_in_child(char **args, t_md *md)
 {
+	t_var	*var;
+
 	if (!ft_strcmp(args[0], "cd"))
 		md->exit_code = cd(args);
 	else if (!ft_strcmp(args[0], "export"))
@@ -57,6 +59,17 @@ void	execute_builtin_in_child(char **args, t_md *md)
 		md->exit_code = echo(args);
 	else if (!ft_strcmp(args[0], "pwd"))
 		md->exit_code = pwd();
+	fprintf(stderr, "flag exitcode: %d\n", md->exit_code);
+	// printenv(*md->env);
+	var = new_var("EXIT_CODE", ft_itoa(md->exit_code), 0);
+	if (!var)
+	{
+		fprintf(stderr, "flag newvar: %s\n", var->value);
+		var = add_var(*md->env, *var);
+	}
+	fprintf(stderr, "flag var: %s\n", var->value);
+	update_var(*md->env, *var);
+	fprintf(stderr, "flag updatevar: %s\n", var->value);
 	exit(0);
 }
 

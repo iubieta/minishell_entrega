@@ -41,7 +41,9 @@ void	interactive_mode(t_md *md)
 			add_history(input);
 			*(md->tok) = tokenize(input);
 			rebuild_dq_tokens(*(md->tok), *md);
+			printtreeinerror(*md->tree);
 			buildtreestruct(md);
+			printtreeinerror(*md->tree);
 			recompose_tree(md);
 			execcmd(md);
 			cleanup(md, 0);

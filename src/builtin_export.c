@@ -11,12 +11,28 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
 // no funciona bien cuando se hace:
 // HOLA=hola
 // export HOLA
 // solo coge el HOLA, y no guarda HOLA=hola
 // version modificada para pasar la normi
+
+int	full_export(t_md *md, t_tree *node)
+{
+	t_token	*cur;
+
+	fprintf(stderr, "flag00: %p\n", md);
+	cur = node->tok;
+	while (!is_redir(cur))
+	{
+		fprintf(stderr, "flag01: %s\n", cur->value);
+		cur = cur->right;
+	}
+	return (0);
+}
+
 int	ft_export(t_md *md, char **args)
 {
 	t_var	def;

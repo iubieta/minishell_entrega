@@ -28,7 +28,7 @@ t_toktype	determine_token_type(char *s)
 		return (TOKEN_VAR_DEF);
 	else if (s[0] == '$' && ft_strlen(s) > 1)
 	{
-		if (isalpha(s[1]))
+		if (isalpha(s[1]) || ft_strncmp(s,"$?", 3) == 0)
 			return (TOKEN_ENV_VAR);
 		else if (s[1] == '_' && ft_strlen(s))
 			return (TOKEN_ENV_VAR);
