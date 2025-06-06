@@ -6,21 +6,16 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 13:16:20 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/03/08 17:07:26 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/06/06 10:13:17 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	pwd(char **args)
+int	pwd(void)
 {
 	char	*current_dir;
 
-	if (args && args[1])
-	{
-		printf("pwd: too many arguments\n");
-		return (1);
-	}
 	current_dir = getcwd(NULL, 0);
 	printf("%s\n", current_dir);
 	return (0);

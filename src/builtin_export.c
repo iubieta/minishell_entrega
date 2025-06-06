@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 16:44:15 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/04/24 22:13:22 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/06/06 09:08:07 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ int	ft_export(t_md *md, char **args)
 
 	if (!args || !args[1])
 		return (printf("export: not enough arguments\n"), 1);
-		// Cuando se define la variable en el export no lo recoge como argumento
-		// lo separa: export | definicion
 	i = 0;
 	while (args[++i])
 	{

@@ -29,7 +29,7 @@
 - Asegúrate de que `minishell` compila sin errores.
 - El `Makefile` no debe relinkear.
 
-### 🔹 Comandos Simples & Variables Globales REVISAR BUFFER: al poner espacios o tabs, se ejecuta el ultimo comando no vacio
+### 🔹 Comandos Simples & Variables Globales FUNCIONANDO
 
 - Ejecuta un comando simple con una ruta absoluta (`/bin/ls`).
 - Pregunta cuántas variables globales usa el estudiante y por qué.
@@ -53,18 +53,18 @@
 - Ejecuta `echo` con y sin argumentos.
 - Prueba con `-n` y varias combinaciones.
 
-### 🔹 Comando `exit` REVISAR ARGUMENTOS Y MENSAJE
+### 🔹 Comando `exit` FUNCIONANDO
 
 - Ejecuta `exit` con y sin argumentos.
 - Repite varias veces y reinicia `minishell`.
 
-### 🔹 Valor de Retorno (`$?`) REVISAR BUILTINS y OTROS PROCESOS
+### 🔹 Valor de Retorno (`$?`) REVISAR : BUILTINS y expansion dentro de comillas
 
 - Ejecuta un comando (`/bin/ls`) y luego `echo $?` para verificar el valor de retorno.
 - Prueba con comandos erróneos (`/bin/ls archivo_inexistente`).
 - Experimenta con `expr $? + $?`.
 
-### 🔹 Señales (`ctrl-C`, `ctrl-D`, `ctrl-\`) REVISAR ctrl-\ y cat y grep
+### 🔹 Señales (`ctrl-C`, `ctrl-D`, `ctrl-\`) REVISAR ctrl-\
 
 - `ctrl-C` en un prompt vacío debe mostrar una nueva línea con el prompt.
 - `ctrl-D` en un prompt vacío debe cerrar `minishell`.
@@ -82,16 +82,16 @@
 - Prueba comandos con comillas simples.
 - `echo '$USER'` debe imprimir `"$USER"` sin expandirlo.
 
-### 🔹 Comando `env` REVISAR: Imprime varibles distintas a bash
+### 🔹 Comando `env` REVISAR: NO HACE LO MISMO QUE EL ORIGINAL 
 
 - Verifica que `env` muestra las variables de entorno. 
 
-### 🔹 Comando `export` REVISAR : FUNCIONAMIENTO GENERAL y PARCHE para juntar comillas despues del igual
+### 🔹 Comando `export` REVISAR : export con declaracion de varible incluida
 
 - Crea y reemplaza variables de entorno con `export`.
 - Verifica los cambios con `env`.
 
-### 🔹 Comando `unset` FUNCIONANDO
+### 🔹 Comando `unset` ROTO: envtoarray??
 
 - Usa `unset` para eliminar variables de entorno.
 - Verifica los cambios con `env`.
@@ -110,7 +110,7 @@
 - Ejecuta comandos con rutas relativas.
 - Prueba rutas complejas (`../../bin/ls`). ` Imprime un nuevo prompt con mensaje de "exit" `
 
-### 🔹 Variable `$PATH` REVISAR orden de busqueda en PATH
+### 🔹 Variable `$PATH` REVISAR orden de busqueda en PATH ??
 
 - Ejecuta comandos sin especificar la ruta (`ls`, `wc`, etc.).
 - Elimina `$PATH` y verifica que los comandos dejan de funcionar.
@@ -134,7 +134,7 @@
 - Asegúrate de que `minishell` no crashea con comandos inválidos (`dsbksdgbksdghsd`). `REVISAR: mensaje commando not found`
 - Prueba una línea de comandos muy larga.
 
-### 🔹 Variables de Entorno FUNCIONANDO
+### 🔹 Variables de Entorno EXPANSION de $? en comillas roto
 
 - Ejecuta `echo $VARIABLE`.
 - Verifica que `$` es interpretado correctamente.

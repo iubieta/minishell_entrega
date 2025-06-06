@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 17:33:22 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/06/05 22:11:15 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/06/06 09:12:23 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,60 +99,60 @@ char	**tokensto2parray(t_token *tok, t_md *md)
 	return (arr);
 }
 
-void	printtree(t_tree *tree, char *c)
-{
-	t_tree	*t;
-	char	**args;
-
-	t = tree;
-	while (t != NULL)
-	{
-		printf("%sTREE NODE: p=%p, right=%p, left=%p\n", c, t, t->right, t->left);
-		printf("%stype: %d\n", c, t->type);
-		print_tokens_forward(t->tok);
-		args = t->args;
-		printf("%sargs:", c);
-		while (args)
-		{
-			if (*args)
-				printf(" %s", *args);
-			else
-				break ;
-			args++;
-		}
-		printf("\n");
-		if (t->down)
-		{
-			printf("START: printing down node\n");
-			printtree(t->down, "\t");
-			printf("FINISH: printing down node\n");
-		}
-		t = t->right;
-	}
-}
-
-void	printtreeinerror(t_tree *tree)
-{
-	t_tree	*t;
-	char	**args;
-
-	t = tree;
-	while (t != NULL)
-	{
-		fprintf(stderr, "TREE NODE: p=%p, right=%p, left=%p\n", t, t->right, t->left);
-		fprintf(stderr, "type: %d\n", t->type);
-		print_tokens_forward(t->tok);
-		args = t->args;
-		fprintf(stderr, "args:");
-		while (args)
-		{
-			if (*args)
-				fprintf(stderr, " %s", *args);
-			else
-				break ;
-			args++;
-		}
-		fprintf(stderr, "\n");
-		t = t->right;
-	}
-}
+//void	printtree(t_tree *tree, char *c)
+//{
+//	t_tree	*t;
+//	char	**args;
+//
+//	t = tree;
+//	while (t != NULL)
+//	{
+//		fprintf(stdout, "TREE NODE: p=%p, right=%p, ", t, t->right);
+//		fprintf(stdout, "left=%p type: %d\n", t->left, t->type);
+//		print_tokens_forward(t->tok);
+//		args = t->args;
+//		printf("%sargs:", c);
+//		while (args)
+//		{
+//			if (*args)
+//				printf(" %s", *args);
+//			else
+//				break ;
+//			args++;
+//		}
+//		printf("\n");
+//		if (t->down)
+//		{
+//			printf("START: printing down node\n");
+//			printtree(t->down, "\t");
+//			printf("FINISH: printing down node\n");
+//		}
+//		t = t->right;
+//	}
+//}
+//
+//void	printtreeinerror(t_tree *tree)
+//{
+//	t_tree	*t;
+//	char	**args;
+//
+//	t = tree;
+//	while (t != NULL)
+//	{
+//		fprintf(stderr, "TREE NODE: p=%p, right=%p, ", t, t->right);
+//		fprintf(stderr, "left=%p type: %d\n", t->left, t->type);
+//		print_tokens_forward(t->tok);
+//		args = t->args;
+//		fprintf(stderr, "args:");
+//		while (args)
+//		{
+//			if (*args)
+//				fprintf(stderr, " %s", *args);
+//			else
+//				break ;
+//			args++;
+//		}
+//		fprintf(stderr, "\n");
+//		t = t->right;
+//	}
+//}

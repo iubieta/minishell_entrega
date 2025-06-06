@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:49:50 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/06/05 21:05:40 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/06/06 10:36:24 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ void	execute_builtin_in_child(char **args, t_md *md)
 	else if (!ft_strcmp(args[0], "unset"))
 		md->exit_code = unset(md, args);
 	else if (!ft_strcmp(args[0], "env"))
-		md->exit_code = env(md->exported);
+		md->exit_code = env(args, md->exported);
 	else if (!ft_strcmp(args[0], "exit"))
 		clean_exit(args, md);
 	else if (!ft_strcmp(args[0], "echo"))
 		md->exit_code = echo(args);
 	else if (!ft_strcmp(args[0], "pwd"))
-		md->exit_code = pwd(args);
+		md->exit_code = pwd();
 	exit(0);
 }
 
@@ -76,11 +76,8 @@ void	childproc(t_tree *tree, t_md *md)
 	sig_reset();
 	cmd = tree->args;
 	program = *cmd;
-	fprintf(stderr, "flag000: %s\n", program);
 	if (**cmd != '/' && **cmd != '.')
 		program = findbin(*md, *cmd);
-	fprintf(stderr, "flag001: %s\n", program);
-	fprintf(stderr, "flag001: %d\n", access(program, X_OK));
 	if (tree->down)
 		handle_redirs(tree->down, md);
 	handle_pipes(tree, md);

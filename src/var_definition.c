@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 20:08:20 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/06/05 22:38:34 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/06/06 10:58:07 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	set_var(t_md *md, char **args)
 	t_var	var;
 
 	var = strtovar(args[0], 0);
-	fprintf(stderr, "flag100: %s, %s, %d\n", var.key, var.value, var.exported);
 	if (ft_strncmp(var.value, "", 1) == 0)
 	{
 		var.value = "";
@@ -89,5 +88,4 @@ void	set_var(t_md *md, char **args)
 		update_var(*md->env, var);
 	else
 		add_var(*md->env, var);
-	printenv(*md->env); //flag
 }

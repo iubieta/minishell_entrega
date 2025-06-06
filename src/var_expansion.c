@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:58:32 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/06/05 23:01:37 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/06/06 09:18:56 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char	*expand_var(t_var *env, char *key)
 	t_var	*var;
 
 	var = varfind(env, key);
-	//fprintf(stderr, "flag expand_var: var=%s, value=%s\n", var->key, var->value);
 	if (var)
 		return (var->value);
 	return (NULL);
@@ -44,7 +43,6 @@ void	rebuild_dq_tokens(t_token *tokens, t_md md)
 	p = tmp;
 	concat_var_def_dq(&tokens);
 }
-
 
 // char	*expand_vars_in_dq(char *ogs, t_md md)
 // {

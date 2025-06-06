@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 13:27:13 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/03/23 19:36:05 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/06/06 10:00:05 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	cd(char **args)
 {
 	char	*path;
+	char	*error_str;
 
 	if (!args || !args[1])
 	{
@@ -30,7 +31,9 @@ int	cd(char **args)
 	path = args[1];
 	if (chdir (path) == -1)
 	{
-		perror("cd: ");
+		error_str = ft_strjoin("minishell: cd: ", path);
+		perror(error_str);
+		free(error_str);
 		return (1);
 	}
 	return (0);

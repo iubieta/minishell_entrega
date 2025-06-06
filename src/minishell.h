@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 19:30:00 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/06/05 21:45:25 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/06/06 10:35:59 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@
 // Token type enumeration
 typedef enum e_toktype
 {
-	TOKEN_WORD,				// For commands and arguments
-	TOKEN_BLOB_SQ,			// For quote blocks of type `'`
-	TOKEN_BLOB_DQ,			// For quote blocks of type `"`
-	TOKEN_VAR_DEF,			// For variable definitions USER=name
-	TOKEN_ENV_VAR,			// For environment variables '$'
-	TOKEN_REDIR_APPEND,		// For '>>' redirection
-	TOKEN_REDIR_OUT,		// For '>' redirection
-	TOKEN_REDIR_IN,			// For '<' redirection
-	TOKEN_REDIR_HEREDOC,	// For '<<' redirection
-	TOKEN_PIPE,				// For '|' redirection
+	TOKEN_WORD,	
+	TOKEN_BLOB_SQ,
+	TOKEN_BLOB_DQ,
+	TOKEN_VAR_DEF,
+	TOKEN_ENV_VAR,
+	TOKEN_REDIR_APPEND,
+	TOKEN_REDIR_OUT,
+	TOKEN_REDIR_IN,
+	TOKEN_REDIR_HEREDOC,
+	TOKEN_PIPE,
 	TOKEN_UNKNOWN,
 }	t_toktype;
 
@@ -156,12 +156,12 @@ void	sig_reset(void);
 
 // Builtins
 int		echo(char **args);
-int		pwd(char **args);
+int		pwd(void);
 int		cd(char **args);
 // int		env(char **env);
 // int		ft_export(char ***env_ptr, char **args);
 // int		unset(char ***env_ptr, char **args);
-int		env(char **env);
+int		env(char **args, char **env);
 int		ft_export(t_md *md, char **args);
 int		unset(t_md *md, char **args);
 

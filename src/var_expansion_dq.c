@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 22:53:34 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/06/05 23:01:53 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/06/06 09:18:04 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,7 @@ char	*build_var_def_dq_str(t_token *t1, t_token *t2)
 	rlen = ft_strlen(t1->value) + ft_strlen(t2->value) + 1;
 	r = (char *)ft_calloc(rlen, sizeof(char));
 	ft_strlcat(r, t1->value, rlen);
-	//ft_strlcat(r, "\"", rlen);
 	ft_strlcat(r, t2->value, rlen);
-	//ft_strlcat(r, "\"", rlen);
 	return (r);
 }
 
@@ -85,7 +83,6 @@ void	update_var_with_dq_str(t_token	*p)
 
 	catstr = build_var_def_dq_str(p, p->right);
 	tmp = p->right;
-	//p = new_token(catstr, TOKEN_VAR_DEF);
 	free(p->value);
 	p->value = catstr;
 	p->right = tmp->right;
@@ -104,7 +101,8 @@ void	concat_var_def_dq(t_token **tokens)
 			p = p->right;
 			continue ;
 		}
-		else if (p->right->type != TOKEN_BLOB_SQ && p->right->type != TOKEN_BLOB_DQ)
+		else if (p->right->type != TOKEN_BLOB_SQ
+			&& p->right->type != TOKEN_BLOB_DQ)
 		{
 			p = p->right;
 			continue ;

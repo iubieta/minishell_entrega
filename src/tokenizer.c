@@ -6,7 +6,7 @@
 /*   By: iubieta- <iubieta@student.42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 17:28:39 by iubieta-          #+#    #+#             */
-/*   Updated: 2025/06/05 22:59:34 by iubieta-         ###   ########.fr       */
+/*   Updated: 2025/06/06 09:46:14 by iubieta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,23 @@ void	unclosed_quotes_error(void)
 	exit(1);
 }
 
+void	remove_separators(char **arr, int i)
+{
+	char	*tmp;
+
+	while (i > 0)
+	{
+		tmp = arr[i];
+		arr[i] = strdup(arr[i] + 1);
+		ft_bzero(tmp, ft_strlen(tmp));
+		i--;
+	}
+}
+
 char	**split_quotation_blobs(char *s, char c)
 {
 	int		i;
 	char	*p;
-	char	*tmp;
 	char	**arr;
 
 	arr = ft_calloc(4, sizeof(char *));
@@ -44,13 +56,7 @@ char	**split_quotation_blobs(char *s, char c)
 	}
 	if (i % 2 != 0)
 		unclosed_quotes_error();
-	while (i > 0)
-	{
-		tmp = arr[i];
-		arr[i] = strdup(arr[i] + 1);
-		ft_bzero(tmp, ft_strlen(tmp));
-		i--;
-	}
+	remove_separators(arr, i);
 	return (arr);
 }
 
