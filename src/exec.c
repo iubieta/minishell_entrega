@@ -115,10 +115,5 @@ void	parentproc(t_tree *tree, t_md *md)
 			childproc(tree, md);
 		}
 	}
-	if (access("/tmp/hdoc.tmp", F_OK) == 0)
-		unlink("/tmp/hdoc.tmp");
-	md->fd[IPIPE][RDEND] = md->fd[OPIPE][RDEND];
-	md->fd[IPIPE][WREND] = md->fd[OPIPE][WREND];
-	close(md->fd[IPIPE][WREND]);
 	handle_signals(md, pid);
 }

@@ -14,8 +14,8 @@
 
 void	update_exit_code_var(int codenum, t_md *md)
 {
-	t_var *var;
-	char *varstr;
+	t_var	*var;
+	char	*varstr;
 
 	varstr = ft_strjoin(ft_strdup("EXIT_CODE="), ft_itoa(codenum));
 	var = strtovar(varstr, 0);

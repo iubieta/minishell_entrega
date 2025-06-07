@@ -58,6 +58,11 @@ void	handle_signals(t_md *md, pid_t pid)
 {
 	int	status;
 
+	if (access("/tmp/hdoc.tmp", F_OK) == 0)
+		unlink("/tmp/hdoc.tmp");
+	md->fd[IPIPE][RDEND] = md->fd[OPIPE][RDEND];
+	md->fd[IPIPE][WREND] = md->fd[OPIPE][WREND];
+	close(md->fd[IPIPE][WREND]);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		md->exit_code = WEXITSTATUS(status);
