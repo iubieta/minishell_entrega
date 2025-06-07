@@ -12,6 +12,17 @@
 
 #include "minishell.h"
 
+void	update_env_export(t_md *md)
+{
+	int	i;
+
+	i = 0;
+	while (md->exported[i])
+		free(md->exported[i++]);
+	free(md->exported);
+	md->exported = envtoarray(*md->env);
+}
+
 // Returns the index to the first element of env array whose name matches str
 size_t	envfind(char **env, char *str)
 {

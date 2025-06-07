@@ -124,28 +124,28 @@ char	**tokensto2parray(t_token *tok, t_md *md)
 //	}
 //}
 //
-//void	printtreeinerror(t_tree *tree)
-//{
-//	t_tree	*t;
-//	char	**args;
+// void	printtreeinerror(t_tree *tree)
+// {
+// 	t_tree	*t;
+// 	char	**args;
 //
-//	t = tree;
-//	while (t != NULL)
-//	{
-//		fprintf(stderr, "TREE NODE: p=%p, right=%p, ", t, t->right);
-//		fprintf(stderr, "left=%p type: %d\n", t->left, t->type);
-//		print_tokens_forward(t->tok);
-//		args = t->args;
-//		fprintf(stderr, "args:");
-//		while (args)
-//		{
-//			if (*args)
-//				fprintf(stderr, " %s", *args);
-//			else
-//				break ;
-//			args++;
-//		}
-//		fprintf(stderr, "\n");
-//		t = t->right;
-//	}
-//}
+// 	t = tree;
+// 	while (t != NULL)
+// 	{
+// 		fprintf(stderr, "TREE NODE: p=%p, right=%p, ", t, t->right);
+// 		fprintf(stderr, "left=%p type: %d\n", t->left, t->type);
+// 		print_tokens_forward(t->tok);
+// 		args = t->args;
+// 		fprintf(stderr, "args:");
+// 		while (args)
+// 		{
+// 			if (*args)
+// 				fprintf(stderr, " %s", *args);
+// 			else
+// 				break ;
+// 			args++;
+// 		}
+// 		fprintf(stderr, "\n");
+// 		t = t->right;
+// 	}
+// }

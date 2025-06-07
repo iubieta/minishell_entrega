@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
 t_token	*new_token(char *value, int type)
 {
@@ -65,7 +66,7 @@ void	free_tokens(t_token *tokens)
 
 // traverses tokens until condition met, then returs token.
 // used to build tree nodes from a linked list of tokens
-t_token	*traverse_tokens(t_token *token)
+t_token	*traverse_tokens(t_token *token, t_toktype type)
 {
 	while (1)
 	{
@@ -73,7 +74,7 @@ t_token	*traverse_tokens(t_token *token)
 			break ;
 		if (token->right == NULL)
 			break ;
-		if (token->right->type == TOKEN_VAR_DEF)
+		if (type != TOKEN_EXPORT && token->right->type == TOKEN_VAR_DEF)
 			break ;
 		token = token->right;
 	}
