@@ -35,10 +35,11 @@ int	**initfdarray(void)
 void	cleanup(t_md *md, int mode)
 {
 	freetree(md->tree);
+	free(md->fd[0]);
+	free(md->fd);
+	md->fd = initfdarray();
 	if (mode == 1)
 	{
-		free(md->fd[0]);
-		free(md->fd);
 		free(md);
 		md = NULL;
 	}
