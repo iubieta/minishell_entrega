@@ -22,6 +22,20 @@ void	create_pipe(t_md *md, int pipeint);
 pid_t	create_fork(t_md *md);
 void	handle_signals(t_md *md, pid_t pid);
 
+/* void	update_exit_code_var_and_exit(int codenum, t_md *md) */
+/* { */
+/* 	t_var *var; */
+/* 	char *varstr; */
+
+/* 	varstr = ft_strjoin(ft_strdup("EXIT_CODE="), ft_itoa(codenum)); */
+/* 	var = strtovar(varstr, 0); */
+/* 	if (var_exists(*md->env, var)) */
+/* 		update_var(*md->env, var); */
+/* 	else */
+/* 		add_var(*md->env, var); */
+/* 	exit(codenum); */
+/* } */
+
 void	handle_pipes(t_tree *tree, t_md *md)
 {
 	int		**fd;
@@ -57,7 +71,7 @@ void	execute_builtin_in_child(char **args, t_md *md)
 		md->exit_code = echo(args);
 	else if (!ft_strcmp(args[0], "pwd"))
 		md->exit_code = pwd();
-	exit(0);
+	exit(md->exit_code);
 }
 
 void	command_not_found(char *cmd, t_md *md)

@@ -46,6 +46,7 @@ void	cleanup(t_md *md, int mode)
 void	exitwithmallocerror(t_md *md)
 {
 	cleanup(md, 1);
+	md->exit_code = 1;
 	exit(EXIT_FAILURE);
 }
 

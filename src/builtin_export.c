@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
 // no funciona bien cuando se hace:
 // HOLA=hola
@@ -20,7 +21,7 @@
 
 int	ft_export(t_md *md, char **args)
 {
-	t_var	def;
+	t_var	*def;
 	t_var	*var;
 	size_t	i;
 
@@ -30,11 +31,11 @@ int	ft_export(t_md *md, char **args)
 	while (args[++i])
 	{
 		def = strtovar(args[i], 1);
-		var = varfind(*md->env, def.key);
+		var = varfind(*md->env, def->key);
 		if (var)
 		{
-			if (ft_strncmp(def.value, "", 1) != 0)
-				var->value = def.value;
+			if (ft_strncmp(def->value, "", 1) != 0)
+				var->value = def->value;
 			var->exported = 1;
 		}
 		else

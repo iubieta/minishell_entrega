@@ -80,12 +80,3 @@ t_token	*traverse_tokens(t_token *token, t_toktype type)
 	}
 	return (token);
 }
-
-// void	print_tokens_forward(t_token *tokens)
-// {
-// 	while (tokens)
-// 	{
-// 		fprintf(stderr, "Token: %-10s Type: %d\n", tokens->value, tokens->type);
-// 		tokens = tokens->right;
-// 	}
-// }

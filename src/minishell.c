@@ -46,6 +46,7 @@ void	interactive_mode(t_md *md)
 			printtreeinerror(*md->tree);
 			recompose_tree(md);
 			execcmd(md);
+			update_exit_code_var(md->exit_code, md);
 			cleanup(md, 0);
 		}
 	}

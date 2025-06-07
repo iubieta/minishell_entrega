@@ -14,6 +14,8 @@
 #include <limits.h>
 #include <stdio.h>
 
+void	concat_var_def_dq(t_token **tokens);
+
 // Returns the value of var in env array
 char	*expand_var(t_var *env, char *key)
 {
@@ -21,13 +23,26 @@ char	*expand_var(t_var *env, char *key)
 
 	var = varfind(env, key);
 	if (var)
+	{
 		return (var->value);
+	}
 	return (NULL);
 }
 
-void	concat_var_def_dq(t_token **tokens);
+char	*expand_token(char *ogs, t_md md)
+{
+	char	*mods;
+	char	*tmp;
+
+	tmp = &ogs[1];
+	if (tmp[0] == '?')
+		tmp = ft_strdup("EXIT_CODE");
+	mods = expand_var(*md.env, tmp);
+	return (mods);
+}
 
 void	rebuild_dq_tokens(t_token *tokens, t_md md)
+// void	expand_tokens_vars(t_token *tokens, t_md md)
 {
 	t_token	*p;
 	t_token	*tmp;
@@ -36,6 +51,8 @@ void	rebuild_dq_tokens(t_token *tokens, t_md md)
 	p = tokens;
 	while (p)
 	{
+		if (p->type == TOKEN_ENV_VAR)
+			p->value = expand_token(p->value, md);
 		if (p->type == TOKEN_BLOB_DQ)
 			p->value = expand_vars_in_dq(p->value, md);
 		p = p->right;

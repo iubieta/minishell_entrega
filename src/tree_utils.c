@@ -51,26 +51,14 @@ void	deletetreenode(t_tree *n, t_tree **head)
 	return ;
 }
 
-void	fill_array_from_tokens(char **arr, t_token *cur, t_md *md)
+void	fill_array_from_tokens(char **arr, t_token *cur)
 {
 	int		i;
-	char	*key;
 
 	i = 0;
 	while (cur != NULL)
 	{
-		if (cur->type != TOKEN_ENV_VAR)
-		{
-			if (cur->value[1] == '?')
-				arr[i] = ft_itoa(md->exit_code);
-			else
-				arr[i] = cur->value;
-		}
-		else
-		{
-			key = &(cur->value[1]);
-			arr[i] = expand_var(*md->env, key);
-		}
+		arr[i] = cur->value;
 		cur = cur->right;
 		i++;
 	}
@@ -95,7 +83,12 @@ char	**tokensto2parray(t_token *tok, t_md *md)
 	if (arr == NULL)
 		exitwithmallocerror(md);
 	cur = tok;
-	fill_array_from_tokens(arr, cur, md);
+	i = 0;
+	while (cur != NULL)
+	{
+		arr[i++] = cur->value;
+		cur = cur->right;
+	}
 	return (arr);
 }
 

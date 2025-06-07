@@ -110,7 +110,7 @@
 - Ejecuta comandos con rutas relativas.
 - Prueba rutas complejas (`../../bin/ls`). ` Imprime un nuevo prompt con mensaje de "exit" `
 
-### 🔹 Variable `$PATH` REVISAR orden de busqueda en PATH ??
+### 🔹 Variable `$PATH` FUNCIONANDO
 
 - Ejecuta comandos sin especificar la ruta (`ls`, `wc`, etc.).
 - Elimina `$PATH` y verifica que los comandos dejan de funcionar.
@@ -127,11 +127,11 @@
 - Prueba combinaciones incorrectas (`ls archivo_inexistente | grep bla`).
 - Mezcla pipes con redirecciones.
 
-### 🔹 Comportamiento General REVISAR
+### 🔹 Comportamiento General FUNCIONANDO
 
 - Escribe un comando y usa `ctrl-C`. El buffer debe estar limpio.
 - Usa las teclas `↑` y `↓` para navegar en el historial.
-- Asegúrate de que `minishell` no crashea con comandos inválidos (`dsbksdgbksdghsd`). `REVISAR: mensaje commando not found`
+- Asegúrate de que `minishell` no crashea con comandos inválidos (`dsbksdgbksdghsd`). 
 - Prueba una línea de comandos muy larga.
 
 ### 🔹 Variables de Entorno EXPANSION de $? en comillas roto

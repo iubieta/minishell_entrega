@@ -15,7 +15,7 @@
 
 void	unclosed_quotes_error(void)
 {
-	perror(ERR_QUOTE);
+	ft_putstr_fd(ERR_QUOTE, 2);
 	exit(1);
 }
 
