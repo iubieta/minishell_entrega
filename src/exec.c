@@ -22,20 +22,6 @@ void	create_pipe(t_md *md, int pipeint);
 pid_t	create_fork(t_md *md);
 void	handle_signals(t_md *md, pid_t pid);
 
-/* void	update_exit_code_var_and_exit(int codenum, t_md *md) */
-/* { */
-/* 	t_var *var; */
-/* 	char *varstr; */
-
-/* 	varstr = ft_strjoin(ft_strdup("EXIT_CODE="), ft_itoa(codenum)); */
-/* 	var = strtovar(varstr, 0); */
-/* 	if (var_exists(*md->env, var)) */
-/* 		update_var(*md->env, var); */
-/* 	else */
-/* 		add_var(*md->env, var); */
-/* 	exit(codenum); */
-/* } */
-
 void	handle_pipes(t_tree *tree, t_md *md)
 {
 	int		**fd;
@@ -114,7 +100,10 @@ void	parentproc(t_tree *tree, t_md *md)
 	if (tree && tree->right && is_pipe(tree->right->tok))
 		create_pipe(md, OPIPE);
 	if (is_main_builtin(tree->args[0]))
+	{
 		execute_builtin(tree->args, md);
+		return ;
+	}
 	else if (is_var_definition(tree->args[0]) == 1)
 		set_var(md, tree->args);
 	else

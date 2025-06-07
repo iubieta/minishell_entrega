@@ -72,7 +72,7 @@ char	**envtoarray(t_var *env)
 	while (cur && i < len)
 	{
 		if (cur->exported == 1)
-      ar[i] = vartostr(cur);
+			ar[i++] = vartostr(cur);
 		cur = cur->next;
 	}
 	ar[len] = NULL;
