@@ -15,7 +15,6 @@
 // Initializes new tree node to defaults
 void	inittreenode(t_tree *node, t_md *md)
 {
-	print_tokens_forward(node->tok);
 	node->args = tokensto2parray(node->tok, md);
 	node->left = NULL;
 	node->down = NULL;

@@ -83,7 +83,12 @@ char	**tokensto2parray(t_token *tok, t_md *md)
 	if (arr == NULL)
 		exitwithmallocerror(md);
 	cur = tok;
-	fill_array_from_tokens(arr, cur);
+	i = 0;
+	while (cur != NULL)
+	{
+		arr[i++] = cur->value;
+		cur = cur->right;
+	}
 	return (arr);
 }
 
@@ -119,28 +124,28 @@ char	**tokensto2parray(t_token *tok, t_md *md)
 //	}
 //}
 //
-void	printtreeinerror(t_tree *tree)
-{
-	t_tree	*t;
-	char	**args;
-
-	t = tree;
-	while (t != NULL)
-	{
-		fprintf(stderr, "TREE NODE: p=%p, right=%p, ", t, t->right);
-		fprintf(stderr, "left=%p type: %d\n", t->left, t->type);
-		print_tokens_forward(t->tok);
-		args = t->args;
-		fprintf(stderr, "args:");
-		while (args)
-		{
-			if (*args)
-				fprintf(stderr, " %s", *args);
-			else
-				break ;
-			args++;
-		}
-		fprintf(stderr, "\n");
-		t = t->right;
-	}
-}
+//void	printtreeinerror(t_tree *tree)
+//{
+//	t_tree	*t;
+//	char	**args;
+//
+//	t = tree;
+//	while (t != NULL)
+//	{
+//		fprintf(stderr, "TREE NODE: p=%p, right=%p, ", t, t->right);
+//		fprintf(stderr, "left=%p type: %d\n", t->left, t->type);
+//		print_tokens_forward(t->tok);
+//		args = t->args;
+//		fprintf(stderr, "args:");
+//		while (args)
+//		{
+//			if (*args)
+//				fprintf(stderr, " %s", *args);
+//			else
+//				break ;
+//			args++;
+//		}
+//		fprintf(stderr, "\n");
+//		t = t->right;
+//	}
+//}

@@ -32,7 +32,7 @@
 # define VAR_SEP_CHARS "@!#$%&'()*+,-./:;<=>?[]^_`{|} \\"
 
 // ERRORS
-# define ERR_QUOTE "error detected during parsing: incorrect use of quotes"
+# define ERR_QUOTE "error detected during parsing: incorrect use of quotes\n"
 // Token type enumeration
 typedef enum e_toktype
 {
@@ -119,13 +119,13 @@ char	**buildcommand(t_token *t, int words);
 // Enviroment
 t_var	*initenv(void);
 void	printenv(t_var	*env);
-t_var	strtovar(char *def, int exported);
-char	*vartostr(t_var var);
+t_var	*strtovar(char *def, int exported);
+char	*vartostr(t_var *var);
 char	**envtoarray(t_var *env);
-int		var_exists(t_var *env, t_var var);
+int		var_exists(t_var *env, t_var *var);
 t_var	*new_var(char *key, char *value, int exported);
-t_var	*add_var(t_var *env, t_var var);
-t_var	*update_var(t_var *env, t_var var);
+t_var	*add_var(t_var *env, t_var *var);
+t_var	*update_var(t_var *env, t_var *var);
 int		key_cmp(char *k1, char *k2);
 t_var	*varfind(t_var	*env, char *key);
 char	*expand_var(t_var *env, char *key);
@@ -188,6 +188,8 @@ char	*findbin(t_md md, char *bin);
 char	*get_prompt(t_md md);
 
 t_token	*traverse_tokens(t_token *token);
+
+void	update_exit_code_var(int codenum, t_md *md);
 
 // Tree linked list utils
 void	freetreenode(t_tree *n);

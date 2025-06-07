@@ -40,47 +40,46 @@ t_var	*new_var(char *key, char *value, int exported)
 	return (var);
 }
 
-t_var	*add_var(t_var *env, t_var var)
+t_var	*add_var(t_var *env, t_var *var)
 {
 	t_var	*cur;
 
 	if (!env || !env->key)
 	{
-		env = new_var(var.key, var.value, var.exported);
+		env = new_var(var->key, var->value, var->exported);
 		return (env);
 	}
 	cur = env;
 	while (cur->next != NULL)
 		cur = cur->next;
-	cur->next = new_var(var.key, var.value, var.exported);
+	cur->next = new_var(var->key, var->value, var->exported);
 	return (env);
 }
 
-t_var	*update_var(t_var *env, t_var var)
+t_var	*update_var(t_var *env, t_var *var)
 {
 	t_var	*cur;
 
 	if (!env || !env->key)
 	{
-		env = new_var(var.key, var.value, var.exported);
+		env = new_var(var->key, var->value, var->exported);
 		return (env);
 	}
 	cur = env;
-	while (cur->next != NULL && ft_strcmp(cur->key, var.key) != 0)
+	while (cur->next != NULL && ft_strcmp(cur->key, var->key) != 0)
 		cur = cur->next;
-	free(cur->value);
-	cur->value = var.value;
+	cur->value = var->value;
 	return (env);
 }
 
 void	set_var(t_md *md, char **args)
 {
-	t_var	var;
+	t_var	*var;
 
 	var = strtovar(args[0], 0);
-	if (ft_strncmp(var.value, "", 1) == 0)
+	if (ft_strncmp(var->value, "", 1) == 0)
 	{
-		var.value = "";
+		var->value = "";
 		update_var(*md->env, var);
 		return ;
 	}

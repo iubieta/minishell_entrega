@@ -14,7 +14,7 @@
 
 void	read_hdoc_lines(t_tree *tree, int **fd_pipe);
 
-void	handle_redir_in(t_tree *tree, int **fd_pipe)
+void	handle_redir_in(t_tree *tree, int **fd_pipe, t_md *md)
 {
 	int	fd;
 
@@ -23,13 +23,14 @@ void	handle_redir_in(t_tree *tree, int **fd_pipe)
 	fd = open(*(tree->args), O_RDONLY);
 	if (fd == -1)
 	{
-		perror("minishell");
+		perror("minishell: open error:");
+		md->exit_code = 1;
 		exit(1);
 	}
 	fd_pipe[IPIPE][RDEND] = fd;
 }
 
-void	handle_redir_out(t_tree *tree, int **fd_pipe)
+void	handle_redir_out(t_tree *tree, int **fd_pipe, t_md *md)
 {
 	int	fd;
 
@@ -38,13 +39,14 @@ void	handle_redir_out(t_tree *tree, int **fd_pipe)
 	fd = open(*(tree->args), O_TRUNC | O_CREAT | O_WRONLY, 0777);
 	if (fd == -1)
 	{
-		perror("minishell");
+		perror("minishell: open error:");
+		md->exit_code = 1;
 		exit(1);
 	}
 	fd_pipe[OPIPE][WREND] = fd;
 }
 
-void	handle_redir_hdoc(t_tree *tree, int **fd_pipe)
+void	handle_redir_hdoc(t_tree *tree, int **fd_pipe, t_md *md)
 {
 	int		fd;
 
@@ -53,7 +55,8 @@ void	handle_redir_hdoc(t_tree *tree, int **fd_pipe)
 	fd = open("/tmp/hdoc.tmp", O_TRUNC | O_CREAT | O_WRONLY, 0777);
 	if (fd == -1)
 	{
-		perror("minishell");
+		perror("minishell: open error:");
+		md->exit_code = 1;
 		exit(1);
 	}
 	fd_pipe[IPIPE][RDEND] = fd;
@@ -62,19 +65,25 @@ void	handle_redir_hdoc(t_tree *tree, int **fd_pipe)
 	fd = open("/tmp/hdoc.tmp", O_RDONLY);
 	if (fd == -1)
 	{
-		perror("minishell");
+		perror("minishell: open error:");
+		md->exit_code = 1;
 		exit(1);
 	}
 	fd_pipe[IPIPE][RDEND] = fd;
 }
 
-void	handle_redir_append(t_tree *tree, int **fd_pipe)
+void	handle_redir_append(t_tree *tree, int **fd_pipe, t_md *md)
 {
 	int	fd;
 
 	fd = open(*(tree->args), O_APPEND | O_CREAT | O_WRONLY, 0777);
 	if (fd == -1)
-		fd_pipe[OPIPE][WREND] = fd;
+	{
+		perror("minishell: open error:");
+		md->exit_code = 1;
+		exit(1);
+	}
+	fd_pipe[OPIPE][WREND] = fd;
 }
 
 void	handle_redirs(t_tree *tree, t_md *md)
@@ -86,17 +95,17 @@ void	handle_redirs(t_tree *tree, t_md *md)
 	while (node)
 	{
 		if (is_redir_in(node->tok))
-			handle_redir_in(node->right, md->fd);
+			handle_redir_in(node->right, md->fd, md);
 		else if (is_redir_out(node->tok))
 		{
-			handle_redir_out(node->right, md->fd);
+			handle_redir_out(node->right, md->fd, md);
 			md->has_output_redir = 1;
 		}
 		else if (is_redir_hdoc(node->tok))
-			handle_redir_hdoc(node->right, md->fd);
+			handle_redir_hdoc(node->right, md->fd, md);
 		else if (is_redir_append(node->tok))
 		{
-			handle_redir_append(node->right, md->fd);
+			handle_redir_append(node->right, md->fd, md);
 			md->has_output_redir = 1;
 		}
 		node = node->right;

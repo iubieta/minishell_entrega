@@ -20,7 +20,7 @@ t_var	*initenv(void)
 {
 	extern char	**environ;
 	t_var		*env;
-	t_var		var;
+	t_var		*var;
 	size_t		i;
 
 	env = (t_var *)malloc(sizeof(t_var));
@@ -31,7 +31,7 @@ t_var	*initenv(void)
 		env = add_var(env, var);
 		i++;
 	}
-	add_var(env, *new_var("EXIT_CODE", "0", 0));
+	add_var(env, new_var(ft_strdup("EXIT_CODE"), "0", 0));
 	return (env);
 }
 
@@ -70,7 +70,7 @@ char	**envtoarray(t_var *env)
 	cur = env;
 	while (cur)
 	{
-		ar[i] = vartostr(*cur);
+		ar[i] = vartostr(cur);
 		cur = cur->next;
 		i++;
 	}

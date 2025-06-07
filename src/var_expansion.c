@@ -23,7 +23,9 @@ char	*expand_var(t_var *env, char *key)
 
 	var = varfind(env, key);
 	if (var)
+	{
 		return (var->value);
+	}
 	return (NULL);
 }
 
@@ -31,14 +33,11 @@ char	*expand_token(char *ogs, t_md md)
 {
 	char	*mods;
 	char	*tmp;
-	
+
 	tmp = &ogs[1];
-	printf("flag ogs: %s\n", ogs);
-	printf("flag tmp: %s\n", tmp);
 	if (tmp[0] == '?')
-		tmp = "EXIT_CODE";
+		tmp = ft_strdup("EXIT_CODE");
 	mods = expand_var(*md.env, tmp);
-	printf("flag mods: %s\n", mods);
 	return (mods);
 }
 
@@ -54,7 +53,6 @@ void	rebuild_dq_tokens(t_token *tokens, t_md md)
 	{
 		if (p->type == TOKEN_ENV_VAR)
 			p->value = expand_token(p->value, md);
-		printf("flag pvalue: %s\n", p->value);
 		if (p->type == TOKEN_BLOB_DQ)
 			p->value = expand_vars_in_dq(p->value, md);
 		p = p->right;

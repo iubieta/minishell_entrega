@@ -28,7 +28,7 @@ t_toktype	determine_token_type(char *s)
 		return (TOKEN_VAR_DEF);
 	else if (s[0] == '$' && ft_strlen(s) > 1)
 	{
-		if (isalpha(s[1]) || ft_strncmp(s,"$?", 3) == 0)
+		if (isalpha(s[1]) || ft_strncmp(s, "$?", 3) == 0)
 			return (TOKEN_ENV_VAR);
 		else if (s[1] == '_' && ft_strlen(s))
 			return (TOKEN_ENV_VAR);
@@ -95,4 +95,13 @@ void	append_tokens(t_token **tokens, char **arr, char *blob, char blob_type)
 		add_token(tokens, blob, TOKEN_BLOB_DQ);
 	if (blob != NULL && blob_type == '\'')
 		add_token(tokens, blob, TOKEN_BLOB_SQ);
+}
+
+void	print_tokens_forward(t_token *tokens)
+{
+	while (tokens)
+	{
+		fprintf(stderr, "Token: %-10s Type: %d\n", tokens->value, tokens->type);
+		tokens = tokens->right;
+	}
 }

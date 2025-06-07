@@ -43,6 +43,7 @@ SRC_FILES	=	minishell init signals \
 				env \
 				var_definition var_expansion var_expansion_dq var_utils \
 				exec exec_utils exec_utils2 \
+				exit_utils \
 				builtin_export builtin_unset builtin_env # env_utils \
 
 
